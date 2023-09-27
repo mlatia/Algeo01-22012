@@ -1,7 +1,5 @@
 import java.util.*;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 
 
 class Matriks {
@@ -257,7 +255,7 @@ class Matriks {
         return hasil;
 
     }
-    
+
     public float determinan(Matriks m){
         float bagi = 0; // hasil bagi
         int bar = 0; // idx baris utama
@@ -350,6 +348,46 @@ class Matriks {
             e.printStackTrace();
         }
     }
-
+    
+    // public void readFile() {
+    //     int baris,kolom;
+    //     try {
+    //         File myObj = new File("C:/Users/Asus/Documents/Thea/SMT3/JAVA/Algeo01-22012/input.txt");
+    //         Scanner myReader = new Scanner(myObj);
+    
+    //         // Read the number of rows and columns from the first line of the file
+    //         float rows = myReader.nextFloat();
+    //         float columns = myReader.nextFloat();
+    //         myReader.nextLine(); // Consume the newline character
+    
+    //         // Create a matrix to store the values    
+    //         // Read the matrix values from the file
+    //         for (int i = 0; i < rows; i++) {
+    //             for (int j = 0; j < columns; j++) {
+    //                 if (myReader.hasNextInt()) {
+    //                     mat[i][j] = myReader.nextInt();
+    //                 } else {
+    //                     System.out.println("Not enough values in the file.");
+    //                     return;
+    //                 }
+    //             }
+    //             myReader.nextLine(); // Move to the next line
+    //         }
+    
+    //         // Print the matrix values
+    //         for (int i = 0; i < rows; i++) {
+    //             for (int j = 0; j < columns; j++) {
+    //                 System.out.println("test");
+    //                 System.out.print(mat[i][j] + "a ");
+    //             }
+    //             System.out.println(); // Move to the next row
+    //         }
+    
+    //         myReader.close();
+    //     } catch (FileNotFoundException e) {
+    //         System.out.println("An error occurred.");
+    //         e.printStackTrace();
+    //     }
+    // }
 
 }

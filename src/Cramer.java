@@ -1,11 +1,16 @@
-// package Algeo01-22012.src;
 import java.util.*;
 
+// belom penanganan kasus parametrik dan tidak ada solusi
+// belom ada penanganan eror salah input
 public class Cramer {
-    
+    // ini harusnya parameter cramer adalah Matriks mainmatrix, hapus new matriks mainmatrix
+    // still consider to return a list instead
+    // public float[] cramer(){
     public static void main(String[] args){
-        //KAMUS GLOBAL
+        //KAMUS LOKAL
         int baris,kolom,i;
+
+        //ALGORITMA
         //Take input from user keyboard
         Scanner in = new Scanner(System.in);
         System.out.println("Berapa ukuran baris dan kolom matriks?");
@@ -34,7 +39,6 @@ public class Cramer {
         //the determinant for the initial matrix, no switching
         float det = mainmatrixnoresult.determinant();
 
-
         // temporary matrix
         Matriks temp = new Matriks(row, col-1);
         temp.copyMatrix(mainmatrixnoresult);
@@ -47,14 +51,14 @@ public class Cramer {
             temp.copyMatrix(mainmatrixnoresult);
         }
 
-        //testing print out end variables
-        
+        // printing out end variables
         System.out.println("Answers:");
         for (i=0;i<col-1;i++){
             System.out.print("Variable " + (i+1) + ": ");
-            System.out.println(Math.round(ans[i]*100.0)/100.0 + " ");
+            String formattedResult = String.format("%.4f", ans[i]);
+            System.out.println(formattedResult + " ");
         }
-        
+    // return ans;   
     }
     
 }
