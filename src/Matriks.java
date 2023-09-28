@@ -5,15 +5,14 @@ import java.io.IOException;
 
 
 class Matriks {
-    float[][] mat;
+    double[][] mat;
     int nRows;
     int nCols;
 
     public Matriks(int rows, int cols) {
-        // Create an empty matrix named mat
         nRows = rows;
         nCols = cols;
-        mat = new float[nRows][nCols];
+        mat = new double[nRows][nCols];
     }
 
     public int getLastIdxRow() {
@@ -31,7 +30,7 @@ class Matriks {
         return ((i < nRows && i >= 0) && (j < nCols && j >= 0));
     }
 
-    public float getElmtDiagonal(int i) {
+    public double getElmtDiagonal(int i) {
         // Return matrix mat[i][i]
         return this.mat[i][i];
     }
@@ -71,32 +70,38 @@ class Matriks {
 
     public void kofaktor(){
         Matriks m = new Matriks(nRows, nCols);
-        float[] num = new float[4];
+        Matriks temp = new Matriks(nRows-1, nCols-1);
         int kol = 0;
-        int arr = 0;
+        int bar1 = 0;
+        int kol1 = 0; 
         int bar = 0;
-        for (int k = 0; k <9; k++) {
+        displayMatrix();
+        for (int k = 0; k <nRows*nCols; k++) {
             for (int i = 0; i < nRows; i++) {
                 for (int j = 0; j < nCols; j++) {
                     if (i!=bar && j!=kol){
-                        num[arr] = mat[i][j];
-                        arr+=1;
+                        temp.mat[bar1][kol1] = mat[i][j];
+                        kol1+=1;
+                        if (kol1==nCols-1){
+                            kol1=0;
+                            bar1+=1;
+                        }
                     }
                 }
             }
 
-            m.mat[bar][kol] = num[0]*num[3] - num[1]*num[2];
+            m.mat[bar][kol] = temp.determinan(temp);
             if ((bar+kol)%2==1){
                 m.mat[bar][kol] =  m.mat[bar][kol] * -1;
             }
-            if(kol==2){
+            if(kol==nCols-1){
                 kol = 0;
                 bar+=1;
             }
             else{
                 kol+=1;
             }
-            arr =0;
+            bar1 =0;
         }
     for (int i = 0; i < nRows; i++) {
         for (int j = 0; j < nCols; j++) {
@@ -105,21 +110,6 @@ class Matriks {
 
     }
     }
-
-    public void transpose(){
-        Matriks m = new Matriks(nRows, nCols); 
-        for (int i = 0; i < nRows; i++) {
-                for (int j = 0; j < nCols; j++) {
-                    m.mat[j][i] = mat[i][j];
-                }
-            }
-        for (int i = 0; i < nRows; i++) {
-            for (int j = 0; j < nCols; j++) {
-                mat[i][j] = m.mat[i][j];
-            }
-
-        }
-    } 
 
     public void switched(Matriks M1,int coltoswitch){
         // inserted a matrix M1 sized 1xM to the desired column coltoswitch in a matrix sized NxM
@@ -175,150 +165,94 @@ class Matriks {
         return deter;
     }
 
-    public float determinan2(Matriks m){
-        float [][] floatMatrix = new float[m.nRows][m.nCols];
-         // Mengubah element Matriks menjadi float
-        for (int i = 0; i < nRows; i++) {
-            for (int j = 0; j < nCols; j++) {
-                floatMatrix[i][j] = m.mat[i][j];
-            }
-        }
-
-        float[][] det = new float[2][2];
-        int kol2 = m.nCols;
-        int row2 = m.nRows;
-        while (kol2>2 && row2>2){
-            float [][] temp = new float[row2-2][kol2-2];
-            if (kol2>3 && row2>3){
-            for (int i = 1; i < nRows-1; i++) {
-                for (int j = 1; j < nCols-1; j++) {
-                        temp[i-1][j-1] = floatMatrix[i][j];
-                    }
-                }
-            }
-            // for (int i = 0; i < nRows-2; i++) {
-            //     for (int j = 0; j < nCols-2; j++) {
-            //         System.out.println(temp[i][j]);
-            //     }
-            // }
-           
-            int row3 = m.nCols-1;
-            int kol3 = m.nRows-1;
-            float[] num = new float[4];
-            int arr = 0;
-            float [][] temp2 = new float[row3][kol3];
-            while(row3>=row2 && kol3>=row2){
-                for (int i=0; i< (row3) ; i++){
-                    for (int j=0;j<(kol3);j++){
-                        for (int k=i; k< i+2 ; k++){
-                            for (int l=j; l<j+2; l++){
-                                num[arr] = m.mat[k][l];
-                                System.out.println(num[arr]);
-                                arr+=1;
-                            }
-                        }
-                        temp2[i][j] = num[0]*num[3] - num[1]*num[2];
-                        arr = 0;
-                    }
-                }
-                row3-=1;
-                kol3-=1;
-            }
-
-            if(row3>3){
-            for (int i=0; i< (row2) ; i++){
-                for (int j=0;j<(kol2);j++){
-                    temp2[i][j] = temp2[i][j] / temp[i][j];
-                    }
-                }
-            }
-
-            if (row2==3){
-                for (int i=0; i< 2 ; i++){
-                for (int j=0;j<2;j++){
-                    det[i][j] = temp2[i][j];
-                }
-            }
-            }
-            row2-=2;
-            row2-=2;
-
-        }
-
-        if (m.nCols==2){
-            for (int i=0; i< 2 ; i++){
-                for (int j=0;j<2;j++){
-                    det[i][j] = m.mat[i][j];
-                }
-            }
-        }
-
-        float hasil = det[0][0]*det[1][1] - det[0][1]*det[1][0];
-        return hasil;
-
-    }
-    
     public float determinan(Matriks m){
-        float bagi = 0; // hasil bagi
+        double bagi = 0; // hasil bagi
         int bar = 0; // idx baris utama
         int bar2 = 1;
         int kol = 0;
-        boolean nol = false; 
-        float [][] floatMatrix = new float[nRows][nCols];
+        boolean nol = true; 
+    
+    
+        // Mencari determinan dengan membuat diagonal bawah nol
+        int tukar = 0;
+        float det;
+        for(int i = 0; i<nRows;i++){
+            if (m.mat[i][0] != 0){
+                nol = false;
+            }
+        }
+        if (!nol){
+            det = 1;
+        }
+        else{
+            det = 0;
+        }
+        if(!nol){
+        for(int i = 0; i<nCols;i++){
+            while(bar2<nRows){
+                // Memeriksa apakah elemen dibawah elemen pertama baris utama sudah bernilai nol
+                if (m.mat[bar][i] == 0 && !nol){
+                    tukerbarisnol(m,bar,i);
+                    tukar+=1;          
+                }
 
-    // Mengubah element Matriks menjadi float
+                // Mencari hasil bagi dengan baris utama 
+                bagi = m.mat[bar2][i] / m.mat[bar][i];
+            
+                // Membuat kolom dibawah elemen pertama baris utama menjadi nol
+                while(kol<nCols){
+                    m.mat[bar2][kol] = m.mat[bar2][kol] - ((m.mat[bar][kol]*bagi));
+                    kol++;
+                }
+                kol=0;
+                nol = false;
+                bar2++;
+            // Melakukan loop untuk membuat nol di diagonal bawah di kolom selanjutnya
+                }
+                kol+=1;
+                bar2 = 0;
+                bar+=1;
+                bar2= bar+1;
+                }
+            }   
+
+        // Mengalikan elemen diagonal
+        for (int i=0;i<nRows;i++){
+            det *= m.mat[i][i];
+        }
+        for (int i= 0; i<tukar;i++){
+            det*=(-1);
+        }
+        return (det);
+
+    }
+
+    public void transpose(){
+        Matriks m = new Matriks(nRows, nCols); 
+        for (int i = 0; i < nRows; i++) {
+                for (int j = 0; j < nCols; j++) {
+                    m.mat[j][i] = mat[i][j];
+                }
+            }
         for (int i = 0; i < nRows; i++) {
             for (int j = 0; j < nCols; j++) {
-                floatMatrix[i][j] = m.mat[i][j];
+                mat[i][j] = m.mat[i][j];
             }
-        }
-        
-    // Mencari determinan dengan membuat diagonal bawah nol
-    float det = floatMatrix[0][0];
-    for(int i = 0; i<nCols;i++){
-        while(bar2<nRows){
-            // Mencari hasil bagi dengan baris utama 
-            bagi = floatMatrix[bar2][i] / floatMatrix[bar][i];
-            // Memeriksa apakah elemen dibawah elemen pertama baris utama sudah bernilai nol
-            if (floatMatrix[bar][i] == 0){
-                nol = true;            
-            }
-            if(!nol){
-            // Membuat kolom dibawah elemen pertama baris utama menjadi nol
-            while(kol<nCols){
-                floatMatrix[bar2][kol] = floatMatrix[bar2][kol] - ((floatMatrix[bar][kol]*bagi));
-                kol++;
-            }
-            }
-            kol=0;
-            nol = false;
-            bar2++;
-        // Melakukan loop untuk membuat nol di diagonal bawah di kolom selanjutnya
-        }
-        kol+=1;
-        bar2 = 0;
-        bar+=1;
-        bar2= bar+1;
-        }
-    // Mengalikan elemen diagonal
-    for (int i=1;i<nRows;i++){
-        det *= floatMatrix[i][i];
-    }
-    return (det);
 
-    }
+        }
+    } 
 
     Matriks kalimatriks(Matriks m1, Matriks m2){
         Matriks m3 = new Matriks(m1.nRows, 1);
-        int jum = 0;
+        double jum = 0;
         for (int i=0; i<m1.nRows;i++){
             for(int j=0; j<m2.nCols; j++){
                 for(int k=0; k<m2.nRows; k++){ 
                     jum += m1.mat[i][k]*m2.mat[k][j];
                 }
-                m3.mat[i][j] = jum;
-                System.out.println(m3.mat[i][j]);
-                jum = 0;
+                double roundedNumber = Math.round(jum * Math.pow(10, 2)) / Math.pow(10, 2);
+                m3.mat[i][j] = roundedNumber;;
+                jum=0;
             }
     }
     return m3;
@@ -327,9 +261,29 @@ class Matriks {
     void multiplyByConst(float x){
         for (int i=0; i<nRows;i++){
             for(int j=0; j<nCols; j++){
-                mat[i][j] = x * mat[i][j];
+                double kali = x * mat[i][j];
+                double kali2 = Math.round(kali * Math.pow(10, 2)) / Math.pow(10, 2);
+                mat[i][j] = kali2;
             }
         }
+    }
+
+    void tukerbarisnol(Matriks m,int bar,int kol){
+        double[] temp  = new double[m.nCols];
+   
+        for(int i=bar+1;i<nRows;i++){
+            if(m.mat[i][kol]!=0){
+                for(int j=0;j<m.nCols;j++){
+                    temp[j] = m.mat[i][j];
+                }
+                for(int j=0;j<m.nCols;j++){
+                    m.mat[i][j] = m.mat[bar][j];
+                    m.mat[bar][j] = temp[j];
+                }
+                break;
+            }
+        }
+
     }
 
     public void readMatrixFromFile(String fileName) {
