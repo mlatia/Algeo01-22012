@@ -165,6 +165,7 @@ class Matriks {
         return deter;
     }
 
+    
     public float determinan(Matriks m){
         double bagi = 0; // hasil bagi
         int bar = 0; // idx baris utama
@@ -304,6 +305,6 @@ class Matriks {
             e.printStackTrace();
         }
     }
-
+    
 
 }
