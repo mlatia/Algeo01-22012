@@ -1,7 +1,6 @@
-import java.util.Scanner;
 
 public class bicubic {
-    public double hasilbicubic(Matriks m){
+    public double hasilbicubic(Matriks m, double x, double y){
         Matriks mx = new Matriks(16,16);
         int bar = 0;
         int kol = 0;
@@ -107,15 +106,15 @@ public class bicubic {
             }
         }
 
-        Scanner sc = new Scanner(System.in);
+       
         double hasil=0;
-        double x = sc.nextDouble();
-        double y = sc.nextDouble();
+        
         for(int i=0;i<4;i++){
             for(int j=0;j<4;j++){
                 hasil += a44.mat[i][j]*Math.pow(x,i)*Math.pow(y,j);
             }
         }
+        System.out.println("f("+x+","+y+") = "+hasil);
         return hasil;
     }
 }

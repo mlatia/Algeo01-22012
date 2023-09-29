@@ -60,52 +60,6 @@ public class determinan {
 
     }
 
-    public float detkof(Matriks m){
-        int kolom;
-        float deter=0;
-        // if there's only 1 element avail
-        if (m.nRows*m.nCols == 1) { 
-            deter = (float) m.mat[0][0];
-        } else {
-            int i = 0;
-            for (kolom=0;kolom<m.nCols;kolom++) {
-                deter+=((float) m.mat[i][kolom])*cofactorxdeter(m,i, kolom);
-            }
-        }
-        return deter;
-    }
-    
-    public float cofactorxdeter (Matriks m,int bar, int col){
-        float cofac;
-        int baris,kolom;
-        Matriks mn = new Matriks(m.nRows-1, m.nCols-1);
-
-        int in = 0;
-        for (baris=0;baris<m.nRows;baris++){
-            int jn = 0;
-            for (kolom=0;kolom<m.nCols;kolom++){
-                if (baris==bar){
-                    in = baris-1;
-                }
-                else if (kolom==col){
-                    jn = kolom-1;
-                }
-                else{
-                    mn.mat[in][jn] = m.mat[baris][kolom];
-                }
-                jn++;
-            }
-            in++;
-        }
-        if ((bar + col)%2==0){
-            cofac = mn.determinant();
-        }
-        else{
-            cofac = mn.determinant()*(-1);
-        }
-        return cofac;
-    }
-
     void tukerbarisnol(Matriks m,int bar,int kol){
         double[] temp  = new double[m.nCols];
         
