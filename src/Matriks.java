@@ -75,7 +75,6 @@ class Matriks {
         int bar1 = 0;
         int kol1 = 0; 
         int bar = 0;
-        displayMatrix();
         for (int k = 0; k <nRows*nCols; k++) {
             for (int i = 0; i < nRows; i++) {
                 for (int j = 0; j < nCols; j++) {
