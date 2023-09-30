@@ -1,6 +1,6 @@
-import java.util.*;
-import java.io.*;
-
+//import java.util.*;
+//import java.io.*;
+import java.util.Scanner;
 public class mainprogram {
     public static void main(String[] args){
         //KAMUS GLOBAL
@@ -355,17 +355,30 @@ public class mainprogram {
                 while (safeinput1==false){
                     System.out.print("--> ");
                     userInput = in.nextInt();
-                    
+                    double[][] A = new double[4][4];
+                    double x = 0;
+                    double y = 0;
+                    bicubic bi = new bicubic();
+                    Matriks main = new Matriks(4, 4);
                     if (userInput==1){  // KEYBOARD
                         safeinput1=true;
-                        Matriks m = new Matriks(4, 4);
-                        m.readMatrix();
-                        bicubic bi = new bicubic();
-                        // Scanner sc = new Scanner(System.in);
-                        double x = in.nextDouble();
-                        double y = in.nextDouble();
-                        bi.hasilbicubic(m,x,y)
-;
+                        System.out.println("Masukkan Matriks");
+                        for (int m = 0; m < 4; m++) {
+                            for (int n = 0; n < 4; n++) {
+                                A[m][n] = in.nextDouble();
+                            }
+                        }
+                        for (int m = 0; m < 4; m++) {
+                            for (int n = 0; n < 4; n++) {
+                                main.mat[m][n] =  A[m][n];
+                            }
+                        }
+                        // Masukkan titik yang ingin dianalisis
+                        System.out.println("Masukkan nilai x dan y");
+                        x = in.nextDouble();
+                        y = in.nextDouble();
+                        bi.hasilbicubic(main,x,y);
+
                     }
                     else if (userInput==2){ // FILE
 
@@ -375,7 +388,7 @@ public class mainprogram {
                         System.out.println("False input code, please try again.");
                     }
                 }
-
+                    safeinput=true;
             }
             else if (mainmenu==6){ // REGRESI LINEAR GANDA
                 safeinput=true;

@@ -1,3 +1,4 @@
+import java.util.Scanner;
 
 public class bicubic {
     public double hasilbicubic(Matriks m, double x, double y){
@@ -77,17 +78,18 @@ public class bicubic {
                 kol=0;
             }
         }
-
-        Matriks val = new Matriks(4,4);
-        val.readMatrix();
+        
+        // ubah matriks input ke bentuk 1x16
         Matriks val2 = new Matriks(16,1);
         int value = 0;
         for (int i=0;i<4;i++){
             for(int j =0;j<4;j++){
-                val2.mat[value][0] = val.mat[i][j];
+                val2.mat[value][0] = m.mat[i][j];
                 value++;
             }
         }
+
+        // invers matriks X
         Matriks mx2 = new Matriks(16,16);
         mx2.copyMatrix(mx);
         float det = mx2.determinan(mx2);
@@ -95,6 +97,8 @@ public class bicubic {
         mx.transpose();
         mx.multiplyByConst(1/det);
         Matriks a = new Matriks(16,1);
+
+        // perkalian matriks X dan input
         a = a.kalimatriks(mx,val2);
 
         Matriks a44 = new Matriks(4,4);
@@ -108,7 +112,7 @@ public class bicubic {
 
        
         double hasil=0;
-        
+       
         for(int i=0;i<4;i++){
             for(int j=0;j<4;j++){
                 hasil += a44.mat[i][j]*Math.pow(x,i)*Math.pow(y,j);
