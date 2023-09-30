@@ -305,6 +305,5 @@ class Matriks {
             e.printStackTrace();
         }
     }
-    
 
 }
