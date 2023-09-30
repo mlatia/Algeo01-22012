@@ -1,5 +1,7 @@
 import java.util.*;
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
@@ -13,6 +15,35 @@ class Matriks {
         nRows = rows;
         nCols = cols;
         mat = new double[nRows][nCols];
+    }
+
+    public void openMatrix(String name) {   // baca dari ../test/'name'.txt
+        int i,j;
+        try {
+            Scanner check_rowcol = new Scanner(new BufferedReader(new FileReader("../test/" + name + ".txt")));
+            Scanner matrixfile = new Scanner(new BufferedReader(new FileReader("../test/" + name + ".txt")));
+            while(check_rowcol.hasNextLine()){
+                if (this.nRows == 0) {
+                    this.nCols = (check_rowcol.nextLine().trim().split(" ")).length;
+                } else {
+                    check_rowcol.nextLine();
+                }
+                this.nRows += 1;
+            } 
+            this.mat = new double[nRows][nCols];
+            while(matrixfile.hasNextLine()) {
+                for (i=0; i < this.nRows; i++) {
+                   String[] oneRow = matrixfile.nextLine().trim().split(" ");
+                   for (j=0; j < oneRow.length; j++) {
+                      this.mat[i][j] = Double.parseDouble(oneRow[j]);
+                   }
+                }
+            }
+        } catch (FileNotFoundException e) {
+            this.nRows = 0;
+            this.nCols = 0;
+            System.out.println("File tersebut tidak ditemukan di folder 'test'.");
+        }
     }
 
     public int getLastIdxRow() {
@@ -75,7 +106,6 @@ class Matriks {
         int bar1 = 0;
         int kol1 = 0; 
         int bar = 0;
-        displayMatrix();
         for (int k = 0; k <nRows*nCols; k++) {
             for (int i = 0; i < nRows; i++) {
                 for (int j = 0; j < nCols; j++) {
