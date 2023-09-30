@@ -1,3 +1,5 @@
+import java.text.DecimalFormat;
+
 public class splinvers {
     public Matriks hasilsplinvers(Matriks m){
         Matriks hasil = new Matriks(m.getLastIdxRow()+1,1);
@@ -18,7 +20,13 @@ public class splinvers {
         System.out.println("The result of the variables:");
         for (int i=0;i<m.nRows;i++){
             System.out.print("Variable " + (i+1) + ": ");
-            System.out.println(Math.round(var.mat[i][0]) + " ");
+            // Membuat objek DecimalFormat dengan pola dua desimal
+            DecimalFormat decimalFormat = new DecimalFormat("#.##");
+            // Menggunakan format() untuk membulatkan nilai double
+            String formattedValue = decimalFormat.format(var.mat[i][0]);
+            // Mengubah hasil yang sudah diformat kembali menjadi double (jika diperlukan)
+            double roundedValue = Double.parseDouble(formattedValue);
+            System.out.println(roundedValue + " ");
         }
         return var;
        

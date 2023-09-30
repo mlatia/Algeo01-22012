@@ -80,7 +80,17 @@ public class mainprogram {
                             }
                         }
                         else if (userInput==2){ // FILE
-    
+                            Scanner sc = new Scanner(System.in);
+                            Matriks B = new Matriks(20, 20);
+                            Matriks mAwal = new Matriks(0,0);
+                            System.out.print("Masukkan nama file pada folder test tanpa '.txt': ");
+                            String name = sc.next();
+                            mAwal.openMatrix(name);
+                            B.nRows = mAwal.nRows;
+                            mAwal.displayMatrix();
+                            splinvers spl = new splinvers();
+                            spl.hasilsplinvers(mAwal);
+                            System.out.println("done");
                             safeinput1=true;
                         }
                     }
@@ -122,7 +132,17 @@ public class mainprogram {
                             }
                         }
                         else if (userInput==2){ // FILE
-    
+                            Scanner sc = new Scanner(System.in);
+                            Matriks B = new Matriks(20, 20);
+                            Matriks mAwal = new Matriks(0,0);
+                            System.out.print("Masukkan nama file pada folder test tanpa '.txt': ");
+                            String name = sc.next();
+                            mAwal.openMatrix(name);
+                            B.nRows = mAwal.nRows;
+                            mAwal.displayMatrix();
+                            testCramer tes = new testCramer();
+                            tes.testcramer(mAwal);
+                            System.out.println("done");
                             safeinput1=true;
                         }
                         else{   // user enters other inputs
@@ -180,9 +200,22 @@ public class mainprogram {
                                 System.out.println("done");
                             }
                         }
-                        else if (userInput==2){ // FILE
 
+                        else if (userInput==2){ // FILE
                             safeinput1=true;
+                            Scanner sc = new Scanner(System.in);
+                            Matriks B = new Matriks(20, 20);
+                            Matriks mAwal = new Matriks(0,0);
+                            System.out.print("Masukkan nama file pada folder test tanpa '.txt': ");
+                            String name = sc.next();
+                            mAwal.openMatrix(name);
+                            B.nRows = mAwal.nRows;
+                            mAwal.displayMatrix();
+                            determinan deter = new determinan();
+                            float det = deter.detgaus(mAwal);
+                            System.out.println("Determinan: " + det);
+                            System.out.println("done");
+                        
                         }
                         else{   // user enters other inputs
                             System.out.println("False input code, please try again.");
@@ -224,8 +257,19 @@ public class mainprogram {
                             }
                         }
                         else if (userInput==2){ // FILE
-
                             safeinput1=true;
+                            Scanner sc = new Scanner(System.in);
+                            Matriks B = new Matriks(20, 20);
+                            Matriks mAwal = new Matriks(0,0);
+                            System.out.print("Masukkan nama file pada folder test tanpa '.txt': ");
+                            String name = sc.next();
+                            mAwal.openMatrix(name);
+                            B.nRows = mAwal.nRows;
+                            mAwal.displayMatrix();
+                            float det = mAwal.determinant();
+                            System.out.println("Determinan: " + det);
+                            System.out.println("done");
+                            
                         }
                         else{   // user enters other inputs
                             System.out.println("False input code, please try again.");
@@ -280,7 +324,19 @@ public class mainprogram {
                         }
                     }
                     else if (userInput==2){ // FILE
-
+                        Scanner sc = new Scanner(System.in);
+                        Matriks B = new Matriks(20, 20);
+                        Matriks mAwal = new Matriks(0,0);
+                        System.out.print("Masukkan nama file pada folder test tanpa '.txt': ");
+                        String name = sc.next();
+                        mAwal.openMatrix(name);
+                        B.nRows = mAwal.nRows;
+                        mAwal.displayMatrix();
+                        invers inv = new invers();
+                        inv.inversadj(mAwal);
+                        System.out.print("Hasil Invers");
+                        mAwal.displayMatrix();
+                        System.out.println("done");
                         safeinput1=true;
                     }
                     else{   // user enters other inputs

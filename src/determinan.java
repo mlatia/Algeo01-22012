@@ -25,12 +25,19 @@ public class determinan {
             while(bar2<m.nRows){
                 // Memeriksa apakah elemen dibawah elemen pertama baris utama sudah bernilai nol
                 if (m.mat[bar][i] == 0 && !nol){
+                    if (!nolsemua(m,bar,i)){
                     tukerbarisnol(m,bar,i);
-                    tukar+=1;          
+                    tukar+=1;  
+                    }        
                 }
 
                 // Mencari hasil bagi dengan baris utama 
+                if(!nolsemua(m, bar, i)){
                 bagi = m.mat[bar2][i] / m.mat[bar][i];
+                }
+                else{
+                    bagi = 0;
+                }
             
                 // Membuat kolom dibawah elemen pertama baris utama menjadi nol
                 while(kol<m.nCols){
@@ -75,5 +82,15 @@ public class determinan {
                 break;
             }
         }
+    }
+
+    boolean nolsemua(Matriks m,int bar,int kol){
+        boolean nol = true;
+        for(int i=bar+1;i<m.nRows;i++){
+            if(m.mat[i][kol]!=0){
+                nol=false;
+            }
+        }
+        return nol;
     }
 }
