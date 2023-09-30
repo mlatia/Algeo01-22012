@@ -1,6 +1,6 @@
-import java.util.*;
-import java.io.*;
-
+//import java.util.*;
+//import java.io.*;
+import java.util.Scanner;
 public class mainprogram {
     public static void main(String[] args){
         //KAMUS GLOBAL
@@ -48,6 +48,52 @@ public class mainprogram {
                     safeinput=true;
                 }
                 else if (userInput==3){
+                    System.out.println("Choose input method:");
+                    System.out.println("---------------------------");
+                    System.out.println("1) Keyboard");
+                    System.out.println("2) Read Text File");
+                    safeinput1 = false;
+                    while (safeinput1==false){
+                        System.out.print("--> ");
+                        userInput = in.nextInt();
+                        if (userInput==1){  // KEYBOARD
+                            safeinput1=true;
+                            //Take input from user keyboard
+                            System.out.println("Berapa ukuran baris dan kolom matriks?");
+                            System.out.print("Row: ");
+                            int row = in.nextInt();
+                            System.out.print("Col: ");
+                            int col = in.nextInt();
+                            // in.close();
+                            //main matrix (from user input)
+                            Matriks mainmatrix = new Matriks(row,col);
+                            mainmatrix.readMatrix();
+
+                            //Verify first if it's a square matrix
+                            if (row != col-1){
+                                System.out.println("Tidak bisa diselesaikan dengan Invers, bukan matriks persegi");
+                            }
+                            else{
+                                splinvers spl = new splinvers();
+                                spl.hasilsplinvers(mainmatrix);
+                                System.out.println("done");
+                            }
+                        }
+                        else if (userInput==2){ // FILE
+                            Scanner sc = new Scanner(System.in);
+                            Matriks B = new Matriks(20, 20);
+                            Matriks mAwal = new Matriks(0,0);
+                            System.out.print("Masukkan nama file pada folder test tanpa '.txt': ");
+                            String name = sc.next();
+                            mAwal.openMatrix(name);
+                            B.nRows = mAwal.nRows;
+                            mAwal.displayMatrix();
+                            splinvers spl = new splinvers();
+                            spl.hasilsplinvers(mAwal);
+                            System.out.println("done");
+                            safeinput1=true;
+                        }
+                    }
                     safeinput=true;
                     
                 }
@@ -86,7 +132,17 @@ public class mainprogram {
                             }
                         }
                         else if (userInput==2){ // FILE
-    
+                            Scanner sc = new Scanner(System.in);
+                            Matriks B = new Matriks(20, 20);
+                            Matriks mAwal = new Matriks(0,0);
+                            System.out.print("Masukkan nama file pada folder test tanpa '.txt': ");
+                            String name = sc.next();
+                            mAwal.openMatrix(name);
+                            B.nRows = mAwal.nRows;
+                            mAwal.displayMatrix();
+                            testCramer tes = new testCramer();
+                            tes.testcramer(mAwal);
+                            System.out.println("done");
                             safeinput1=true;
                         }
                         else{   // user enters other inputs
@@ -104,10 +160,191 @@ public class mainprogram {
                 
             }
             else if (mainmenu==2){ // DETERMINAN
-                safeinput=true;
+                System.out.println("Choose method:");
+                System.out.println("---------------------------");
+                System.out.println("1) Metode Eliminasi Gauss");
+                System.out.println("2) Metode Kofaktor");
+                System.out.print("--> ");
+                userInput = in.nextInt();
+                if (userInput==1){
+                    System.out.println("Choose input method:");
+                    System.out.println("---------------------------");
+                    System.out.println("1) Keyboard");
+                    System.out.println("2) Read Text File");
+                    safeinput1 = false;
+                    while (safeinput1==false){
+                        System.out.print("--> ");
+                        userInput = in.nextInt();
+                        
+                        if (userInput==1){  // KEYBOARD
+                            safeinput1=true;
+                            //Take input from user keyboard
+                            System.out.println("Berapa ukuran baris dan kolom matriks?");
+                            System.out.print("Row: ");
+                            int row = in.nextInt();
+                            System.out.print("Col: ");
+                            int col = in.nextInt();
+                            // in.close();
+                            //main matrix (from user input)
+                            Matriks mainmatrix = new Matriks(row,col);
+                            mainmatrix.readMatrix();
+
+                            //Verify first if it's a square matrix
+                            if (row != col){
+                                System.out.println("Tidak bisa diselesaikan, bukan matriks persegi");
+                            }
+                            else{
+                                determinan deter = new determinan();
+                                float det = deter.detgaus(mainmatrix);
+                                System.out.println("Determinan: " + det);
+                                System.out.println("done");
+                            }
+                        }
+
+                        else if (userInput==2){ // FILE
+                            safeinput1=true;
+                            Scanner sc = new Scanner(System.in);
+                            Matriks B = new Matriks(20, 20);
+                            Matriks mAwal = new Matriks(0,0);
+                            System.out.print("Masukkan nama file pada folder test tanpa '.txt': ");
+                            String name = sc.next();
+                            mAwal.openMatrix(name);
+                            B.nRows = mAwal.nRows;
+                            mAwal.displayMatrix();
+                            determinan deter = new determinan();
+                            float det = deter.detgaus(mAwal);
+                            System.out.println("Determinan: " + det);
+                            System.out.println("done");
+                        
+                        }
+                        else{   // user enters other inputs
+                            System.out.println("False input code, please try again.");
+                        }
+                    }
+                        safeinput=true;
+                }
+                else if (userInput==2){
+                    System.out.println("Choose input method:");
+                    System.out.println("---------------------------");
+                    System.out.println("1) Keyboard");
+                    System.out.println("2) Read Text File");
+                    safeinput1 = false;
+                    while (safeinput1==false){
+                        System.out.print("--> ");
+                        userInput = in.nextInt();
+                        
+                        if (userInput==1){  // KEYBOARD
+                            safeinput1=true;
+                            //Take input from user keyboard
+                            System.out.println("Berapa ukuran baris dan kolom matriks?");
+                            System.out.print("Row: ");
+                            int row = in.nextInt();
+                            System.out.print("Col: ");
+                            int col = in.nextInt();
+                            // in.close();
+                            //main matrix (from user input)
+                            Matriks mainmatrix = new Matriks(row,col);
+                            mainmatrix.readMatrix();
+
+                            //Verify first if it's a square matrix
+                            if (row != col){
+                                System.out.println("Tidak bisa diselesaikan, bukan matriks persegi");
+                            }
+                            else{
+                                float det = mainmatrix.determinant();
+                                System.out.println("Determinan: " + det);
+                                System.out.println("done");
+                            }
+                        }
+                        else if (userInput==2){ // FILE
+                            safeinput1=true;
+                            Scanner sc = new Scanner(System.in);
+                            Matriks B = new Matriks(20, 20);
+                            Matriks mAwal = new Matriks(0,0);
+                            System.out.print("Masukkan nama file pada folder test tanpa '.txt': ");
+                            String name = sc.next();
+                            mAwal.openMatrix(name);
+                            B.nRows = mAwal.nRows;
+                            mAwal.displayMatrix();
+                            float det = mAwal.determinant();
+                            System.out.println("Determinan: " + det);
+                            System.out.println("done");
+                            
+                        }
+                        else{   // user enters other inputs
+                            System.out.println("False input code, please try again.");
+                        }
+                            }
+                            safeinput=true;
+                        }
+                
             }
             else if (mainmenu==3){ // INVERS
-                safeinput=true;
+                System.out.println("Choose method:");
+                System.out.println("---------------------------");
+                System.out.println("1) Metode Matriks Balikan");
+                System.out.println("2) Metode Adjoint");
+                System.out.print("--> ");
+                userInput = in.nextInt();
+                if (userInput==1){
+                    safeinput=true;
+                }
+                else if (userInput==2){
+                System.out.println("Choose input method:");
+                System.out.println("---------------------------");
+                System.out.println("1) Keyboard");
+                System.out.println("2) Read Text File");
+                safeinput1 = false;
+                while (safeinput1==false){
+                    System.out.print("--> ");
+                    userInput = in.nextInt();
+                    
+                    if (userInput==1){  // KEYBOARD
+                        safeinput1=true;
+                        //Take input from user keyboard
+                        System.out.println("Berapa ukuran baris dan kolom matriks?");
+                        System.out.print("Row: ");
+                        int row = in.nextInt();
+                        System.out.print("Col: ");
+                        int col = in.nextInt();
+                        // in.close();
+                        //main matrix (from user input)
+                        Matriks mainmatrix = new Matriks(row,col);
+                        mainmatrix.readMatrix();
+
+                        //Verify first if it's a square matrix
+                        if (row != col){
+                            System.out.println("Tidak bisa diselesaikan, bukan matriks persegi");
+                        }
+                        else{
+                            invers inv = new invers();
+                            inv.inversadj(mainmatrix);
+                            mainmatrix.displayMatrix();
+                            System.out.println("done");
+                        }
+                    }
+                    else if (userInput==2){ // FILE
+                        Scanner sc = new Scanner(System.in);
+                        Matriks B = new Matriks(20, 20);
+                        Matriks mAwal = new Matriks(0,0);
+                        System.out.print("Masukkan nama file pada folder test tanpa '.txt': ");
+                        String name = sc.next();
+                        mAwal.openMatrix(name);
+                        B.nRows = mAwal.nRows;
+                        mAwal.displayMatrix();
+                        invers inv = new invers();
+                        inv.inversadj(mAwal);
+                        System.out.print("Hasil Invers");
+                        mAwal.displayMatrix();
+                        System.out.println("done");
+                        safeinput1=true;
+                    }
+                    else{   // user enters other inputs
+                        System.out.println("False input code, please try again.");
+                    }
+                        }
+                        safeinput=true;
+                    }
             }
             else if (mainmenu==4){ //INTERPOLASI POLINOM
                 safeinput=true;
@@ -162,10 +399,52 @@ public class mainprogram {
                         System.out.println("False input code, please try again.");
                     }
                 }
+                
 
             }
             else if (mainmenu==5){ // INTERPOLASI BICUBIC SPLINE
-                safeinput=true;
+                System.out.println("Choose input method:");
+                System.out.println("---------------------------");
+                System.out.println("1) Keyboard");
+                System.out.println("2) Read Text File");
+                safeinput1 = false;
+                while (safeinput1==false){
+                    System.out.print("--> ");
+                    userInput = in.nextInt();
+                    double[][] A = new double[4][4];
+                    double x = 0;
+                    double y = 0;
+                    bicubic bi = new bicubic();
+                    Matriks main = new Matriks(4, 4);
+                    if (userInput==1){  // KEYBOARD
+                        safeinput1=true;
+                        System.out.println("Masukkan Matriks");
+                        for (int m = 0; m < 4; m++) {
+                            for (int n = 0; n < 4; n++) {
+                                A[m][n] = in.nextDouble();
+                            }
+                        }
+                        for (int m = 0; m < 4; m++) {
+                            for (int n = 0; n < 4; n++) {
+                                main.mat[m][n] =  A[m][n];
+                            }
+                        }
+                        // Masukkan titik yang ingin dianalisis
+                        System.out.println("Masukkan nilai x dan y");
+                        x = in.nextDouble();
+                        y = in.nextDouble();
+                        bi.hasilbicubic(main,x,y);
+
+                    }
+                    else if (userInput==2){ // FILE
+
+                        safeinput1=true;
+                    }
+                    else{   // user enters other inputs
+                        System.out.println("False input code, please try again.");
+                    }
+                }
+                    safeinput=true;
             }
             else if (mainmenu==6){ // REGRESI LINEAR GANDA
                 safeinput=true;
