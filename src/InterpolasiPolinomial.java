@@ -23,6 +23,7 @@ public class InterpolasiPolinomial {
         System.out.print("--> ");
         double X = in.nextDouble();
         float result=0;
+        System.out.println("---------------------------");
         System.out.print("f(x) = ");
         for (kolom=0;kolom<mainmatrix.getLastIdxCol();kolom++){
             result += ans[kolom]* (float) (Math.pow(X,kolom));

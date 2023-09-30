@@ -51,7 +51,7 @@ class Matriks {
 
         for (int i = 0; i < nRows; i++) {
             for (int j = 0; j < nCols; j++) {
-                mat[i][j] = in.nextInt();
+                mat[i][j] = in.nextDouble();
             }
         }
         in.close();

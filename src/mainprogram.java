@@ -187,6 +187,8 @@ public class mainprogram {
                         mainmatrix.mat[baris][kolom] = input;
                     }
                 }
+                Regresi tes = new Regresi();
+                // tes.regresi(mainmatrix);
 
 
             }
