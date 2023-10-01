@@ -66,6 +66,7 @@ class Matriks {
             }
     }
 
+
     public void simpanDeter (String name, float det){
         try {
             FileWriter fileWriter = new FileWriter("../test/" + name + ".txt");
@@ -77,7 +78,7 @@ class Matriks {
         }
     }
 
-    public void simpanSPL (String name, Matriks m){
+    public void simpanSPL (String name, Matriks m){ // buat yang invers karena disimpen di matrix
         try {
             FileWriter fileWriter = new FileWriter("../test/" + name + ".txt");
             PrintWriter printWriter = new PrintWriter(fileWriter);
@@ -96,6 +97,22 @@ class Matriks {
         } catch (IOException e) {
             System.out.print("File tidak dapat disimpan pada folder 'test'. ");
         }
+    }
+
+    public void simpanSPL2 (String name, float[] ans){ // buat cramer karena disimpen di list
+        try {
+            FileWriter fileWriter = new FileWriter("../test/" + name + ".txt");
+            PrintWriter printWriter = new PrintWriter(fileWriter);
+            printWriter.print("The result of the variables:\n");
+            for (int i=0;i<getLastIdxCol();i++) {
+                printWriter.printf("Variable " + (i+1) + ": ");
+                String formattedResult = String.format("%.4f", ans[i]);
+                printWriter.printf( formattedResult + " \n");
+            }
+            printWriter.close();
+        } catch (IOException e) {
+                System.out.print("File tidak dapat disimpan pada folder 'test'. ");
+            }
     }
 
     public int getLastIdxRow() {
