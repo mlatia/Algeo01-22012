@@ -3,7 +3,10 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.text.DecimalFormat;
 
 
 class Matriks {
@@ -17,16 +20,16 @@ class Matriks {
         mat = new double[nRows][nCols];
     }
 
-    public void openMatrix(String name) {   // baca dari ../test/'name'.txt
+    public void openMatrix(String name) {   
         int i,j;
         try {
-            Scanner check_rowcol = new Scanner(new BufferedReader(new FileReader("../test/" + name + ".txt")));
+            Scanner checkmat = new Scanner(new BufferedReader(new FileReader("../test/" + name + ".txt")));
             Scanner matrixfile = new Scanner(new BufferedReader(new FileReader("../test/" + name + ".txt")));
-            while(check_rowcol.hasNextLine()){
+            while(checkmat.hasNextLine()){
                 if (this.nRows == 0) {
-                    this.nCols = (check_rowcol.nextLine().trim().split(" ")).length;
+                    this.nCols = (checkmat.nextLine().trim().split(" ")).length;
                 } else {
-                    check_rowcol.nextLine();
+                    checkmat.nextLine();
                 }
                 this.nRows += 1;
             } 
@@ -44,6 +47,72 @@ class Matriks {
             this.nCols = 0;
             System.out.println("File tersebut tidak ditemukan di folder 'test'.");
         }
+    }
+
+    public void simpanMatrix (String name, Matriks m){
+        try {
+            FileWriter fileWriter = new FileWriter("../test/" + name + ".txt");
+            PrintWriter printWriter = new PrintWriter(fileWriter);
+            printWriter.print("Matriks invers:\n");
+            for (int i=0;i<m.nRows;i++) {
+                for (int j=0;j<m.nCols;j++) {
+                    printWriter.printf("%f ",m.mat[i][j]);
+                }
+                printWriter.print("\n");
+            }
+            printWriter.close();
+        } catch (IOException e) {
+                System.out.print("File tidak dapat disimpan pada folder 'test'. ");
+            }
+    }
+
+
+    public void simpanDeter (String name, float det){
+        try {
+            FileWriter fileWriter = new FileWriter("../test/" + name + ".txt");
+            PrintWriter printWriter = new PrintWriter(fileWriter);
+            printWriter.printf("Determinan matriks = %f", det);
+            printWriter.close();
+        } catch (IOException e) {
+            System.out.print("File tidak dapat disimpan pada folder 'test'. ");
+        }
+    }
+
+    public void simpanSPL (String name, Matriks m){ // buat yang invers karena disimpen di matrix
+        try {
+            FileWriter fileWriter = new FileWriter("../test/" + name + ".txt");
+            PrintWriter printWriter = new PrintWriter(fileWriter);
+            printWriter.print("The result of the variables:\n");
+            for (int i=0;i<(m.nRows); i++) {
+                printWriter.printf(("Variable " + (i+1) + ": "));
+                // Membuat objek DecimalFormat dengan pola dua desimal
+                DecimalFormat decimalFormat = new DecimalFormat("#.##");
+                // Menggunakan format() untuk membulatkan nilai double
+                String formattedValue = decimalFormat.format(m.mat[i][0]);
+                // Mengubah hasil yang sudah diformat kembali menjadi double 
+                double roundedValue = Double.parseDouble(formattedValue);
+                printWriter.printf(roundedValue + " \n");
+            }
+            printWriter.close();
+        } catch (IOException e) {
+            System.out.print("File tidak dapat disimpan pada folder 'test'. ");
+        }
+    }
+
+    public void simpanSPL2 (String name, float[] ans){ // buat cramer karena disimpen di list
+        try {
+            FileWriter fileWriter = new FileWriter("../test/" + name + ".txt");
+            PrintWriter printWriter = new PrintWriter(fileWriter);
+            printWriter.print("The result of the variables:\n");
+            for (int i=0;i<getLastIdxCol();i++) {
+                printWriter.printf("Variable " + (i+1) + ": ");
+                String formattedResult = String.format("%.4f", ans[i]);
+                printWriter.printf( formattedResult + " \n");
+            }
+            printWriter.close();
+        } catch (IOException e) {
+                System.out.print("File tidak dapat disimpan pada folder 'test'. ");
+            }
     }
 
     public int getLastIdxRow() {
@@ -68,8 +137,10 @@ class Matriks {
 
     public void copyMatrix(Matriks mat2) {
         // Copy matrix mat to a new matrix
-        for (int i = 0; i < nRows; i++) {
-            for (int j = 0; j < nCols; j++) {
+        this.nRows = mat2.nRows;
+        this.nCols = mat2.nCols;
+        for (int i = 0; i < mat2.nRows; i++) {
+            for (int j = 0; j < mat2.nCols; j++) {
                 this.mat[i][j] = mat2.mat[i][j];
             }
         }
@@ -82,15 +153,14 @@ class Matriks {
 
         for (int i = 0; i < nRows; i++) {
             for (int j = 0; j < nCols; j++) {
-                mat[i][j] = in.nextInt();
+                mat[i][j] = in.nextDouble();
             }
         }
-        in.close();
+        in.nextLine();
     }
 
     public void displayMatrix() {
         // Printing out the matrix
-        System.out.println("Matrix:");
         for (int i = 0; i < nRows; i++) {
             for (int j = 0; j < nCols; j++) {
                 System.out.print(mat[i][j] + " ");
