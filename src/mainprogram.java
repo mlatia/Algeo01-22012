@@ -1,6 +1,7 @@
 //import java.util.*;
 //import java.io.*;
-import java.util.Scanner;
+import java.util.*;
+
 public class mainprogram {
     public static void main(String[] args){
         //KAMUS GLOBAL
@@ -56,36 +57,36 @@ public class mainprogram {
                     while (safeinput1==false){
                         System.out.print("--> ");
                         userInput = in.nextInt();
+                        Scanner sc = new Scanner(System.in);
                         if (userInput==1){  // KEYBOARD
                             safeinput1=true;
                             //Take input from user keyboard
                             System.out.println("Berapa ukuran baris dan kolom matriks?");
                             System.out.print("Row: ");
-                            int row = in.nextInt();
+                            int row = sc.nextInt();
                             System.out.print("Col: ");
-                            int col = in.nextInt();
-                            // in.close();
+                            int col = sc.nextInt();
                             //main matrix (from user input)
                             Matriks mainmatrix = new Matriks(row,col);
                             mainmatrix.readMatrix();
+
 
                             //Verify first if it's a square matrix
                             if (row != col-1){
                                 System.out.println("Tidak bisa diselesaikan dengan Invers, bukan matriks persegi");
                             }
                             else{
+                                Matriks hasil = new Matriks(1, 1);
                                 splinvers spl = new splinvers();
                                 spl.hasilsplinvers(mainmatrix);
                             }
+                            
                         }
                         else if (userInput==2){ // FILE
-                            Scanner sc = new Scanner(System.in);
-                            Matriks B = new Matriks(20, 20);
                             Matriks mAwal = new Matriks(0,0);
                             System.out.print("Masukkan nama file pada folder test tanpa '.txt': ");
                             String name = sc.next();
                             mAwal.openMatrix(name);
-                            B.nRows = mAwal.nRows;
                             mAwal.displayMatrix();
                             splinvers spl = new splinvers();
                             spl.hasilsplinvers(mAwal);
@@ -130,12 +131,10 @@ public class mainprogram {
                         }
                         else if (userInput==2){ // FILE
                             Scanner sc = new Scanner(System.in);
-                            Matriks B = new Matriks(20, 20);
                             Matriks mAwal = new Matriks(0,0);
                             System.out.print("Masukkan nama file pada folder test tanpa '.txt': ");
                             String name = sc.next();
                             mAwal.openMatrix(name);
-                            B.nRows = mAwal.nRows;
                             mAwal.displayMatrix();
                             testCramer tes = new testCramer();
                             tes.testcramer(mAwal);
@@ -199,12 +198,10 @@ public class mainprogram {
                         else if (userInput==2){ // FILE
                             safeinput1=true;
                             Scanner sc = new Scanner(System.in);
-                            Matriks B = new Matriks(20, 20);
                             Matriks mAwal = new Matriks(0,0);
                             System.out.print("Masukkan nama file pada folder test tanpa '.txt': ");
                             String name = sc.next();
                             mAwal.openMatrix(name);
-                            B.nRows = mAwal.nRows;
                             mAwal.displayMatrix();
                             determinan deter = new determinan();
                             float det = deter.detgaus(mAwal);
@@ -252,12 +249,10 @@ public class mainprogram {
                         else if (userInput==2){ // FILE
                             safeinput1=true;
                             Scanner sc = new Scanner(System.in);
-                            Matriks B = new Matriks(20, 20);
                             Matriks mAwal = new Matriks(0,0);
                             System.out.print("Masukkan nama file pada folder test tanpa '.txt': ");
                             String name = sc.next();
                             mAwal.openMatrix(name);
-                            B.nRows = mAwal.nRows;
                             mAwal.displayMatrix();
                             float det = mAwal.determinant();
                             System.out.println("Determinan: " + det);
@@ -317,12 +312,10 @@ public class mainprogram {
                     }
                     else if (userInput==2){ // FILE
                         Scanner sc = new Scanner(System.in);
-                        Matriks B = new Matriks(20, 20);
                         Matriks mAwal = new Matriks(0,0);
                         System.out.print("Masukkan nama file pada folder test tanpa '.txt': ");
                         String name = sc.next();
                         mAwal.openMatrix(name);
-                        B.nRows = mAwal.nRows;
                         mAwal.displayMatrix();
                         invers inv = new invers();
                         inv.inversadj(mAwal);
