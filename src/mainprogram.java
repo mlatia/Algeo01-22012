@@ -78,7 +78,31 @@ public class mainprogram {
                             else{
                                 Matriks hasil = new Matriks(1, 1);
                                 splinvers spl = new splinvers();
-                                spl.hasilsplinvers(mainmatrix);
+                                hasil = spl.hasilsplinvers(mainmatrix);
+                                System.out.println("Do you want to save it in txt file?");
+                                System.out.println("1) Yes");
+                                System.out.println("2) No");
+                                int opt = 0;
+                                
+                                while (true) {
+                                    System.out.print("--> ");
+                                    if (in.hasNextInt()) {
+                                        opt = in.nextInt();
+                                        break; // Exit the loop when valid input is received
+                                    } else {
+                                        // Handle the case where the input is not an integer
+                                        System.out.println("Invalid input. Please enter an integer.");
+                                        in.nextLine(); // Consume the invalid input
+                                    }
+                                }
+                                    // Handle the error or exit the program gracefully
+                                if (opt == 1) {
+                                System.out.print("Enter the file name in test folder without '.txt': ");
+                                String name = in.next();
+                                hasil.simpanSPL(name, hasil);
+                                }
+                                System.out.println("done");
+                                safeinput1=true;
                             }
                             
                         }
@@ -89,7 +113,32 @@ public class mainprogram {
                             mAwal.openMatrix(name);
                             mAwal.displayMatrix();
                             splinvers spl = new splinvers();
-                            spl.hasilsplinvers(mAwal);
+                            Matriks hasil = new Matriks(1, 1);
+                            hasil = spl.hasilsplinvers(mAwal);
+                            System.out.println("Do you want to save it in txt file?");
+                            System.out.println("1) Yes");
+                            System.out.println("2) No");
+                            in.nextLine();
+                            int opt = 0;
+                            
+                            while (true) {
+                                System.out.print("--> ");
+                                if (in.hasNextInt()) {
+                                    opt = in.nextInt();
+                                    break; // Exit the loop when valid input is received
+                                } else {
+                                    // Handle the case where the input is not an integer
+                                    System.out.println("Invalid input. Please enter an integer.");
+                                    in.nextLine(); // Consume the invalid input
+                                }
+                            }
+                                // Handle the error or exit the program gracefully
+                            if (opt == 1) {
+                                System.out.print("Enter the file name in test folder without '.txt': ");
+                                name = in.next();
+                                hasil.simpanSPL(name, hasil);
+                            }
+                            System.out.println("done");
                             safeinput1=true;
                         }
                     }
@@ -127,6 +176,7 @@ public class mainprogram {
                                 //Read the cramer funtion
                                 testCramer tes = new testCramer();
                                 tes.testcramer(mainmatrix);
+                                System.out.println("done");
                             }
                         }
                         else if (userInput==2){ // FILE
@@ -138,6 +188,7 @@ public class mainprogram {
                             mAwal.displayMatrix();
                             testCramer tes = new testCramer();
                             tes.testcramer(mAwal);
+                            System.out.println("done");
                             safeinput1=true;
                         }
                         else{   // user enters other inputs
@@ -192,6 +243,7 @@ public class mainprogram {
                                 determinan deter = new determinan();
                                 float det = deter.detgaus(mainmatrix);
                                 System.out.println("Determinan: " + det);
+                                System.out.println("done");
                             }
                         }
 
@@ -206,6 +258,7 @@ public class mainprogram {
                             determinan deter = new determinan();
                             float det = deter.detgaus(mAwal);
                             System.out.println("Determinan: " + det);
+                            System.out.println("done");
                         
                         }
                         else{   // user enters other inputs
@@ -244,6 +297,7 @@ public class mainprogram {
                             else{
                                 float det = mainmatrix.determinant();
                                 System.out.println("Determinan: " + det);
+                                System.out.println("done");
                             }
                         }
                         else if (userInput==2){ // FILE
@@ -256,6 +310,7 @@ public class mainprogram {
                             mAwal.displayMatrix();
                             float det = mAwal.determinant();
                             System.out.println("Determinan: " + det);
+                            System.out.println("done");
                             
                         }
                         else{   // user enters other inputs
@@ -278,37 +333,38 @@ public class mainprogram {
                     safeinput=true;
                 }
                 else if (userInput==2){ //Invers Adjoin
-                    System.out.println("Choose input method:");
-                    System.out.println("---------------------------");
-                    System.out.println("1) Keyboard");
-                    System.out.println("2) Read Text File");
-                    safeinput1 = false;
-                    while (safeinput1==false){
-                        System.out.print("--> ");
-                        userInput = in.nextInt();
-                        
-                        if (userInput==1){  // KEYBOARD
-                            safeinput1=true;
-                            //Take input from user keyboard
-                            System.out.println("Berapa ukuran baris dan kolom matriks?");
-                            System.out.print("Row: ");
-                            int row = in.nextInt();
-                            System.out.print("Col: ");
-                            int col = in.nextInt();
-                            // in.close();
-                            //main matrix (from user input)
-                            Matriks mainmatrix = new Matriks(row,col);
-                            mainmatrix.readMatrix();
+                System.out.println("Choose input method:");
+                System.out.println("---------------------------");
+                System.out.println("1) Keyboard");
+                System.out.println("2) Read Text File");
+                safeinput1 = false;
+                while (safeinput1==false){
+                    System.out.print("--> ");
+                    userInput = in.nextInt();
+                    
+                    if (userInput==1){  // KEYBOARD
+                        safeinput1=true;
+                        //Take input from user keyboard
+                        System.out.println("Berapa ukuran baris dan kolom matriks?");
+                        System.out.print("Row: ");
+                        int row = in.nextInt();
+                        System.out.print("Col: ");
+                        int col = in.nextInt();
+                        // in.close();
+                        //main matrix (from user input)
+                        Matriks mainmatrix = new Matriks(row,col);
+                        mainmatrix.readMatrix();
 
-                            //Verify first if it's a square matrix
-                            if (row != col){
-                                System.out.println("Tidak bisa diselesaikan, bukan matriks persegi");
-                            }
-                            else{
-                                invers inv = new invers();
-                                inv.inversadj(mainmatrix);
-                                mainmatrix.displayMatrix();
-                            }
+                        //Verify first if it's a square matrix
+                        if (row != col){
+                            System.out.println("Tidak bisa diselesaikan, bukan matriks persegi");
+                        }
+                        else{
+                            invers inv = new invers();
+                            inv.inversadj(mainmatrix);
+                            mainmatrix.displayMatrix();
+                            System.out.println("done");
+                        }
                     }
                     else if (userInput==2){ // FILE
                         Scanner sc = new Scanner(System.in);
@@ -321,6 +377,7 @@ public class mainprogram {
                         inv.inversadj(mAwal);
                         System.out.print("Hasil Invers");
                         mAwal.displayMatrix();
+                        System.out.println("done");
                         safeinput1=true;
                     }
                     else{   // user enters other inputs
@@ -376,7 +433,7 @@ public class mainprogram {
                         
                     }
                     else if (userInput==2){ // FILE
-                        Scanner sc = new Scanner(System.in);
+Scanner sc = new Scanner(System.in);
                         Matriks B = new Matriks(20, 20);
                         Matriks mainmatrix = new Matriks(0,0);
                         System.out.print("Masukkan nama file pada folder test tanpa '.txt': ");
@@ -439,7 +496,7 @@ public class mainprogram {
                         System.out.println("False input code, please try again.");
                     }
                 }
-                safeinput=true;
+                    safeinput=true;
             }
             else if (mainmenu==6){ // REGRESI LINEAR GANDA
                 System.out.println("Choose input method:");
@@ -450,8 +507,8 @@ public class mainprogram {
                 while (safeinput1==false){
                     System.out.print("--> ");
                     userInput = in.nextInt();
-                    int var,sampel;
-
+                int var,sampel;
+                
                     if (userInput==1){ //KEYBOARD
                         safeinput1=true;
                         //input variables and samples
@@ -461,7 +518,7 @@ public class mainprogram {
                         System.out.println("Jumlah sampel:");
                         System.out.print("--> ");
                         sampel = in.nextInt();
-                        
+                
                         //taking input X
                         //placed it here bcs it won't let me input it down below:
                         System.out.println("");
@@ -500,8 +557,8 @@ public class mainprogram {
                         double X;
                         X = in.nextDouble();
                         
-                        Regresi tes = new Regresi();
-                        tes.regresi(datamain,datamain.getLastIdxRow()+1,datamain.getLastIdxCol()+1,X);
+                Regresi tes = new Regresi();
+                tes.regresi(datamain,datamain.getLastIdxRow()+1,datamain.getLastIdxCol()+1,X);
                     }
                     else{   // user enters other inputs
                         System.out.println("False input code, please try again.");
