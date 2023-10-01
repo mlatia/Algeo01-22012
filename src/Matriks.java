@@ -336,4 +336,42 @@ class Matriks {
         }
     }
 
+    Matriks replacingDuplicateRows(Matriks mainmatrix) {
+        Matriks matrix = new Matriks(mainmatrix.nRows, mainmatrix.nCols);
+        int numRows = matrix.nRows;
+        int numCols = matrix.nCols;
+        matrix.copyMatrix(mainmatrix);
+        boolean[] isDuplicate = new boolean[numRows];
+        for (int i = 0; i < numRows - 1; i++) {
+            if (!isDuplicate[i]) {
+                for (int j = i + 1; j < numRows; j++) {
+                    if (!isDuplicate[j]) {
+                        boolean isSame = true;
+                        for (int k = 0; k < numCols; k++) {
+                            if (matrix.mat[i][k] != matrix.mat[j][k]) {
+                                isSame = false;
+                                break;
+                            }
+                        }
+                        if (isSame) {
+                            isDuplicate[j] = true;
+                        }
+                    }
+                }
+            }
+        }
+        for (int i = 0; i < numRows; i++) {
+            if (isDuplicate[i]) {
+                for (int k = 0; k < numCols; k++) {
+                    matrix.mat[i][k] = 0.0;
+                }
+            }
+        }
+        for (int i = 0; i < mainmatrix.nRows; i++) {
+            for (int j = 0; j < mainmatrix.nCols; j++) {
+                mainmatrix.mat[i][j] = matrix.mat[i][j];
+            }
+        }
+        return mainmatrix;
+    }
 }
