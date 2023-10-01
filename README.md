@@ -1,13 +1,7 @@
+# TUBES 1 ALGEO(Aljabar Linear dan Geometri)
 
-
-Anggota Kelompok :
-1. (13522012)
-2. (13522025)
-3. Melati Anggraini(13522035)
-
-# TUBES 1 ALGEO(ALJABAR LINEAR DAN GEOMETRI)
-
-Bahasa pemrograman yang digunakan : [Java](https://docs.oracle.com/en/java/)
+Bahasa pemrograman yang digunakan : 
+- [Java](https://docs.oracle.com/en/java/)
 
 ## Anggota Kelompok
 
@@ -46,8 +40,8 @@ Sangat dimohon untuk memperhatikan hal-hal berikut:
 
 ## Semantic Commit Message
 
-- `feat`: (new feature for the user, not a new feature for build script)
-- `fix`: (bug fix for the user, not a fix to a build script)
+- `feat`: (new feature for build script(include README))
+- `fix`: (bug fix for build script)
 - `docs`: (changes to the documentation)
 - `style`: (formatting, missing semi colons, etc; no production code change)
 - `refactor`: (refactoring production code, eg. renaming a variable)
