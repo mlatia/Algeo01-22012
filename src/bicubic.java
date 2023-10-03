@@ -1,7 +1,10 @@
-import java.util.Scanner;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.*;
 
 public class bicubic {
-    public double hasilbicubic(Matriks m, double x, double y){
+    public double hasilbicubic(Matriks m, double x, double y, boolean print){
         Matriks mx = new Matriks(16,16);
         int bar = 0;
         int kol = 0;
@@ -118,7 +121,26 @@ public class bicubic {
                 hasil += a44.mat[i][j]*Math.pow(x,i)*Math.pow(y,j);
             }
         }
-        System.out.println("f("+x+","+y+") = "+hasil);
+
+        if(!print){
+            System.out.println("f("+x+","+y+") = "+hasil);
+        }
+        
+        else{
+            Scanner in = new Scanner(System.in);
+            System.out.print("Enter the file name in test folder without '.txt': ");
+            String name = in.next();
+            try {
+            FileWriter fileWriter = new FileWriter("../test/" + name + ".txt");
+            PrintWriter printWriter = new PrintWriter(fileWriter);
+            printWriter.print(("f("+x+","+y+") = "+hasil));
+            
+            printWriter.close();
+            } catch (IOException e) {
+                    System.out.print("File tidak dapat disimpan pada folder 'test'. ");
+                }
+        }
+
         return hasil;
     }
 }
