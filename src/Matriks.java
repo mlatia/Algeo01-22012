@@ -49,6 +49,82 @@ class Matriks {
         }
     }
 
+    public double[] openMatrix2(String name, int var) {   
+        int i,j;
+        double[] vari = new double[var];
+        try {
+            Scanner checkmat = new Scanner(new BufferedReader(new FileReader("../test/" + name + ".txt")));
+            Scanner matrixfile = new Scanner(new BufferedReader(new FileReader("../test/" + name + ".txt")));
+            while(checkmat.hasNextLine()){
+                if (this.nRows == 0) {
+                    this.nCols = (checkmat.nextLine().trim().split(" ")).length;
+                } else {
+                    checkmat.nextLine();
+                }
+                if(nCols>nRows){
+                this.nRows += 1;
+                }
+            } 
+            this.mat = new double[nRows][nCols];
+            while(matrixfile.hasNextLine()) {
+                for (i=0; i < this.nRows; i++) {
+                   String[] Row = matrixfile.nextLine().trim().split(" ");
+                   for (j=0; j < Row.length; j++) {
+                      this.mat[i][j] = Double.parseDouble(Row[j]);
+                   }
+                }
+                String[] row = matrixfile.nextLine().trim().split(" ");
+                for ( i = 0; i < row.length; i++) {
+                    vari[i] = Double.parseDouble(row[i]);
+                }
+            }
+            
+        } catch (FileNotFoundException e) {
+            this.nRows = 0;
+            this.nCols = 0;
+            System.out.println("File tersebut tidak ditemukan di folder 'test'.");
+        }
+        return vari;
+    }
+
+    public double[] openMatrix3(String name, int var) {  // khusus interpolasi polinom
+        int i,j,temp=0;
+        double[] vari = new double[var];
+        try {
+            Scanner checkmat = new Scanner(new BufferedReader(new FileReader("../test/" + name + ".txt")));
+            Scanner matrixfile = new Scanner(new BufferedReader(new FileReader("../test/" + name + ".txt")));
+            while(checkmat.hasNextLine()){
+                if (this.nRows == 0) {
+                    this.nCols = (checkmat.nextLine().trim().split(" ")).length;
+                } else {
+                    temp = (checkmat.nextLine().trim().split(" ")).length;
+                }
+                if(temp!=1){
+                this.nRows += 1;
+                }
+            } 
+            this.mat = new double[nRows][nCols];
+            while(matrixfile.hasNextLine()) {
+                for (i=0; i < this.nRows; i++) {
+                    String[] Row = matrixfile.nextLine().trim().split(" ");
+                    for (j=0; j < Row.length; j++) {
+                        this.mat[i][j] = Double.parseDouble(Row[j]);
+                    }
+                }
+                String[] row = matrixfile.nextLine().trim().split(" ");
+                for ( i = 0; i < row.length; i++) {
+                    vari[i] = Double.parseDouble(row[i]);
+                }
+            }
+        
+        } catch (FileNotFoundException e) {
+            this.nRows = 0;
+            this.nCols = 0;
+            System.out.println("File tersebut tidak ditemukan di folder 'test'.");
+        }
+        return vari;
+    }
+    
     public void simpanMatrix (String name, Matriks m){
         try {
             FileWriter fileWriter = new FileWriter("../test/" + name + ".txt");

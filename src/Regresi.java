@@ -1,6 +1,10 @@
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.*;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+
 public class Regresi {
     // public void regresi(){
         public static double tempvalue(Matriks mainmatriks,int column1,int column2){
@@ -13,7 +17,7 @@ public class Regresi {
         }
         return tempval;
     }
-    public void regresi(Matriks datamain,int sampel,int var,double X){
+    public void regresi(Matriks datamain,int sampel,int var,double X, boolean print){
         int baris,kolom;
         int temp;
 
@@ -66,6 +70,7 @@ public class Regresi {
         float[] ans = new float[datamain.getLastIdxCol()];
         ans = tes.testcramer(hasil); 
 
+        if(!print){
         double result=0;
         System.out.println("---------------------------");
         System.out.print("f(x) = ");
@@ -91,5 +96,43 @@ public class Regresi {
         System.out.println("");
         String formattedResult = String.format("%.4f", result);
         System.out.println("f("+ X +") = " + formattedResult);
+    }
+    else{
+        Scanner in = new Scanner(System.in);
+        System.out.print("Enter the file name in test folder without '.txt': ");
+        String name = in.next();
+        try {
+        FileWriter fileWriter = new FileWriter("../test/" + name + ".txt");
+        PrintWriter printWriter = new PrintWriter(fileWriter);
+        double result = 0;
+        printWriter.print("f(x) = ");
+        for (kolom=0;kolom<hasil.getLastIdxCol();kolom++){
+            if (kolom!=0){
+                result += ans[kolom]*X;
+            }
+            else{
+                result = ans[kolom];
+            }
+            BigDecimal roundedValue = new BigDecimal(ans[kolom]).setScale(3, RoundingMode.HALF_UP);
+            printWriter.print(roundedValue);
+            if (kolom==1){
+                printWriter.print("x");
+            }
+            else if (kolom!=0){
+                printWriter.print("x" + kolom);
+            }
+            if (kolom!=hasil.getLastIdxCol()-1){
+                printWriter.print(" + ");
+            }
+        }
+        printWriter.print("\n");
+        String formattedResult = String.format("%.4f", result);
+        printWriter.print("f("+ X +") = " + formattedResult);
+        
+        printWriter.close();
+        } catch (IOException e) {
+                System.out.print("File tidak dapat disimpan pada folder 'test'. ");
+            }
+    }
     }
 }

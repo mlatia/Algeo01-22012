@@ -4,7 +4,7 @@ import java.util.jar.Manifest;
 
 public class gauss {
     
-    public static void main(String [] args){
+    public void gausss(){
         //KAMUS GLOBAL
         int i,j;
         //Take input from user keyboard
@@ -59,6 +59,22 @@ public class gauss {
                 // Memeriksa apakah elemen dibawah elemen pertama baris utama sudah bernilai nol
                 if (mainmatrix.mat[bar][kol] == 0){
                     mainmatrix.tukerbarisnol(mainmatrix,bar,i);         
+
+        for( i = 0; i<mainmatrix.nCols;i++){
+            while(bar2<mainmatrix.nRows){
+            // Memeriksa apakah elemen dibawah elemen pertama baris utama sudah bernilai nol
+                if (mainmatrix.mat[bar][i] == 0){
+                    if (!ceknolsemuakolom(mainmatrix, bar2, kol)){
+                    mainmatrix.tukerbarisnol(mainmatrix,bar,i);  
+                    }
+                    else{
+                        while(ceknolsemuakolom(mainmatrix,bar,i) && i<mainmatrix.nCols-1){
+                        System.out.println(i);
+                        i+=1;
+                        System.out.println(i);
+                        }
+                    }
+
                 }
                 // Mencari hasil bagi dengan baris utama 
                 if(mainmatrix.mat[bar][kol]==0){
@@ -104,6 +120,8 @@ public class gauss {
                 }
             }
             System.out.print("uji coba eselon : ");
+            bar2= bar+1;
+            System.out.println("PERHITUNGAANNNN");
             mainmatrix.displayMatrix();
             
         }
@@ -120,7 +138,11 @@ public class gauss {
             for (kol2=0;kol2< mainmatrix.nCols;kol2++){
                 if(mainmatrix.mat[i][kol2]!=0){
                     pembagi = mainmatrix.mat[i][kol2];
-                    break;
+                    if(pembagi !=0){
+                        break;
+                    }
+                    System.out.print("pembagi : " );
+                    System.out.println( pembagi);
                 }
             }
             // Bagi satu baris tersebut dengan pembagi
@@ -142,6 +164,12 @@ public class gauss {
                 }
             }
         }       
+        }
+        
+//         // ubah ukuran tempmatrix
+    mainmatrix.displayMatrix();
+        Matriks tempmatrix = new Matriks(row,col-1);
+        // tempmatrix.copyMatrix(mainmatrix);
 
         // ngitung banyak baris yang mengandung 0
         int countBar0 = 0; 
@@ -455,5 +483,17 @@ public class gauss {
     
             }
         }
+    }
+
+    public boolean ceknolsemuakolom(Matriks m, int bar,int kol){
+        boolean betul;
+        betul = true;
+        for(int i=bar+1;i<m.nRows;i++){
+            if (m.mat[i][kol] != 0){
+                betul = false;
+                break;
+            }
+        }
+        return betul;
     }
 }

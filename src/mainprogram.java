@@ -613,33 +613,92 @@ public class mainprogram {
                                 }
                             }
                         }
+                        System.out.println("");
+                        System.out.println("Nilai inputan X?");
+                        System.out.print("--> ");
+                        double X = in.nextDouble();
 
-                        
                         //Read the interpolasipolinomial funtion
                         InterpolasiPolinomial tes = new InterpolasiPolinomial();
-                        tes.interpolasipolinomial(mainmatrix);
+                        tes.interpolasipolinomial(mainmatrix,X,false);
+
+                        // save to txt file
+                        System.out.println("Do you want to save it in txt file?");
+                        System.out.println("1) Yes");
+                        System.out.println("2) No");
+                        int opt = 0;
+                        
+                        while (true) {
+                            System.out.print("--> ");
+                            if (in.hasNextInt()) {
+                                opt = in.nextInt();
+                                break; // Exit the loop when valid input is received
+                            } else {
+                                // Handle the case where the input is not an integer
+                                System.out.println("Invalid input. Please enter an integer.");
+                                in.nextLine(); // Consume the invalid input
+                            }
+                        }
+                    
+                        if (opt == 1) {
+                        tes.interpolasipolinomial(mainmatrix,X,true);
+                        }
+                        System.out.println("done");
                         
                     }
                     else if (userInput==2){ // FILE
                         Scanner sc = new Scanner(System.in);
-                        Matriks B = new Matriks(20, 20);
-                        Matriks mainmatrix = new Matriks(0,0);
+                        Matriks mainmatriks = new Matriks(0,0);
+                        double[] var = new double[1];
                         System.out.print("Masukkan nama file pada folder test tanpa '.txt': ");
                         String name = sc.next();
-                        mainmatrix.openMatrix(name);
-                        B.nRows = mainmatrix.nRows;
-                        mainmatrix.displayMatrix();
-                        
+                        var = mainmatriks.openMatrix3(name,1);
+                        mainmatriks.displayMatrix();
+                        Matriks mainmatrix = new Matriks(mainmatriks.nRows,mainmatriks.nRows+1);
+                        for (i=0;i<mainmatriks.nRows;i++){
+                            for ( kolom = 0;kolom<mainmatriks.nRows+1;kolom++){
+                                if (kolom!=mainmatriks.nRows){  //those Ax columns
+                                    double res = Math.pow(mainmatriks.mat[i][0],kolom);
+                                    mainmatrix.mat[i][kolom] = (float) res;
+                                }
+                                else{   // is the b column
+                                    mainmatrix.mat[i][kolom] = mainmatriks.mat[i][1];
+                                }
+                            }
+                        }
                         //Read the interpolasipolinomial funtion
                         InterpolasiPolinomial tes = new InterpolasiPolinomial();
-                        tes.interpolasipolinomial(mainmatrix);
+                        tes.interpolasipolinomial(mainmatrix,var[0],false);
+
+                        // save to txt file
+                        System.out.println("Do you want to save it in txt file?");
+                        System.out.println("1) Yes");
+                        System.out.println("2) No");
+                        int opt = 0;
+                        
+                        while (true) {
+                            System.out.print("--> ");
+                            if (in.hasNextInt()) {
+                                opt = in.nextInt();
+                                break; // Exit the loop when valid input is received
+                            } else {
+                                // Handle the case where the input is not an integer
+                                System.out.println("Invalid input. Please enter an integer.");
+                                in.nextLine(); // Consume the invalid input
+                            }
+                        }
+                           
+                        if (opt == 1) {
+                        tes.interpolasipolinomial(mainmatrix,var[0],true);
+                        }
+
                         safeinput1=true;
                     }
                     else{   // user enters other inputs
                         System.out.println("False input code, please try again.");
                     }
                 }
-                
+                safeinput=false;
 
             }
             else if (mainmenu==5){ // INTERPOLASI BICUBIC SPLINE
@@ -673,18 +732,67 @@ public class mainprogram {
                         System.out.println("Masukkan nilai x dan y");
                         x = in.nextDouble();
                         y = in.nextDouble();
-                        bi.hasilbicubic(main,x,y);
+                        bi.hasilbicubic(main,x,y,false);
+                        // save to txt file
+                        System.out.println("Do you want to save it in txt file?");
+                        System.out.println("1) Yes");
+                        System.out.println("2) No");
+                        int opt = 0;
+                        
+                        while (true) {
+                            System.out.print("--> ");
+                            if (in.hasNextInt()) {
+                                opt = in.nextInt();
+                                break; // Exit the loop when valid input is received
+                            } else {
+                                // Handle the case where the input is not an integer
+                                System.out.println("Invalid input. Please enter an integer.");
+                                in.nextLine(); // Consume the invalid input
+                            }
+                        }
+                            
+                        if (opt == 1) {
+                            bi.hasilbicubic(main,x,y,true);
+                        }
 
                     }
                     else if (userInput==2){ // FILE
-
+                        Scanner sc = new Scanner(System.in);
+                        Matriks mAwal = new Matriks(0,0);
+                        double[] var = new double[2];
+                        System.out.print("Masukkan nama file pada folder test tanpa '.txt': ");
+                        String name = sc.next();
+                        var = mAwal.openMatrix2(name,2);
+                        mAwal.displayMatrix();
+                        bi.hasilbicubic(mAwal,var[0],var[1],false);
+                        // save to txt file
+                        System.out.println("Do you want to save it in txt file?");
+                        System.out.println("1) Yes");
+                        System.out.println("2) No");
+                        int opt = 0;
+                        
+                        while (true) {
+                            System.out.print("--> ");
+                            if (in.hasNextInt()) {
+                                opt = in.nextInt();
+                                break; // Exit the loop when valid input is received
+                            } else {
+                                // Handle the case where the input is not an integer
+                                System.out.println("Invalid input. Please enter an integer.");
+                                in.nextLine(); // Consume the invalid input
+                            }
+                        }
+                            
+                        if (opt == 1) {
+                            bi.hasilbicubic(mAwal,var[0],var[1],true);
+                        }
                         safeinput1=true;
                     }
                     else{   // user enters other inputs
                         System.out.println("False input code, please try again.");
                     }
                 }
-                    safeinput=true;
+                    safeinput=false;
             }
             else if (mainmenu==6){ // REGRESI LINEAR GANDA
                 System.out.println("Choose input method:");
@@ -706,14 +814,6 @@ public class mainprogram {
                         System.out.println("Jumlah sampel:");
                         System.out.print("--> ");
                         sampel = in.nextInt();
-                
-                        //taking input X
-                        //placed it here bcs it won't let me input it down below:
-                        System.out.println("");
-                        System.out.println("Nilai inputan X?");
-                        System.out.print("--> ");
-                        double X;
-                        X = in.nextDouble();
 
                         //input datamain
                         System.out.println("Input matrix:");
@@ -721,39 +821,83 @@ public class mainprogram {
                         Matriks datamain = new Matriks(sampel, var);
                         datamain.readMatrix();
                         
-
-                        Regresi tes = new Regresi();
-                        tes.regresi(datamain,sampel,var,X);
-
-                    }
-                    else if (userInput==2){ //FILE
-                        safeinput1=true;
-                        Scanner sc = new Scanner(System.in);
-                        Matriks B = new Matriks(20, 20);
-                        Matriks datamain = new Matriks(0,0);
-                        System.out.print("Masukkan nama file pada folder test tanpa '.txt': ");
-                        String name = sc.next();
-                        datamain.openMatrix(name);
-                        B.nRows = datamain.nRows;
-                        datamain.displayMatrix();
-                        
                         //taking input X
-                        //placed it here bcs it won't let me input it down below:
                         System.out.println("");
                         System.out.println("Nilai inputan X?");
                         System.out.print("--> ");
                         double X;
                         X = in.nextDouble();
+
+                        Regresi tes = new Regresi();
+                        tes.regresi(datamain,sampel,var,X,false);
+                        // save to txt file
+                        System.out.println("Do you want to save it in txt file?");
+                        System.out.println("1) Yes");
+                        System.out.println("2) No");
+                        int opt = 0;
                         
-                Regresi tes = new Regresi();
-                tes.regresi(datamain,datamain.getLastIdxRow()+1,datamain.getLastIdxCol()+1,X);
+                        while (true) {
+                            System.out.print("--> ");
+                            if (in.hasNextInt()) {
+                                opt = in.nextInt();
+                                break; // Exit the loop when valid input is received
+                            } else {
+                                // Handle the case where the input is not an integer
+                                System.out.println("Invalid input. Please enter an integer.");
+                                in.nextLine(); // Consume the invalid input
+                            }
+                        }
+                    
+                        if (opt == 1) {
+                            tes.regresi(datamain,sampel,var,X,true);
+                        }
+                        System.out.println("done");
+                        
+
+                    }
+                    else if (userInput==2){ //FILE
+                        safeinput1=true;
+                        Scanner sc = new Scanner(System.in);
+                        Matriks datamain = new Matriks(0,0);
+                        double[] x = new double[1];
+                        System.out.print("Masukkan nama file pada folder test tanpa '.txt': ");
+                        String name = sc.next();
+                        x = datamain.openMatrix2(name,1);
+                        datamain.displayMatrix();
+                        
+                        Regresi tes = new Regresi();
+                        tes.regresi(datamain,datamain.getLastIdxRow()+1,datamain.getLastIdxCol()+1,x[0],false);
+                        // save to txt file
+                        System.out.println("Do you want to save it in txt file?");
+                        System.out.println("1) Yes");
+                        System.out.println("2) No");
+                        int opt = 0;
+                        
+                        while (true) {
+                            System.out.print("--> ");
+                            if (in.hasNextInt()) {
+                                opt = in.nextInt();
+                                break; // Exit the loop when valid input is received
+                            } else {
+                                // Handle the case where the input is not an integer
+                                System.out.println("Invalid input. Please enter an integer.");
+                                in.nextLine(); // Consume the invalid input
+                            }
+                        }
+                    
+                        if (opt == 1) {
+                            tes.regresi(datamain,datamain.getLastIdxRow()+1,datamain.getLastIdxCol()+1,x[0],true);
+                        }
+                        System.out.println("done");
+                        
+
                     }
                     else{   // user enters other inputs
                         System.out.println("False input code, please try again.");
                     }
                 }
 
-                safeinput=true;
+                safeinput=false;
             }
             else if (mainmenu==7){ // EXIT PROGRAM
                 break;
