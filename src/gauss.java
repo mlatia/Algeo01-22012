@@ -53,35 +53,59 @@ public class gauss {
         boolean nol = false; 
         
        // Mencari determinan dengan membuat diagonal bawah nol
-        for( i = 0; i<mainmatrix.nCols;i++){
-            while(bar2<mainmatrix.nRows){
-            // Memeriksa apakah elemen dibawah elemen pertama baris utama sudah bernilai nol
-                if (mainmatrix.mat[bar][i] == 0){
+        for( i = 0; i<mainmatrix.nRows;i++){
+            //mambuat fungsi baris utama
+            while(bar2<mainmatrix.nRows && bar<mainmatrix.nRows){
+                // Memeriksa apakah elemen dibawah elemen pertama baris utama sudah bernilai nol
+                if (mainmatrix.mat[bar][kol] == 0){
                     mainmatrix.tukerbarisnol(mainmatrix,bar,i);         
                 }
                 // Mencari hasil bagi dengan baris utama 
-                if(mainmatrix.mat[bar][i]==0){
+                if(mainmatrix.mat[bar][kol]==0){
                     break;
                 }else{
-                    bagi = mainmatrix.mat[bar2][i] / mainmatrix.mat[bar][i];
-                    // System.out.print("bagi ",bagi);
-                        
+                    bagi = mainmatrix.mat[bar2][kol] / mainmatrix.mat[bar][kol];
+                    System.out.println("bar2,kol "+mainmatrix.mat[bar2][kol]);
+                    System.out.println("bar,kol "+mainmatrix.mat[bar][kol]);
+                    System.out.println("bagi "+bagi);
+                    
                     // Membuat kolom dibawah elemen pertama baris utama menjadi nol
                     while(kol<mainmatrix.nCols){
                         mainmatrix.mat[bar2][kol] = mainmatrix.mat[bar2][kol] - ((mainmatrix.mat[bar][kol]*bagi));
+                        System.out.println("bar,kol  v2 :  "+mainmatrix.mat[bar][kol]);
+
                         kol++;
                     }
                     kol=0;
                     nol = false;
                     bar2++;
-                    // Melakukan loop untuk membuat nol di diagonal bawah di kolom selanjutnya
                 }
+                    // Melakukan loop untuk membuat nol di diagonal bawah di kolom selanjutnya
+                // }
             }
             kol+=1;
             bar2 = 0;
             bar+=1;
-            bar2= bar+1;
+            bar2 = bar;
+            if(bar2<mainmatrix.nRows){
+                mainmatrix.tukerbarisnol(mainmatrix, bar2, kol);
+                if(mainmatrix.mat[bar2][kol]==0 && kol<mainmatrix.nCols && bar2<mainmatrix.nRows){
+                    // mainmatrix.IdxUtamabar2();
+                    for(j=0;j<mainmatrix.nCols;j++){
+                        i=bar2;
+                        if(mainmatrix.mat[i][j]!=0){
+                            kol = j;
+                            System.out.println(" IdxColUtama2 :"+ kol);
+                            break;
+                        }
+                    }
+                }else {
+                    bar2= bar+1;
+                }
+            }
+            System.out.print("uji coba eselon : ");
             mainmatrix.displayMatrix();
+            
         }
         // mainmatrix.replaceDuplicateRows(mainmatrix);    
         System.out.print("mainmatrixeselon");
@@ -95,12 +119,8 @@ public class gauss {
             int kol2 =0;
             for (kol2=0;kol2< mainmatrix.nCols;kol2++){
                 if(mainmatrix.mat[i][kol2]!=0){
-                    if(pembagi !=0){
-                        pembagi = mainmatrix.mat[i][kol2];
-                        break;
-                    }
-                    System.out.print("pembagi : " );
-                    System.out.println( pembagi);
+                    pembagi = mainmatrix.mat[i][kol2];
+                    break;
                 }
             }
             // Bagi satu baris tersebut dengan pembagi
@@ -121,12 +141,7 @@ public class gauss {
                     }
                 }
             }
-        }
-        
-        // ubah ukuran tempmatrix
-        // mainmatrix.displayMatrix();
-        Matriks tempmatrix = new Matriks(row,col-1);
-        // tempmatrix.copyMatrix(mainmatrix);
+        }       
 
         // ngitung banyak baris yang mengandung 0
         int countBar0 = 0; 
@@ -143,16 +158,13 @@ public class gauss {
             }
             
         }
+        mainmatrix.displayMatrix();
 
 /* SOLUSI SPL DENGAN UKURAN MATRIKS ROW = COL-1*/        
         if((mainmatrix.nCols-1) == mainmatrix.nRows){
             
             if(countBar0 <=1){
                 double det = mainmatrix.determinan(mainmatrix);
-                // System.out.print("Determinant of the matrix is: " );
-                // System.out.println(det);
-                // System.out.print("tempmatrix " );
-                // tempmatrix.displayMatrix();
                 if(det ==0){
                     double lastIdx = mainmatrix.mat[mainmatrix.nRows-1][mainmatrix.nCols-1];
                     // SPL TIDAK MEMILIKI SOLUSI
@@ -180,9 +192,9 @@ public class gauss {
                             double pengurangNum =0;
                             if ((mainmatrix.nRows-1-countBar0)<i){ 
                                 matrixString.mat[i][i-mainmatrix.nRows+countBar0] =1; // ngisi nilai 1 ke baris index 4,5 atau ke pemisalan variabel baru
-                                matrixString.displayMatrix();
+                                // matrixString.displayMatrix();
                                 matrixNum.mat[i][0] = 0; // ngisi 0 ke variabel pemisalan baru 
-                                matrixNum.displayMatrix();
+                                // matrixNum.displayMatrix();
                             }else {// i = 3,2,1,0 
                                 // MATRIKS STRING
                                 for(int kolstr =0 ; kolstr < matrixString.nCols;kolstr++){
@@ -253,6 +265,14 @@ public class gauss {
     
                 }else{
                     // SPL memiliki solusi unik
+                          // ubah ukuran tempmatrix
+                    mainmatrix.displayMatrix();
+                    Matriks tempmatrix = new Matriks(mainmatrix.nRows,mainmatrix.nCols-1);
+                    for(i=0;i<tempmatrix.nRows;i++){
+                        for(j=0;j<tempmatrix.nCols;j++){
+                            tempmatrix.mat[i][j]=mainmatrix.mat[i][j];
+                        }
+                    }
                     double[] array = new double[tempmatrix.nCols];
                     System.out.print("banyak solusi : ");
                     System.out.println(array.length);
@@ -294,12 +314,7 @@ public class gauss {
 
             }else {
 
-                /* SOLUSI PARAMETRIK DENGAN UKURAN MATRIKS ROW = COL-1*/         
-
-                System.out.print("countBar0 :");
-                System.out.println(countBar0);
-                System.out.println("M :");
-                mainmatrix.displayMatrix();
+                /* SOLUSI PARAMETRIK DENGAN UKURAN MATRIKS ROW = COL-1*/
 
                 Matriks matrixNum = new Matriks(mainmatrix.nRows,1);
                 for (i=0;i<matrixNum.nRows;i++){
@@ -309,46 +324,95 @@ public class gauss {
                 }
                 System.out.println("matrixNum :");
                 matrixNum.displayMatrix();
-                // Membuat matriks yang menyimpan variabel
-                Matriks matrixString= new Matriks(mainmatrix.nRows, countBar0);
+                // ngitung 
+                int countCol0 =0;
+                for (i=0;i<mainmatrix.nCols;i++){
+                    boolean check = true;
+                    for (j=0;j<mainmatrix.nRows;j++){
+                        if(mainmatrix.mat[i][j]!=0){
+                            check =false;
+                            break;
+                        }
+                    }
+                    if(check){
+                        countCol0++;
+                    }
+                    
+                }
+                mainmatrix.displayMatrix();
+                Matriks matrixString= new Matriks(mainmatrix.nRows, countCol0);
                 for (i=0;i<mainmatrix.nRows;i++){
-                    for (j=0;j<countBar0;j++){
+                    for (j=0;j<countCol0;j++){
                         matrixString.mat[i][j]= 0;
                     }
                 }
                 System.out.println("matrixString :");
                 matrixString.displayMatrix();
-                // 
+                
+                double [] arrOfColNol = new double[countCol0];
+                for(i=0;i<countCol0;i++){
+                    arrOfColNol[i]=0;
+                }
+                bar = 0;
+                kol =0;
+                boolean check1 = false;
+                int Colstring =0;
+                while(bar<mainmatrix.nCols-1 && kol<mainmatrix.nCols && Colstring<matrixString.nCols && Colstring<arrOfColNol.length){
+                    if(mainmatrix.mat[bar][kol]==0){
+                        // cara masukin ke arrayColNol-> masukin arrayNum
+                        matrixNum.mat[kol][0] = 0;
+                        matrixString.mat[bar][Colstring] =1;
+                        // arrOfColNol[Colstring] =Colstring;
+                        //elemen tidak nol pertama pada bar
+                        for(j=kol;j<mainmatrix.nCols;j++){
+                            if(mainmatrix.mat[bar][j]!=0){
+                                check1 = true;
+                                break;
+                            }else{
+                                arrOfColNol[Colstring]=j;
+                            }
+                        }
+                        if(check1){
+                            kol =j;
+                        }
+                    }
+                    kol++;
+                    bar++;
+                    Colstring++;
+                }
+
                 for(i= mainmatrix.nRows-1 ;i>=0;i--){
                     double pengurangStr =0;
                     double pengurangNum =0;
-                    if ((mainmatrix.nRows-1-countBar0)<i){
-                        matrixString.mat[i][i-mainmatrix.nRows+countBar0] =1; // ngisi nilai 1 ke baris index 4,5 atau ke pemisalan variabel baru
-                        matrixString.displayMatrix();
-                        matrixNum.mat[i][0] = 0; // ngisi 0 ke variabel pemisalan baru 
-                        matrixNum.displayMatrix();
-                    }else {// i = 3,2,1,0 
-                        // MATRIKS STRING
-                        for(int kolstr =0 ; kolstr < matrixString.nCols;kolstr++){
-                            // looping string untuk input nilai matrixString
-                            for(j=mainmatrix.nCols-2;j>i;j--){
-                                System.out.println(mainmatrix.mat[i][j] + "*" + matrixString.mat[j][kolstr] );
-                                pengurangStr += mainmatrix.mat[i][j]*matrixString.mat[j][kolstr];
-                            }
-                            matrixString.mat[i][kolstr]= -(pengurangStr);
-                            pengurangStr =0;
+                    j = 0;
+                    // cari indeks pertamanya dulu baru tentukan arah loopingnya
+                    int tempJ =0;
+                    while(j<mainmatrix.nCols){
+                        if(mainmatrix.mat[i][j]!=0){
+                            tempJ = j;
+                            break;
                         }
-                        // MATRIKS NUM
-                        for(j=mainmatrix.nCols-2;j>i;j--){
-                            pengurangNum += mainmatrix.mat[i][j]*matrixNum.mat[j][0];
-                        }
-                        matrixNum.mat[i][0] = mainmatrix.mat[i][mainmatrix.nCols-1]-(pengurangNum);
-                        pengurangNum =0;
                     }
+                    for(int kolstr =0 ; kolstr < matrixString.nCols;kolstr++){
+                        // looping string untuk input nilai matrixString
+                        for(j=mainmatrix.nCols-2;j>tempJ;j--){
+                            pengurangStr += mainmatrix.mat[i][j]*matrixString.mat[j][kolstr];
+                        }
+                        matrixString.mat[i][kolstr]= -(pengurangStr);
+                        pengurangStr =0;
+                    }
+                    // MATRIKS NUM
+                    for(j=mainmatrix.nCols-2;j>i;j--){
+                        System.out.print("Matriks M Num : ");
+                        pengurangNum += mainmatrix.mat[i][j]*matrixNum.mat[j][0];
+                    
+                        System.out.println(pengurangNum);
+                    }
+                    matrixNum.mat[i][0] = mainmatrix.mat[i][mainmatrix.nCols-1]-(pengurangNum);
+                    pengurangNum =0;
                     pengurangStr = 0;
                     pengurangNum =0;
-                    matrixNum.displayMatrix();
-                    matrixString.displayMatrix();
+                    
                 }
                 // Solusi SPL 
                 System.out.println("Solusi dari SPL Parametrik :");

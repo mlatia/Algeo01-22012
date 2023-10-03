@@ -104,5 +104,8 @@ public class invers {
         }
         multiplyByConst(m,1/det);
     }
+    public void inversgauss(Matriks m){
+        
+    }
 
 }

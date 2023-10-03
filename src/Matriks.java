@@ -444,4 +444,18 @@ class Matriks {
         }
         return mainmatrix;
     }
+
+         
+    int firssElmtNotNol(Matriks m, int bar){
+        int tempJ,j;
+        tempJ = -1;
+        for(j=0;j<m.nCols;j++){
+            if(m.mat[bar][j]!=0){
+                tempJ = j;
+                break;
+            }
+        }
+        return(tempJ);
+    }
+    
 }
