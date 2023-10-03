@@ -4,7 +4,7 @@ import java.util.jar.Manifest;
 
 public class gauss {
     
-    public static void main(String [] args){
+    public void gausss(){
         //KAMUS GLOBAL
         int i,j;
         //Take input from user keyboard
@@ -57,7 +57,17 @@ public class gauss {
             while(bar2<mainmatrix.nRows){
             // Memeriksa apakah elemen dibawah elemen pertama baris utama sudah bernilai nol
                 if (mainmatrix.mat[bar][i] == 0){
-                    mainmatrix.tukerbarisnol(mainmatrix,bar,i);         
+                    if (!ceknolsemuakolom(mainmatrix, bar2, kol)){
+                    mainmatrix.tukerbarisnol(mainmatrix,bar,i);  
+                    }
+                    else{
+                        while(ceknolsemuakolom(mainmatrix,bar,i) && i<mainmatrix.nCols-1){
+                        System.out.println(i);
+                        i+=1;
+                        System.out.println(i);
+                        }
+                    }
+
                 }
                 // Mencari hasil bagi dengan baris utama 
                 if(mainmatrix.mat[bar][i]==0){
@@ -81,6 +91,7 @@ public class gauss {
             bar2 = 0;
             bar+=1;
             bar2= bar+1;
+            System.out.println("PERHITUNGAANNNN");
             mainmatrix.displayMatrix();
         }
         // mainmatrix.replaceDuplicateRows(mainmatrix);    
@@ -95,8 +106,8 @@ public class gauss {
             int kol2 =0;
             for (kol2=0;kol2< mainmatrix.nCols;kol2++){
                 if(mainmatrix.mat[i][kol2]!=0){
+                    pembagi = mainmatrix.mat[i][kol2];
                     if(pembagi !=0){
-                        pembagi = mainmatrix.mat[i][kol2];
                         break;
                     }
                     System.out.print("pembagi : " );
@@ -123,8 +134,8 @@ public class gauss {
             }
         }
         
-        // ubah ukuran tempmatrix
-        // mainmatrix.displayMatrix();
+//         // ubah ukuran tempmatrix
+    mainmatrix.displayMatrix();
         Matriks tempmatrix = new Matriks(row,col-1);
         // tempmatrix.copyMatrix(mainmatrix);
 
@@ -391,5 +402,17 @@ public class gauss {
     
             }
         }
+    }
+
+    public boolean ceknolsemuakolom(Matriks m, int bar,int kol){
+        boolean betul;
+        betul = true;
+        for(int i=bar+1;i<m.nRows;i++){
+            if (m.mat[i][kol] != 0){
+                betul = false;
+                break;
+            }
+        }
+        return betul;
     }
 }
