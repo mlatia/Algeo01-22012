@@ -67,7 +67,7 @@ public class Regresi {
 
         //use gauss to form a 
         testCramer tes = new testCramer();
-        double[] ans = new double[datamain.getLastIdxCol()];
+        float[] ans = new float[datamain.getLastIdxCol()];
         ans = tes.testcramer(hasil); 
 
         if(!print){

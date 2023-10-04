@@ -175,7 +175,7 @@ class Matriks {
         }
     }
 
-    public void simpanSPL2 (String name, double[] ans){ // buat cramer karena disimpen di list
+    public void simpanSPL2 (String name, float[] ans){ // buat cramer karena disimpen di list
         try {
             FileWriter fileWriter = new FileWriter("../test/" + name + ".txt");
             PrintWriter printWriter = new PrintWriter(fileWriter);

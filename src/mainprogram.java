@@ -174,7 +174,7 @@ public class mainprogram {
                             }
                             else{
                                 //Read the cramer funtion
-                                double[] hasil = new double[col-1];
+                                float[] hasil = new float[col-1];
                                 testCramer tes = new testCramer();
                                 hasil= tes.testcramer(mainmatrix);
                                 System.out.println("Do you want to save it in txt file?");
@@ -212,7 +212,7 @@ public class mainprogram {
                             mAwal.openMatrix(name);
                             mAwal.displayMatrix();
                             testCramer tes = new testCramer();
-                            double[] hasil = new double[mAwal.nCols-1];
+                            float[] hasil = new float[mAwal.nCols-1];
                             hasil= tes.testcramer(mAwal);
                             System.out.println("Do you want to save it in txt file?");
                             System.out.println("1) Yes");
