@@ -6,18 +6,18 @@ import java.util.jar.Manifest;
 
 public class gauss{
     
-    public static void main(String[] args){
+    public void splgaus(Matriks mainmatrix0){
         //KAMUS GLOBAL
         int i,j;
         //Take input from user keyboard
-        Scanner in = new Scanner(System.in);
-        System.out.println("Berapa ukuran baris dan kolom matriks?");
-        System.out.print("Row: ");
-        int row = in.nextInt();
-        System.out.print("Col: ");
-        int col = in.nextInt();
-        Matriks mainmatrix0 = new Matriks(row,col);
-        mainmatrix0.readMatrix();
+        // Scanner in = new Scanner(System.in);
+        // System.out.println("Berapa ukuran baris dan kolom matriks?");
+        // System.out.print("Row: ");
+        // int row = in.nextInt();
+        // System.out.print("Col: ");
+        // int col = in.nextInt();
+        // Matriks mainmatrix0 = new Matriks(row,col);
+        // mainmatrix0.readMatrix();
         
         /* JIKA MATRIKS ELEMEN 1 NYA TERLETAK DI DIAGONAL SEMUA */        
         /* PROSES MENGUBAH MATRIKS KE BENTUK nCols-1 = nRows */
@@ -91,6 +91,9 @@ public class gauss{
             bar+=1;
             bar2= bar+1;
         }
+
+        System.out.println("ESELON1: ");
+        mainmatrix.displayMatrix();
         
         /*  MENGUBAH MATRIKS MENJADI ESELON BARIS */  
         double pembagi;
@@ -125,7 +128,7 @@ public class gauss{
                 }
             }
         }       
-        Matriks tempmatrix = new Matriks(row,col-1);
+        Matriks tempmatrix = new Matriks(mainmatrix0.nRows,mainmatrix0.nCols-1);
         // ngitung banyak baris yang mengandung 0
         int countBar0 = 0; 
         for (i=0;i<mainmatrix.nRows;i++){
@@ -155,12 +158,20 @@ public class gauss{
             }
             
         }
-        // System.out.print("HASIL AKHIR");
-        // mainmatrix.displayMatrix();
+        System.out.print("HASIL AKHIR");
+        mainmatrix.displayMatrix();
                 
         /* SOLUSI SPL DENGAN UKURAN MATRIKS ROW = COL-1*/        
         if(countCol0 <=1){
-            double det = mainmatrix.determinan(mainmatrix);
+
+            mainmatrix.displayMatrix();
+            tempmatrix = new Matriks(mainmatrix.nRows,mainmatrix.nCols-1);
+            for(i=0;i<tempmatrix.nRows;i++){
+                for(j=0;j<tempmatrix.nCols;j++){
+                    tempmatrix.mat[i][j]=mainmatrix.mat[i][j];
+                }
+            }
+            double det = tempmatrix.determinan(mainmatrix);
             if(det ==0){
                 double lastIdx = mainmatrix.mat[mainmatrix.nRows-1][mainmatrix.nCols-1];
                     // SPL TIDAK MEMILIKI SOLUSI
@@ -322,7 +333,7 @@ public class gauss{
             int Colstring =0;
             bar =0;
             kol=0;
-            while(bar<mainmatrix.nCols-1 && kol<mainmatrix.nCols ){
+            while(bar<mainmatrix.nCols-1 && kol<mainmatrix.nCols && Colstring<matrixString.nCols){
                 if(mainmatrix.mat[bar][kol]==0){
                     matrixNum.mat[kol][0] = 0;
                     //elemen tidak nol pertama pada bar

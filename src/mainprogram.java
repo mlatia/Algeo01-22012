@@ -44,6 +44,17 @@ public class mainprogram {
                 userInput = in.nextInt();
 
                 if (userInput==1){
+                    gauss gs = new gauss();
+                    Scanner sc = new Scanner(System.in);
+                    System.out.print("Row: ");
+                    int row = sc.nextInt();
+                    System.out.print("Col: ");
+                    int col = sc.nextInt();
+                    //main matrix (from user input)
+                    Matriks mainmatrix = new Matriks(row,col);
+                    mainmatrix.readMatrix();
+                    gs.splgaus(mainmatrix);
+
                     safeinput=true;
                 }
                 else if (userInput==2){

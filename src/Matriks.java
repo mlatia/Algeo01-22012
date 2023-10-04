@@ -513,7 +513,7 @@ class Matriks {
          
     int firssElmtNotNol(Matriks m, int bar){
         int tempJ,j;
-        tempJ = -1;
+        tempJ = 0;
         for(j=0;j<m.nCols;j++){
             if(m.mat[bar][j]!=0){
                 tempJ = j;
@@ -528,6 +528,18 @@ class Matriks {
         betul = true;
         for(int i=bar+1;i<m.nRows;i++){
             if (m.mat[i][kol] != 0){
+                betul = false;
+                break;
+            }
+        }
+        return betul;
+    }
+    public boolean ceknolsemuabaris(Matriks m, int bar){
+        boolean betul;
+        betul = true;
+        // int kol =0;
+        for(int kol =0;kol<m.nCols;kol++){
+            if (m.mat[bar][kol] != 0){
                 betul = false;
                 break;
             }
