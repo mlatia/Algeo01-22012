@@ -533,5 +533,16 @@ class Matriks {
         }
         return(tempJ);
     }
-    
+
+    public boolean ceknolsemuakolom(Matriks m, int bar,int kol){
+        boolean betul;
+        betul = true;
+        for(int i=bar+1;i<m.nRows;i++){
+            if (m.mat[i][kol] != 0){
+                betul = false;
+                break;
+            }
+        }
+        return betul;
+    }
 }
