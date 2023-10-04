@@ -117,7 +117,7 @@ public class mainprogram {
                             String name = sc.next();
                             mAwal.openMatrix(name);
                             mAwal.displayMatrix();
-                            if(mAwal.determinan(mAwal)==0){
+                            if(mAwal.determinan(mAwal)==0 || mAwal.nCols != mAwal.nRows){
                                 System.out.println("Tidak bisa diselesaikan dengan Invers");
                                 break;
                             }
@@ -227,7 +227,7 @@ public class mainprogram {
                             String name = sc.next();
                             mAwal.openMatrix(name);
                             mAwal.displayMatrix();
-                            if(mAwal.determinan(mAwal)==0){
+                            if(mAwal.determinan(mAwal)==0 || mAwal.nCols != mAwal.nRows){
                                 System.out.println("Tidak bisa diselesaikan dengan Invers");
                                 break;
                             }
