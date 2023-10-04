@@ -8,8 +8,9 @@ public class mainprogram {
         int baris,i,kolom;
         boolean safeinput,safeinput1,safeinput2;
         int userInput,mainmenu;
-
+        
         //ALGORITMA
+        determinan dt = new determinan();
         Scanner in = new Scanner(System.in);
         System.out.println("                            WELCOME!");
         System.out.println(" ");
@@ -81,7 +82,7 @@ public class mainprogram {
                                 System.out.println("Tidak bisa diselesaikan dengan Invers, bukan matriks persegi");
                                 break;
                             }
-                            else if(mainmatrix2.determinan(mainmatrix2)==0){
+                            else if(dt.detgaus(mainmatrix2)==0){
                                 System.out.println("Tidak bisa diselesaikan dengan Invers");
                                 break;
                             }
@@ -128,8 +129,7 @@ public class mainprogram {
                                     mainmatrix.mat[i][j] = mAwal.mat[i][j];
                                 }
                             }
-                            System.out.println(mainmatrix.determinan(mainmatrix));
-                            if(mainmatrix.determinan(mainmatrix)==0 || mainmatrix.nCols != mainmatrix.nRows){
+                            if( mainmatrix.nCols != mainmatrix.nRows||dt.detgaus(mainmatrix)==0){
                                 System.out.println("Tidak bisa diselesaikan dengan Invers");
                                 break;
                             }
@@ -202,7 +202,7 @@ public class mainprogram {
                                 System.out.println("Tidak bisa diselesaikan dengan Cramer, bukan matriks persegi");
                                 break;
                             }
-                            else if(mainmatrix2.determinan(mainmatrix2)==0){
+                            else if(dt.detgaus(mainmatrix2)==0){
                                 System.out.println("Tidak bisa diselesaikan dengan Invers");
                                 break;
                             }
@@ -251,7 +251,7 @@ public class mainprogram {
                                     mainmatrix.mat[i][j] = mAwal.mat[i][j];
                                 }
                             }
-                            if(mainmatrix.determinan(mainmatrix)==0 || mainmatrix.nCols != mainmatrix.nRows){
+                            if( mainmatrix.nCols != mainmatrix.nRows||dt.detgaus(mainmatrix)==0){
                                 System.out.println("Tidak bisa diselesaikan dengan Invers");
                                 break;
                             }

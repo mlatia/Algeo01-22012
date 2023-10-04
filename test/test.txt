@@ -1,5 +1,7 @@
 The result of the variables:
-Variable 1: 0.2213 
-Variable 2: 0.1049 
-Variable 3: 0.0287 
-Variable 4: 0.2026 
+Variable 1: 2.9553 
+Variable 2: -1.6563 
+Variable 3: -1.6775 
+Variable 4: -1.5841 
+Variable 5: -1.1710 
+Variable 6: 0.3699 
