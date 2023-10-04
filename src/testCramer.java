@@ -1,5 +1,5 @@
 public class testCramer {
-    public float[] testcramer(Matriks mainmatrix){
+    public double[] testcramer(Matriks mainmatrix){
         //KAMUS LOKAL
         int baris,kolom,i;
 
@@ -18,14 +18,14 @@ public class testCramer {
         }
 
         //the determinant for the initial matrix, no switching
-        float det = mainmatrixnoresult.determinant();
+        double det = mainmatrixnoresult.determinant();
 
         // temporary matrix
         Matriks temp = new Matriks(mainmatrix.getLastIdxRow()+1, mainmatrix.getLastIdxCol());
         temp.copyMatrix(mainmatrixnoresult);
         
         //create an empty list for determinants
-        float[] ans = new float[mainmatrix.getLastIdxCol()+1];
+        double[] ans = new double[mainmatrix.getLastIdxCol()+1];
         for (i=0;i<mainmatrix.getLastIdxCol();i++){
             temp.switched(hasil,i);
             ans[i] = temp.determinant()/det;
