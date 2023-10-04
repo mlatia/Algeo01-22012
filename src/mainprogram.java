@@ -128,7 +128,8 @@ public class mainprogram {
                                     mainmatrix.mat[i][j] = mAwal.mat[i][j];
                                 }
                             }
-                            if(mainmatrix.determinant()==0 || mainmatrix.nCols != mainmatrix.nRows){
+                            System.out.println(mainmatrix.determinan(mainmatrix));
+                            if(mainmatrix.determinan(mainmatrix)==0 || mainmatrix.nCols != mainmatrix.nRows){
                                 System.out.println("Tidak bisa diselesaikan dengan Invers");
                                 break;
                             }
@@ -250,7 +251,7 @@ public class mainprogram {
                                     mainmatrix.mat[i][j] = mAwal.mat[i][j];
                                 }
                             }
-                            if(mainmatrix.determinant()==0 || mainmatrix.nCols != mainmatrix.nRows){
+                            if(mainmatrix.determinan(mainmatrix)==0 || mainmatrix.nCols != mainmatrix.nRows){
                                 System.out.println("Tidak bisa diselesaikan dengan Invers");
                                 break;
                             }
