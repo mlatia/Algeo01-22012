@@ -142,7 +142,6 @@ class Matriks {
             }
     }
 
-
     public void simpanDeter (String name, float det){
         try {
             FileWriter fileWriter = new FileWriter("../test/" + name + ".txt");
@@ -199,16 +198,6 @@ class Matriks {
     public int getLastIdxCol() {
         // Get the last index available for the matrix mat col
         return (nCols - 1);
-    }
-
-    public boolean isIdxEff(int i, int j) {
-        // Check if the index is valid for a matrix mat size nRows x nCols
-        return ((i < nRows && i >= 0) && (j < nCols && j >= 0));
-    }
-
-    public double getElmtDiagonal(int i) {
-        // Return matrix mat[i][i]
-        return this.mat[i][i];
     }
 
     public void copyMatrix(Matriks mat2) {

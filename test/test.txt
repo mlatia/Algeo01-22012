@@ -1,2 +1,5 @@
-f(x) = 58.000 + 4.667x + -8.333x2 + -4.667x3
-f(2.0) = 41.3333
+The result of the variables:
+Variable 1: 0.2213 
+Variable 2: 0.1049 
+Variable 3: 0.0287 
+Variable 4: 0.2026 

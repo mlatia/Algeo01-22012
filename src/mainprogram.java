@@ -69,11 +69,21 @@ public class mainprogram {
                             //main matrix (from user input)
                             Matriks mainmatrix = new Matriks(row,col);
                             mainmatrix.readMatrix();
-
+                            Matriks mainmatrix2 = new Matriks(mainmatrix.getLastIdxRow()+1,mainmatrix.getLastIdxCol());
+                            for (i=0;i<mainmatrix.getLastIdxRow()+1;i++){
+                                for (int j = 0;j<mainmatrix.getLastIdxCol();j++){
+                                    mainmatrix2.mat[i][j] = mainmatrix.mat[i][j];
+                                }
+                            }
 
                             //Verify first if it's a square matrix
                             if (row != col-1){
                                 System.out.println("Tidak bisa diselesaikan dengan Invers, bukan matriks persegi");
+                                break;
+                            }
+                            else if(mainmatrix2.determinan(mainmatrix2)==0){
+                                System.out.println("Tidak bisa diselesaikan dengan Invers");
+                                break;
                             }
                             else{
                                 Matriks hasil = new Matriks(1, 1);
@@ -112,6 +122,18 @@ public class mainprogram {
                             String name = sc.next();
                             mAwal.openMatrix(name);
                             mAwal.displayMatrix();
+                            Matriks mainmatrix = new Matriks(mAwal.getLastIdxRow()+1,mAwal.getLastIdxCol());
+                            for (i=0;i<mAwal.getLastIdxRow()+1;i++){
+                                for (int j = 0;j<mAwal.getLastIdxCol();j++){
+                                    mainmatrix.mat[i][j] = mAwal.mat[i][j];
+                                }
+                            }
+                            System.out.println(mainmatrix.determinan(mainmatrix));
+                            if(mainmatrix.determinan(mainmatrix)==0 || mainmatrix.nCols != mainmatrix.nRows){
+                                System.out.println("Tidak bisa diselesaikan dengan Invers");
+                                break;
+                            }
+                            else{
                             splinvers spl = new splinvers();
                             Matriks hasil = new Matriks(1, 1);
                             hasil = spl.hasilsplinvers(mAwal);
@@ -142,6 +164,7 @@ public class mainprogram {
                             safeinput1=true;
                         }
                     }
+                    }
                     safeinput=true;
                     
                 }
@@ -167,10 +190,21 @@ public class mainprogram {
                             //main matrix (from user input)
                             Matriks mainmatrix = new Matriks(row,col);
                             mainmatrix.readMatrix();
+                            Matriks mainmatrix2 = new Matriks(mainmatrix.getLastIdxRow()+1,mainmatrix.getLastIdxCol());
+                            for (i=0;i<mainmatrix.getLastIdxRow()+1;i++){
+                                for (int j = 0;j<mainmatrix.getLastIdxCol();j++){
+                                    mainmatrix2.mat[i][j] = mainmatrix.mat[i][j];
+                                }
+                            }
 
                             //Verify first if it's a square matrix
                             if (row != col-1){
                                 System.out.println("Tidak bisa diselesaikan dengan Cramer, bukan matriks persegi");
+                                break;
+                            }
+                            else if(mainmatrix2.determinan(mainmatrix2)==0){
+                                System.out.println("Tidak bisa diselesaikan dengan Invers");
+                                break;
                             }
                             else{
                                 //Read the cramer funtion
@@ -211,6 +245,17 @@ public class mainprogram {
                             String name = sc.next();
                             mAwal.openMatrix(name);
                             mAwal.displayMatrix();
+                            Matriks mainmatrix = new Matriks(mAwal.getLastIdxRow()+1,mAwal.getLastIdxCol());
+                            for (i=0;i<mAwal.getLastIdxRow()+1;i++){
+                                for (int j = 0;j<mAwal.getLastIdxCol();j++){
+                                    mainmatrix.mat[i][j] = mAwal.mat[i][j];
+                                }
+                            }
+                            if(mainmatrix.determinan(mainmatrix)==0 || mainmatrix.nCols != mainmatrix.nRows){
+                                System.out.println("Tidak bisa diselesaikan dengan Invers");
+                                break;
+                            }
+                            else{
                             testCramer tes = new testCramer();
                             float[] hasil = new float[mAwal.nCols-1];
                             hasil= tes.testcramer(mAwal);
@@ -240,6 +285,7 @@ public class mainprogram {
                             System.out.println("done");
                             safeinput1=true;
                         }
+                    }
                         else{   // user enters other inputs
                             System.out.println("False input code, please try again.");
                         }
