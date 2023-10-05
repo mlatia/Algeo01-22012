@@ -65,8 +65,10 @@ public class mainprogram {
                    
                             Matriks mainmatrix = new Matriks(row,col);
                             mainmatrix.readMatrix();
+                            mainmatrix.displayMatrix();
                             double[] hasil = new double[mainmatrix.nCols-1];
-                            hasil = gs.splgaus(mainmatrix);
+                            hasil = gs.splgaus(mainmatrix,false);
+                            mainmatrix.displayMatrix();
 
                             System.out.println("Do you want to save it in txt file?");
                             System.out.println("1) Yes");
@@ -85,10 +87,22 @@ public class mainprogram {
                                 }
                             }
                             // Handle the error or exit the program gracefully
+                             Matriks ms = new Matriks(mainmatrix.nRows, mainmatrix.nCols-1);
+                            for(i=0;i<mainmatrix.nRows;i++){
+                                for(int j=0;j<mainmatrix.nCols-1;j++){
+                                    ms.mat[i][j] = mainmatrix.mat[i][j];
+                                }
+                            }
+                            determinan dter = new determinan();
                             if (opt == 1) {
-                            System.out.print("Enter the file name in test folder without '.txt': ");
-                            String name = in.next();
-                            mainmatrix.simpanSPL3(name, hasil);
+                                if(dter.detgaus(ms)!=0){
+                                System.out.print("Enter the file name in test folder without '.txt': ");
+                                String name = in.next();
+                                mainmatrix.simpanSPL3(name, hasil);
+                                }
+                                else{
+                                gs.splgaus(mainmatrix,true);
+                                }
                             }
                             System.out.println("done");
                             safeinput1=true;
@@ -103,7 +117,7 @@ public class mainprogram {
                             mAwal.displayMatrix();
                             gauss gs = new gauss();
                             double[] hasil = new double[mAwal.nCols-1];
-                            hasil = gs.splgaus(mAwal);
+                            hasil = gs.splgaus(mAwal,false);
                             System.out.println("Do you want to save it in txt file?");
                             System.out.println("1) Yes");
                             System.out.println("2) No");
@@ -122,10 +136,22 @@ public class mainprogram {
                                 }
                             }
                                 // Handle the error or exit the program gracefully
+                             Matriks ms = new Matriks(mAwal.nRows, mAwal.nCols-1);
+                            for(i=0;i<mAwal.nRows;i++){
+                                for(int j=0;j<mAwal.nCols-1;j++){
+                                    ms.mat[i][j] = mAwal.mat[i][j];
+                                }
+                            }
+                            determinan dter = new determinan();
                             if (opt == 1) {
+                                if(dter.detgaus(ms)!=0){
                                 System.out.print("Enter the file name in test folder without '.txt': ");
                                 name = in.next();
                                 mAwal.simpanSPL3(name, hasil);
+                                }
+                                else{
+                                gs.splgaus(mAwal,true);
+                                }
                             }
                             System.out.println("done");
                             safeinput1=true;
@@ -137,7 +163,121 @@ public class mainprogram {
                 }
                     
                 else if (userInput==2){
+                    System.out.println("Choose input method:");
+                    System.out.println("---------------------------");
+                    System.out.println("1) Keyboard");
+                    System.out.println("2) Read Text File");
+                    safeinput1 = false;
+                    while (safeinput1==false){
+                        System.out.print("--> ");
+                        userInput = in.nextInt();
+                        Scanner sc = new Scanner(System.in);
+                        if (userInput==1){  // KEYBOARD
+                            safeinput1=true;
+                            //Take input from user keyboard
+                            System.out.println("Berapa ukuran baris dan kolom matriks?");
+                            System.out.print("Row: ");
+                            int row = sc.nextInt();
+                            System.out.print("Col: ");
+                            int col = sc.nextInt();
+                            GaussJordan gsj = new GaussJordan();
+                   
+                            Matriks mainmatrix = new Matriks(row,col);
+                            mainmatrix.readMatrix();
+                            mainmatrix.displayMatrix();
+                            double[] hasil = new double[mainmatrix.nCols-1];
+                            hasil = gsj.splgaussjordan(mainmatrix,false);
+                            mainmatrix.displayMatrix();
+
+                            System.out.println("Do you want to save it in txt file?");
+                            System.out.println("1) Yes");
+                            System.out.println("2) No");
+                            int opt = 0;
+                            
+                            while (true) {
+                                System.out.print("--> ");
+                                if (in.hasNextInt()) {
+                                    opt = in.nextInt();
+                                    break; // Exit the loop when valid input is received
+                                } else {
+                                    // Handle the case where the input is not an integer
+                                    System.out.println("Invalid input. Please enter an integer.");
+                                    in.nextLine(); // Consume the invalid input
+                                }
+                            }
+                             Matriks ms = new Matriks(mainmatrix.nRows, mainmatrix.nCols-1);
+                            for(i=0;i<mainmatrix.nRows;i++){
+                                for(int j=0;j<mainmatrix.nCols-1;j++){
+                                    ms.mat[i][j] = mainmatrix.mat[i][j];
+                                }
+                            }
+                            determinan dter = new determinan();
+                            if (opt == 1) {
+                                if(dter.detgaus(ms)!=0){
+                                System.out.print("Enter the file name in test folder without '.txt': ");
+                                String name = in.next();
+                                mainmatrix.simpanSPL3(name, hasil);
+                                }
+                                else{
+                                gsj.splgaussjordan(mainmatrix,true);
+                                }
+                            }
+                            System.out.println("done");
+                            safeinput1=true;
+                            
+                            
+                        }
+                        else if (userInput==2){ // FILE
+                            Matriks mAwal = new Matriks(0,0);
+                            System.out.print("Masukkan nama file pada folder test tanpa '.txt': ");
+                            String name = sc.next();
+                            mAwal.openMatrix(name);
+                            mAwal.displayMatrix();
+                            GaussJordan gsj = new GaussJordan();
+                            double[] hasil = new double[mAwal.nCols-1];
+                            hasil = gsj.splgaussjordan(mAwal,false);
+                            System.out.println("Do you want to save it in txt file?");
+                            System.out.println("1) Yes");
+                            System.out.println("2) No");
+                            in.nextLine();
+                            int opt = 0;
+                            
+                            while (true) {
+                                System.out.print("--> ");
+                                if (in.hasNextInt()) {
+                                    opt = in.nextInt();
+                                    break; // Exit the loop when valid input is received
+                                } else {
+                                    // Handle the case where the input is not an integer
+                                    System.out.println("Invalid input. Please enter an integer.");
+                                    in.nextLine(); // Consume the invalid input
+                                }
+                            }
+                                // Handle the error or exit the program gracefully
+                            Matriks ms = new Matriks(mAwal.nRows, mAwal.nCols-1);
+                            for(i=0;i<mAwal.nRows;i++){
+                                for(int j=0;j<mAwal.nCols-1;j++){
+                                    ms.mat[i][j] = mAwal.mat[i][j];
+                                }
+                            }
+                            determinan dter = new determinan();
+                            if (opt == 1) {
+                                if(dter.detgaus(ms)!=0){
+                                System.out.print("Enter the file name in test folder without '.txt': ");
+                                name = in.next();
+                                mAwal.simpanSPL3(name, hasil);
+                                }
+                                else{
+                                gsj.splgaussjordan(mAwal,true);
+                                }
+                            }
+                            System.out.println("done");
+                            safeinput1=true;
+                        
+                    }
+                    }
                     safeinput=true;
+                    
                 }
                 else if (userInput==3){
                     System.out.println("Choose input method:");
@@ -212,6 +352,7 @@ public class mainprogram {
                             System.out.print("Masukkan nama file pada folder test tanpa '.txt': ");
                             String name = sc.next();
                             mAwal.openMatrix(name);
+                            System.out.print("berhasil");
                             mAwal.displayMatrix();
                             Matriks mainmatrix = new Matriks(mAwal.getLastIdxRow()+1,mAwal.getLastIdxCol());
                             for (i=0;i<mAwal.getLastIdxRow()+1;i++){
@@ -219,7 +360,7 @@ public class mainprogram {
                                     mainmatrix.mat[i][j] = mAwal.mat[i][j];
                                 }
                             }
-                            if( mainmatrix.nCols != mainmatrix.nRows||dt.detgaus(mainmatrix)==0){
+                            if( mainmatrix.nCols-1 != mainmatrix.nRows||dt.detgaus(mainmatrix)==0){
                                 System.out.println("Tidak bisa diselesaikan dengan Invers");
                                 break;
                             }
@@ -606,8 +747,100 @@ public class mainprogram {
                 System.out.print("--> ");
                 userInput = in.nextInt();
                 if (userInput==1){ //Invers matriks balikan
+                System.out.println("Choose input method:");
+                System.out.println("---------------------------");
+                System.out.println("1) Keyboard");
+                System.out.println("2) Read Text File");
+                safeinput1 = false;
+                while (safeinput1==false){
+                    System.out.print("--> ");
+                    userInput = in.nextInt();
                     
-                    safeinput=true;
+                    if (userInput==1){  // KEYBOARD
+                        safeinput1=true;
+                        //Take input from user keyboard
+                        System.out.println("Berapa ukuran baris dan kolom matriks?");
+                        System.out.print("Row: ");
+                        int row = in.nextInt();
+                        System.out.print("Col: ");
+                        int col = in.nextInt();
+                        // in.close();
+                        //main matrix (from user input)
+                        Matriks mainmatrix = new Matriks(row,col);
+                        mainmatrix.readMatrix();
+
+                        //Verify first if it's a square matrix
+                        if (row != col){
+                            System.out.println("Tidak bisa diselesaikan, bukan matriks persegi");
+                        }
+                        else{
+                            testInversGauss invi = new testInversGauss();
+                            mainmatrix= invi.invergauss(mainmatrix);
+                            System.out.println("Do you want to save it in txt file?");
+                            System.out.println("1) Yes");
+                            System.out.println("2) No");
+                            int opt = 0;
+                            
+                            while (true) {
+                                System.out.print("--> ");
+                                if (in.hasNextInt()) {
+                                    opt = in.nextInt();
+                                    break; // Exit the loop when valid input is received
+                                } else {
+                                    // Handle the case where the input is not an integer
+                                    System.out.println("Invalid input. Please enter an integer.");
+                                    in.nextLine(); // Consume the invalid input
+                                }
+                            }
+                                // Handle the error or exit the program gracefully
+                            if (opt == 1) {
+                            System.out.print("Enter the file name in test folder without '.txt': ");
+                            String name = in.next();
+                            mainmatrix.simpanMatrix(name, mainmatrix);
+                            }
+                            System.out.println("done");
+                            safeinput1=true;
+                            
+                        }
+                    }
+                    else if (userInput==2){ // FILE
+                        Scanner sc = new Scanner(System.in);
+                        Matriks mAwal = new Matriks(0,0);
+                        System.out.print("Masukkan nama file pada folder test tanpa '.txt': ");
+                        String name = sc.next();
+                        mAwal.openMatrix(name);
+                        mAwal.displayMatrix();
+                        testInversGauss invi = new testInversGauss();
+                        mAwal= invi.invergauss(mAwal);
+                        System.out.println("Do you want to save it in txt file?");
+                        System.out.println("1) Yes");
+                        System.out.println("2) No");
+                        int opt = 0;
+                        while (true) {
+                            System.out.print("--> ");
+                            if (in.hasNextInt()) {
+                                opt = in.nextInt();
+                                break; // Exit the loop when valid input is received
+                            } else {
+                                // Handle the case where the input is not an integer
+                                System.out.println("Invalid input. Please enter an integer.");
+                                in.nextLine(); // Consume the invalid input
+                            }
+                        }
+                            // Handle the error or exit the program gracefully
+                        if (opt == 1) {
+                        System.out.print("Enter the file name in test folder without '.txt': ");
+                        name = in.next();
+                        mAwal.simpanMatrix(name, mAwal);
+                        }
+                        System.out.println("done");
+                        safeinput1=true;
+                    }
+                    else{   // user enters other inputs
+                        System.out.println("False input code, please try again.");
+                    }
+                        }
+                        safeinput=true;
                 }
                 else if (userInput==2){ //Invers Adjoin
                 System.out.println("Choose input method:");
@@ -1014,15 +1247,18 @@ public class mainprogram {
                         datamain.displayMatrix();
                         
                         //BACA NILAI MASUKAN
+                        Matriks datamain2 = new Matriks(datamain.nRows-1,datamain.nCols);
+                        for (i=0;i<datamain.nRows-1;i++){
+                            for (int j=0; j<datamain.nCols;j++){
+                                datamain2.mat[i][j] = datamain.mat[i][j];
+                            }
+                        }
                         double[] X = new double[datamain.getLastIdxCol()];
                         for (i=0;i<datamain.getLastIdxCol();i++){
                             X[i] = datamain.mat[datamain.nRows-1][i];
                         }
-                        System.out.println("");
-
-
                         Regresi tes = new Regresi();
-                        tes.regresi(datamain,datamain.getLastIdxRow()+1,datamain.getLastIdxCol()+1,X,false);
+                        tes.regresi(datamain2,datamain.getLastIdxRow(),datamain.getLastIdxCol()+1,X,false);
                         // save to txt file
                         System.out.println(" ");
                         System.out.println("Do you want to save it in txt file?");
@@ -1043,7 +1279,7 @@ public class mainprogram {
                         }
                     
                         if (opt == 1) {
-                            tes.regresi(datamain,datamain.getLastIdxRow()+1,datamain.getLastIdxCol()+1,X,true);
+                            tes.regresi(datamain2,datamain.getLastIdxRow(),datamain.getLastIdxCol()+1,X,true);
                         }
                         System.out.println("done");
                         

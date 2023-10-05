@@ -1,4 +1,7 @@
 // package Algeo01-22012.src;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.DecimalFormat;
 import java.util.*;
 import java.util.jar.Manifest;
@@ -7,7 +10,7 @@ import java.util.jar.Manifest;
 
 public class gauss{
     
-    double[] splgaus(Matriks mainmatrix0){
+    double[] splgaus(Matriks mainmatrix0, boolean print){
         //KAMUS GLOBAL
        // SPL memiliki solusi unik
                 // ubah ukuran tempmatrix
@@ -431,6 +434,7 @@ public class gauss{
                 pengurangNum =0;
             }
             // Solusi SPL 
+            if(!print){
             System.out.println("Solusi dari SPL Parametrik :");
             for (i = 0; i < matrixString.nRows ; i++) {
                 System.out.print("x[" + (i + 1) + "] = " );
@@ -469,6 +473,58 @@ public class gauss{
                 System.out.println("");
             }
         }
+        else{
+            Scanner in = new Scanner(System.in);
+            System.out.print("Enter the file name in test folder without '.txt': ");
+            String name = in.next();
+            try {
+            FileWriter fileWriter = new FileWriter("../test/" + name + ".txt");
+            PrintWriter printWriter = new PrintWriter(fileWriter);
+            printWriter.print("Solusi dari SPL Parametrik :\n");
+            for (i = 0; i < matrixString.nRows ; i++) {
+                printWriter.print("x[" + (i + 1) + "] = " );
+                if(matrixNum.mat[i][0]!=0){
+                    printWriter.print( matrixNum.mat[i][0]);
+                }
+                nol = true;
+                for(j=0;j<countBar0;j++){
+                    if( matrixString.mat[i][j]>0 && matrixNum.mat[i][0]!=0){
+                        printWriter.print("+");
+                    }else {
+                        printWriter.print("");
+                    }
+                    if(matrixString.mat[i][j]!=0){
+                        
+                        if(matrixString.mat[i][j]==1){
+                            printWriter.print("t" + (j+1));
+                        }else if(matrixString.mat[i][j]==-1){
+                            printWriter.print("-t" + (j+1));
+                        }else{
+                            
+                            printWriter.print(matrixString.mat[i][j] + "t" + (j+1));
+                        }
+                    }
+                }
+                
+                for(j=0;j<matrixString.nCols;j++){
+                    if(matrixString.mat[i][j]!=0){
+                        nol = false;
+                        break;
+                    }
+                }
+                if(matrixNum.mat[i][0]==0 && nol){
+                    printWriter.print("0");
+                }
+                printWriter.print("\n");
+            }
+            printWriter.close();
+             }
+            catch (IOException e) {
+                System.out.print("File tidak dapat disimpan pada folder 'test'. ");
+            }
+         }
+        }
+        
         return array;
     }
 

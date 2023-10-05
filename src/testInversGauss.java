@@ -3,19 +3,11 @@ import java.util.*;
 import java.util.jar.Manifest;
 
 public class testInversGauss {
-    public static void main(String[] args) {
+    Matriks invergauss(Matriks mainmatrix0) {
         //KAMUS GLOBAL
         int i,j;
         //Take input from user keyboard
-        Scanner in = new Scanner(System.in);
-        System.out.println("Berapa ukuran baris dan kolom matriks?");
-        System.out.print("Row: ");
-        int row = in.nextInt();
-        System.out.print("Col: ");
-        int col = in.nextInt();
-        Matriks mainmatrix0 = new Matriks(row,col);
-        mainmatrix0.readMatrix();
-        Matriks tempmatrix = new Matriks(row,col);
+        Matriks tempmatrix = new Matriks(mainmatrix0.nRows,mainmatrix0.nCols);
         for(i=0;i<mainmatrix0.nRows;i++){
             for(j=0;j<mainmatrix0.nCols;j++){
                 DecimalFormat decimalFormat = new DecimalFormat("#.####");
@@ -28,18 +20,17 @@ public class testInversGauss {
         }
         
        
-        
+        Matriks mainmatrix = new Matriks(mainmatrix0.nRows, 2*mainmatrix0.nCols);
+        Matriks hasil = new Matriks(mainmatrix0.nRows, mainmatrix0.nCols);
         // Membuat matriks ukuran col -1 = bar;
         double det = tempmatrix.determinan(tempmatrix);
         System.out.println("DETERMINAN : "+det);
-        mainmatrix0.displayMatrix();
         if( mainmatrix0.nCols != mainmatrix0.nRows){
             System.out.println("Matriks Singular");
         }else {
             if (det ==0){
                 System.out.println("Matriks Singular");
             }else {
-                Matriks mainmatrix = new Matriks(mainmatrix0.nRows, 2*mainmatrix0.nCols);
                 for(i=0;i<mainmatrix0.nRows;i++){
                     for(j=0;j<mainmatrix0.nCols;j++){
                         DecimalFormat decimalFormat = new DecimalFormat("#.####");
@@ -61,7 +52,6 @@ public class testInversGauss {
                 }
                 // System.out.print("hasil duplikasi");
                 mainmatrix.replacingDuplicateRows(mainmatrix);
-                mainmatrix.displayMatrix();
     
                /*PROSES MENGUBAH MATRIKS DENGAN OBE  */
                /* Mendapatkan matriks segitiga atas */
@@ -105,15 +95,10 @@ public class testInversGauss {
 
                            bagi = mainmatrix.mat[bar2][tempJ] / mainmatrix.mat[bar][tempJ];
                            mainmatrix.displayMatrix();
-                           System.out.println(mainmatrix.mat[bar2][tempJ]+"/"+mainmatrix.mat[bar][tempJ]);
-                           System.out.println("BAGI "+bagi);
                                
                            // Membuat kolom dibawah elemen pertama baris utama menjadi nol
                            while(kol<mainmatrix.nCols){
-                               System.out.println("bar2: "+bar2+"  KOL : "+kol);
                                mainmatrix.mat[bar2][kol] = mainmatrix.mat[bar2][kol] - ((mainmatrix.mat[bar][kol]*bagi));
-                               System.out.println(mainmatrix.mat[bar2][kol]+ "-"+mainmatrix.mat[bar][kol]+"*"+bagi);
-                               System.out.println("HASILNYA : "+mainmatrix.mat[bar2][kol]);
                                kol++;
                            }
                            kol=0;
@@ -177,7 +162,7 @@ public class testInversGauss {
                    }
                    
                }
-               System.out.println("CounBar0"+countBar0);
+    
                int countCol0 =0;
                for (i=0;i<mainmatrix.nRows;i++){
                    boolean check = true;
@@ -192,8 +177,6 @@ public class testInversGauss {
                    }
                    
                }
-               System.out.println("ESELON: ");
-               mainmatrix.displayMatrix();
         
         // MATRIKS ESELON REDUKSI
         
@@ -201,8 +184,7 @@ public class testInversGauss {
                bar2 =mainmatrix.nRows-countBar0-2;
                for(i=mainmatrix.nRows-countBar0-2;i>=0;i--){
                    // nyari 1 utama, mengenolkan kolom 1 utama
-                   System.out.println("bar:"+bar);
-                   System.out.println("bar2:"+bar2);
+                  
                    int tempJ;
                    tempJ = 0;
                    for(j=0;j<mainmatrix.nCols;j++){
@@ -212,20 +194,17 @@ public class testInversGauss {
                            break;
                        }
                    }
-                   System.out.println("tempJ:"+tempJ);
                    while(bar2<mainmatrix.nRows && bar2>=0 && bar>=0){
                        // bagi =1;
                        bagi = mainmatrix.mat[bar2][tempJ]/ mainmatrix.mat[bar][tempJ];
-                       System.out.println(mainmatrix.mat[bar2][tempJ]+" / "+mainmatrix.mat[bar][tempJ]);
-                       System.out.println("bagi "+bagi);
-                                   
+                     
                        // Membuat kolom diatas elemen pertama baris utama menjadi nol
                        kol =0;
         
                        while(kol<mainmatrix.nCols && bar2>=0){
                            // System.out.println(mainmatrix.mat[bar2][kol]+ "-"+ " "+mainmatrix.mat[bar][kol]+ "*"+ bagi);
                            mainmatrix.mat[bar2][kol] = mainmatrix.mat[bar2][kol] - ((mainmatrix.mat[bar][kol]*bagi));
-                           System.out.println(mainmatrix.mat[bar2][kol]);
+                      
                            kol++; 
                        }
                        mainmatrix.displayMatrix();
@@ -241,8 +220,7 @@ public class testInversGauss {
                    bar2= bar-1;
                    
                 }
-                System.out.println("ESELON REDUKSI : ");
-                mainmatrix.displayMatrix();
+
     
     
                 System.out.println("MATRIKS INVERS GAUSS : ");
@@ -252,9 +230,21 @@ public class testInversGauss {
                     }    
                     System.out.print("\n");
                 }
+
+                // menyimpan hasil invers
+                int k = 0;
+                for(i=0;i<mainmatrix0.nRows;i++){
+                    for(j=mainmatrix0.nCols;j<mainmatrix.nCols;j++){
+                        hasil.mat[i][k] = mainmatrix.mat[i][j];
+                        k+=1;
+                    }    
+                    k=0;
+                }
+
            }
 
         }
+        return(hasil);
 
     }
     
