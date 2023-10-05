@@ -99,7 +99,7 @@ public class Regresi {
         System.out.print("f(");
         for (i=0;i<var-1;i++){
             System.out.print(X[i]);
-            if (i!=var-1){
+            if (i!=var-2){
                 System.out.print(",");
             }
         }
