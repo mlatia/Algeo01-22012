@@ -45,59 +45,53 @@ public class gauss{
         }
         mainmatrix.replacingDuplicateRows(mainmatrix);
         
-        /*PROSES MENGUBAH MATRIKS DENGAN OBE  */
+         /*PROSES MENGUBAH MATRIKS DENGAN OBE  */
+        /* Mendapatkan matriks segitiga atas */
         double bagi = 0; // hasil bagi
         int bar = 0; // idx baris utama
         int bar2 = 1;
         int kol = 0;
-        boolean nol = true; 
-    
-        for( i = 0; i<mainmatrix.nRows;i++){
-            if (mainmatrix.mat[i][0] != 0){
-                nol = false;
-            }
-        };
+        boolean nol = false; 
         
-        if(!nol){
+        // Mencari determinan dengan membuat diagonal bawah nol
         for( i = 0; i<mainmatrix.nCols;i++){
             while(bar2<mainmatrix.nRows){
-                // Memeriksa apakah elemen dibawah elemen pertama baris utama sudah bernilai nol
-                if (Math.abs(mainmatrix.mat[bar][i])<=0.001 && !nol){
-                    if (!nolsemua(mainmatrix,bar,i)){
-                    tukerbarisnol(mainmatrix,bar,i);
-                    }        
-                }
+            // Memeriksa apakah elemen dibawah elemen pertama baris utama sudah bernilai nol
+                if (mainmatrix.mat[bar][i] == 0){
+                    if (mainmatrix.ceknolsemuakolom(mainmatrix, bar2, kol)==false){
+                    mainmatrix.tukerbarisnol(mainmatrix,bar,i);  
+                    }
+                    else{
+                        while(mainmatrix.ceknolsemuakolom(mainmatrix,bar,i)==true && i<mainmatrix.nCols-1){
+                            i+=1;
+                        }
+                    }
 
+                }
                 // Mencari hasil bagi dengan baris utama 
-                if(!nolsemua(mainmatrix, bar, i)){
-                bagi = mainmatrix.mat[bar2][i] / mainmatrix.mat[bar][i];
+                if(mainmatrix.mat[bar][i]==0){
+                    break;
+                }else{
+                    bagi = mainmatrix.mat[bar2][i] / mainmatrix.mat[bar][i];
+                    // System.out.print("bagi ",bagi);
+                        
+                    // Membuat kolom dibawah elemen pertama baris utama menjadi nol
+                    while(kol<mainmatrix.nCols){
+                        mainmatrix.mat[bar2][kol] = mainmatrix.mat[bar2][kol] - ((mainmatrix.mat[bar][kol]*bagi));
+                        kol++;
+                    }
+                    kol=0;
+                    nol = false;
+                    bar2++;
+                    // Melakukan loop untuk membuat nol di diagonal bawah di kolom selanjutnya
                 }
-                else{
-                    bagi = 0;
-                }
-            
-                // Membuat kolom dibawah elemen pertama baris utama menjadi nol
-                while(kol<mainmatrix.nCols){
-                    double sel = mainmatrix.mat[bar2][kol] - ((mainmatrix.mat[bar][kol]*bagi));
-                    DecimalFormat decimalFormat = new DecimalFormat("#.############");
-                    // Menggunakan format() untuk membulatkan nilai double
-                    String formattedValue = decimalFormat.format(sel);
-                    // Mengubah hasil yang sudah diformat kembali menjadi double (jika diperlukan)
-                    double roundedValue = Double.parseDouble(formattedValue);
-                    mainmatrix.mat[bar2][kol] = roundedValue;
-                    kol++;
-                }
-                kol=0;
-                nol = false;
-                bar2++;
-            // Melakukan loop untuk membuat nol di diagonal bawah di kolom selanjutnya
-                }
-                kol+=1;
-                bar2 = 0;
-                bar+=1;
-                bar2= bar+1;
-                }
-            } 
+            }
+            kol+=1;
+            bar2 = 0;
+            bar+=1;
+            bar2= bar+1;
+        }
+        
         /*  MENGUBAH MATRIKS MENJADI ESELON BARIS */  
         double pembagi;
         pembagi = 0;
@@ -116,13 +110,7 @@ public class gauss{
             for(j=0;j<mainmatrix.nCols;j++){
                 // mencari 
                 if (pembagi!=0){
-                    double bagi2 =  mainmatrix.mat[i][j] / pembagi;
-                    DecimalFormat decimalFormat = new DecimalFormat("#.#########");
-                    // Menggunakan format() untuk membulatkan nilai double
-                    String formattedValue = decimalFormat.format(bagi2);
-                    // Mengubah hasil yang sudah diformat kembali menjadi double (jika diperlukan)
-                    double roundedValue = Double.parseDouble(formattedValue);
-                    mainmatrix.mat[i][j] = roundedValue;
+                    mainmatrix.mat[i][j] /= pembagi;
                 }else {
                     i++;// lanjut baris selanjutnya
                 }
@@ -137,7 +125,7 @@ public class gauss{
                 }
             }
         }       
-        Matriks tempmatrix = new Matriks(mainmatrix0.nRows,mainmatrix0.nCols-1);
+        Matriks tempmatrix = new Matriks(mainmatrix.nRows,mainmatrix.nCols-1);
         // ngitung banyak baris yang mengandung 0
         int countBar0 = 0; 
         for (i=0;i<mainmatrix.nRows;i++){
@@ -167,6 +155,8 @@ public class gauss{
             }
             
         }
+        // System.out.print("HASIL AKHIR");
+        // mainmatrix.displayMatrix();
         System.out.print("MATRIKS ESELON BARIS\n");
         mainmatrix.displayMatrix();
         
@@ -179,7 +169,8 @@ public class gauss{
                     tempmatrix.mat[i][j]=mainmatrix.mat[i][j];
                 }
             }
-            double det = tempmatrix.determinan(mainmatrix);
+            determinan detgaus = new determinan();
+            double det = detgaus.detgaus(tempmatrix);
             if(det ==0){
                 double lastIdx = mainmatrix.mat[mainmatrix.nRows-1][mainmatrix.nCols-1];
                     // SPL TIDAK MEMILIKI SOLUSI
@@ -188,85 +179,189 @@ public class gauss{
                     }else {
                         /* SOLUSI PARAMETRIK DENGAN UKURAN MATRIKS ROW = COL-1*/         
                         Matriks matrixNum = new Matriks(mainmatrix.nRows,1);
-                        for (i=0;i<matrixNum.nRows;i++){
-                            for (j=0;j<matrixNum.nCols;j++){
-                                matrixNum.mat[i][j]= 0;
-                            }
+                    for (i=0;i<matrixNum.nRows;i++){
+                        for (j=0;j<matrixNum.nCols;j++){
+                            matrixNum.mat[i][j]= 0;
                         }
-                        // Membuat matriks yang menyimpan variabel
-                        Matriks matrixString= new Matriks(mainmatrix.nRows, countBar0);
-                        for (i=0;i<mainmatrix.nRows;i++){
-                            for (j=0;j<countBar0;j++){
-                                matrixString.mat[i][j]= 0;
-                            }
+                    }
+                    Matriks matrixString= new Matriks(mainmatrix.nRows, countCol0);
+                    for (i=0;i<mainmatrix.nRows;i++){
+                        for (j=0;j<countCol0;j++){
+                            matrixString.mat[i][j]= 0;
                         }
-                        for(i= mainmatrix.nRows-1 ;i>=0;i--){
-                            double pengurangStr =0;
-                            double pengurangNum =0;
-                            if ((mainmatrix.nRows-1-countBar0)<i){ 
-                                matrixString.mat[i][i-mainmatrix.nRows+countBar0] =1; // ngisi nilai 1 ke baris index 4,5 atau ke pemisalan variabel baru
-                                // matrixString.displayMatrix();
-                                matrixNum.mat[i][0] = 0; // ngisi 0 ke variabel pemisalan baru 
-                                // matrixNum.displayMatrix();
-                            }else {// i = 3,2,1,0 
-                                // MATRIKS STRING
-                                for(int kolstr =0 ; kolstr < matrixString.nCols;kolstr++){
-                                    // looping string untuk input nilai matrixString
-                                    for(j=mainmatrix.nCols-2;j>i;j--){
-                                        pengurangStr += mainmatrix.mat[i][j]*matrixString.mat[j][kolstr];
-                                    }
-                                    matrixString.mat[i][kolstr]= -(pengurangStr);
-                                    pengurangStr =0;
-                                }
-                                // MATRIKS NUM
-                                for(j=mainmatrix.nCols-2;j>i;j--){
-                                    pengurangNum += mainmatrix.mat[i][j]*matrixNum.mat[j][0];
-                                }
-                                matrixNum.mat[i][0] = mainmatrix.mat[i][mainmatrix.nCols-1]-(pengurangNum);
-                                pengurangNum =0;
-                            }
-                            pengurangStr = 0;
-                            pengurangNum =0;
-                        }
-                        // Solusi SPL 
-                        System.out.println("Solusi dari SPL Parametrik :");
-                        for (i = 0; i < matrixString.nRows ; i++) {
-                            System.out.print("x[" + (i + 1) + "] = " );
-                            if(matrixNum.mat[i][0]!=0){
-                                System.out.print( matrixNum.mat[i][0]);
-                            }
-                            nol = true;
-                            for(j=0;j<countBar0;j++){
-                                if(matrixNum.mat[i][0]>0 && matrixString.mat[i][j]>0){
-                                    System.out.print("+");
-                                }else {
-                                    System.out.print("");
-                                }
-                                if(matrixString.mat[i][j]!=0){
-                                    
-                                    if(matrixString.mat[i][j]==1){
-                                        System.out.print("t" + (j+1));
-                                    }else if(matrixString.mat[i][j]==-1){
-                                        System.out.print("-t" + (j+1));
-                                    }else{
-                                        
-                                        System.out.print(matrixString.mat[i][j] + "t" + (j+1));
-                                    }
-                                }
-                            }
-                            
-                            for(j=0;j<matrixString.nCols;j++){
-                                if(matrixString.mat[i][j]!=0){
-                                    nol = false;
+                    }
+                    double [] arrOfColNol = new double[countCol0];
+                    for(i=0;i<countCol0;i++){
+                        arrOfColNol[i]=0;
+                    }
+                    bar = 0;
+                    kol =0;
+                    boolean check1 = false;
+                    int Colstring =0;
+                    bar =0;
+                    kol=0;
+                    while(bar<mainmatrix.nCols-1 && kol<mainmatrix.nCols && Colstring<matrixString.nCols){
+                        if(mainmatrix.mat[bar][kol]==0){
+                            matrixNum.mat[kol][0] = 0;
+                            //elemen tidak nol pertama pada bar
+                            for(j=kol+1;j<mainmatrix.nCols-1;j++){
+                                if(mainmatrix.mat[bar][j]!=0){
+                                    check1 = true;
                                     break;
                                 }
                             }
-                            if(matrixNum.mat[i][0]==0 && nol){
-                                System.out.print("0");
+                            for(int k = kol;k<j;k++){
+                                if(mainmatrix.mat[bar][k]==0){
+                                    arrOfColNol[Colstring]=k;
+                                    Colstring++;
+                                }
                             }
-                            System.out.println("");
+                            if(check1){
+                                kol =j;
+                            }
+                        }
+                        kol++;
+                        bar++;    
+                    }
+                    i =0;
+                    while(i<arrOfColNol.length){
+                        j = (int)arrOfColNol[i] ;
+                        i++;
+                    }
+                    // update matrix string
+                    i=0;
+                    j=0;
+                    Colstring=0;
+                    for(i=0;i<arrOfColNol.length ; i++){
+                        for(j=0;j<mainmatrix.nRows;j++){
+                            if(j==arrOfColNol[i]){
+                                matrixString.mat[j][Colstring] = 1;
+                                Colstring++;
+                            }
                         }
                     }
+                    for(i= mainmatrix.nRows-countBar0-1 ;i>=0;i--){
+                        double pengurangStr =0;
+                        double pengurangNum =0;
+                        j = 0;
+                        // setiap ganti baris , cari indeks pertamanya dulu baru tentukan arah loopingnya
+                        int tempJ =0;
+                        while(j<mainmatrix.nCols){
+                            if(mainmatrix.mat[i][j]!=0){
+                                tempJ = j;
+                                break;
+                            }
+                            j++;
+                        }
+                        for(int kolstr =0 ; kolstr < matrixString.nCols;kolstr++){
+                            // looping string untuk input nilai matrixString
+                            for(j=mainmatrix.nCols-2;j>tempJ;j--){
+                                // System.out.println("mainmatrix[i][j]: "+mainmatrix.mat[i][j]+"matrixstring("+j+","+kolstr+")="+ matrixString.mat[j][kolstr]);
+                                pengurangStr += mainmatrix.mat[i][j]*matrixString.mat[j][kolstr];
+                            }
+                            matrixString.mat[tempJ][kolstr]= -(pengurangStr);
+                            pengurangStr =0;
+                        }
+                        for(j=mainmatrix.nCols-2;j>i;j--){
+                            pengurangNum += mainmatrix.mat[i][j]*matrixNum.mat[j][0];
+                        }
+                        matrixNum.mat[tempJ][0] = mainmatrix.mat[i][mainmatrix.nCols-1]-(pengurangNum);
+                        pengurangNum =0;
+                        pengurangStr = 0;
+                        pengurangNum =0;
+                    }
+                    // Solusi SPL 
+                    if(!print){
+                    System.out.println("Solusi dari SPL Parametrik :");
+                    for (i = 0; i < matrixString.nRows ; i++) {
+                        System.out.print("x[" + (i + 1) + "] = " );
+                        if(matrixNum.mat[i][0]!=0){
+                            System.out.print( matrixNum.mat[i][0]);
+                        }
+                        nol = true;
+                        for(j=0;j<countBar0;j++){
+                            if( matrixString.mat[i][j]>0 && matrixNum.mat[i][0]!=0){
+                                System.out.print("+");
+                            }else {
+                                System.out.print("");
+                            }
+                            if(matrixString.mat[i][j]!=0){
+                                
+                                if(matrixString.mat[i][j]==1){
+                                    System.out.print("t" + (j+1));
+                                }else if(matrixString.mat[i][j]==-1){
+                                    System.out.print("-t" + (j+1));
+                                }else{
+                                    
+                                    System.out.print(matrixString.mat[i][j] + "t" + (j+1));
+                                }
+                            }
+                        }
+                        
+                        for(j=0;j<matrixString.nCols;j++){
+                            if(matrixString.mat[i][j]!=0){
+                                nol = false;
+                                break;
+                            }
+                        }
+                        if(matrixNum.mat[i][0]==0 && nol){
+                            System.out.print("0");
+                        }
+                        System.out.println("");
+                    }
+                }
+                else{
+                    Scanner in = new Scanner(System.in);
+                    System.out.print("Enter the file name in test folder without '.txt': ");
+                    String name = in.next();
+                    try {
+                    FileWriter fileWriter = new FileWriter("../test/" + name + ".txt");
+                    PrintWriter printWriter = new PrintWriter(fileWriter);
+                    printWriter.print("Solusi dari SPL Parametrik :\n");
+                    for (i = 0; i < matrixString.nRows ; i++) {
+                        printWriter.print("x[" + (i + 1) + "] = " );
+                        if(matrixNum.mat[i][0]!=0){
+                            printWriter.print( matrixNum.mat[i][0]);
+                        }
+                        nol = true;
+                        for(j=0;j<countBar0;j++){
+                            if( matrixString.mat[i][j]>0 && matrixNum.mat[i][0]!=0){
+                                printWriter.print("+");
+                            }else {
+                                printWriter.print("");
+                            }
+                            if(matrixString.mat[i][j]!=0){
+                                
+                                if(matrixString.mat[i][j]==1){
+                                    printWriter.print("t" + (j+1));
+                                }else if(matrixString.mat[i][j]==-1){
+                                    printWriter.print("-t" + (j+1));
+                                }else{
+                                    
+                                    printWriter.print(matrixString.mat[i][j] + "t" + (j+1));
+                                }
+                            }
+                        }
+                        
+                        for(j=0;j<matrixString.nCols;j++){
+                            if(matrixString.mat[i][j]!=0){
+                                nol = false;
+                                break;
+                            }
+                        }
+                        if(matrixNum.mat[i][0]==0 && nol){
+                            printWriter.print("0");
+                        }
+                        printWriter.print("\n");
+                    }
+                    printWriter.close();
+                        }
+                    catch (IOException e) {
+                        System.out.print("File tidak dapat disimpan pada folder 'test'. ");
+                    }
+                    }
+                }
+                
                         
             }else{
                 // SPL memiliki solusi unik
