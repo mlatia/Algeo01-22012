@@ -117,6 +117,7 @@ class Matriks {
                 }
             }
         
+        
         } catch (FileNotFoundException e) {
             this.nRows = 0;
             this.nCols = 0;
@@ -124,7 +125,42 @@ class Matriks {
         }
         return vari;
     }
-    
+
+    void openMatrix4(String name) {  // khusus regresi
+        int i,j;
+        try {
+            Scanner checkmat = new Scanner(new BufferedReader(new FileReader("../test/" + name + ".txt")));
+            Scanner matrixfile = new Scanner(new BufferedReader(new FileReader("../test/" + name + ".txt")));
+            while(checkmat.hasNextLine()){
+                if (this.nRows == 0) {
+                    this.nCols = (checkmat.nextLine().trim().split(" ")).length;
+                } else {
+                    checkmat.nextLine();
+                }
+                this.nRows += 1;
+            } 
+            this.mat = new double[nRows][nCols];
+            while(matrixfile.hasNextLine()) {
+                for (i=0; i < this.nRows-1; i++) {
+                   String[] oneRow = matrixfile.nextLine().trim().split(" ");
+                   for (j=0; j < oneRow.length; j++) {
+                      this.mat[i][j] = Double.parseDouble(oneRow[j]);
+                   }
+                }
+                String[] oneRow = matrixfile.nextLine().trim().split(" ");
+                for (j=0; j < oneRow.length; j++) {
+                    this.mat[this.nRows-1][j] = Double.parseDouble(oneRow[j]);
+                }
+                
+            }
+        } catch (FileNotFoundException e) {
+            this.nRows = 0;
+            this.nCols = 0;
+            System.out.println("File tersebut tidak ditemukan di folder 'test'.");
+        }
+        
+    }
+
     public void simpanMatrix (String name, Matriks m){
         try {
             FileWriter fileWriter = new FileWriter("../test/" + name + ".txt");

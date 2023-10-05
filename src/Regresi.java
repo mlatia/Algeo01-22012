@@ -99,7 +99,7 @@ public class Regresi {
         System.out.print("f(");
         for (i=0;i<var-1;i++){
             System.out.print(X[i]);
-            if (i!=var-1){
+            if (i!=var-2){
                 System.out.print(",");
             }
         }
@@ -136,7 +136,15 @@ public class Regresi {
         }
         printWriter.print("\n");
         String formattedResult = String.format("%.4f", result);
-        printWriter.print("f("+ X +") = " + formattedResult);
+         //printing out the result
+        printWriter.print("f(");
+        for (i=0;i<var-1;i++){
+            printWriter.print(X[i]);
+            if (i!=var-2){
+                printWriter.print(",");
+            }
+        }
+        printWriter.print(") = " + formattedResult);
         
         printWriter.close();
         } catch (IOException e) {
