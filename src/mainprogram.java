@@ -923,7 +923,7 @@ public class mainprogram {
                         double[] x = new double[1];
                         System.out.print("Masukkan nama file pada folder test tanpa '.txt': ");
                         String name = sc.next();
-                        x = datamain.openMatrix2(name,1);
+                        x = datamain.openMatrix4(name,datamain.nCols-1);
                         datamain.displayMatrix();
                         
                         //BACA NILAI MASUKAN
