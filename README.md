@@ -3,11 +3,11 @@
 Bahasa pemrograman yang digunakan : 
 - [Java](https://docs.oracle.com/en/java/)
 
-## Anggota Kelompok
+## Anggota Kelompok JAVASLI 
 
 | NAME                      | NIM      |
 | ----------------------    | ---------|
-| Thea Josephine Halim      | 13522012 |             |
+| Thea Josephine Halim      | 13522012 |             
 | Debrina Veisha Rashika W  | 13522025 |
 | Melati Anggraini          | 13522035 |
 
@@ -24,26 +24,9 @@ Berikut Menu yang ada dalam program ini :
 
 ### Running The Program
 
-First, install all the dependencies,
-TBA
+1. CLone the repository
+2. Open mainprogram.java and run it
+3. Choose the desired menu
+4. Enjoy :D
 
-## Code Styling & Repository
 
-Sangat dimohon untuk memperhatikan hal-hal berikut:
-
-1. Penamaan variabel, fungsi, dan kelas yang bermakna
-2. Penyingkatan harus mudah ditebak dan masih terbaca
-   - Misalkan, codeStylingAndRepository atau codeStyleNRepo
-   - Yang Salah: csnr, cdStNrep
-3. Membuat kelas dengan pascal case (ClassName)
-4. Membuat fungsi dan variable dengan camel case (fungsiDanVariabel)
-
-## Semantic Commit Message
-
-- `feat`: (new feature for build script(include README))
-- `fix`: (bug fix for build script)
-- `docs`: (changes to the documentation)
-- `style`: (formatting, missing semi colons, etc; no production code change)
-- `refactor`: (refactoring production code, eg. renaming a variable)
-- `test`: (adding missing tests, refactoring tests; no production code change)
-- `chore`: (updating grunt tasks etc; no production code change)
