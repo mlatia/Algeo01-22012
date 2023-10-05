@@ -126,9 +126,8 @@ class Matriks {
         return vari;
     }
 
-    public double[] openMatrix4(String name, int var) {  // khusus regresi
-        int i,j,temp=0;
-        double[] vari = new double[var];
+    void openMatrix4(String name) {  // khusus regresi
+        int i,j;
         try {
             Scanner checkmat = new Scanner(new BufferedReader(new FileReader("../test/" + name + ".txt")));
             Scanner matrixfile = new Scanner(new BufferedReader(new FileReader("../test/" + name + ".txt")));
@@ -136,33 +135,30 @@ class Matriks {
                 if (this.nRows == 0) {
                     this.nCols = (checkmat.nextLine().trim().split(" ")).length;
                 } else {
-                    temp = (checkmat.nextLine().trim().split(" ")).length;
+                    checkmat.nextLine();
                 }
-                if(temp!=var){
                 this.nRows += 1;
-                }
             } 
             this.mat = new double[nRows][nCols];
             while(matrixfile.hasNextLine()) {
-                for (i=0; i < this.nRows; i++) {
-                    String[] Row = matrixfile.nextLine().trim().split(" ");
-                    for (j=0; j < Row.length; j++) {
-                        this.mat[i][j] = Double.parseDouble(Row[j]);
-                    }
+                for (i=0; i < this.nRows-1; i++) {
+                   String[] oneRow = matrixfile.nextLine().trim().split(" ");
+                   for (j=0; j < oneRow.length; j++) {
+                      this.mat[i][j] = Double.parseDouble(oneRow[j]);
+                   }
                 }
-                String[] row = matrixfile.nextLine().trim().split(" ");
-                for ( i = 0; i < row.length; i++) {
-                    vari[i] = Double.parseDouble(row[i]);
+                String[] oneRow = matrixfile.nextLine().trim().split(" ");
+                for (j=0; j < oneRow.length; j++) {
+                    this.mat[this.nRows-1][j] = Double.parseDouble(oneRow[j]);
                 }
+                
             }
-        
-        
         } catch (FileNotFoundException e) {
             this.nRows = 0;
             this.nCols = 0;
             System.out.println("File tersebut tidak ditemukan di folder 'test'.");
         }
-        return vari;
+        
     }
 
     public void simpanMatrix (String name, Matriks m){

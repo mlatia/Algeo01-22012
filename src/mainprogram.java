@@ -918,21 +918,26 @@ public class mainprogram {
                     }
                     else if (userInput==2){ //FILE
                         safeinput1=true;
+                        // Scanner sc = new Scanner(System.in);
+                        // Matriks mAwal = new Matriks(0,0);
+                        // double[] var = new double[2];
+                        // System.out.print("Masukkan nama file pada folder test tanpa '.txt': ");
+                        // String name = sc.next();
+                        // var = mAwal.openMatrix2(name,2);
+                        // mAwal.displayMatrix();
+                        // bi.hasilbicubic(mAwal,var[0],var[1],false);
                         Scanner sc = new Scanner(System.in);
                         Matriks datamain = new Matriks(0,0);
-                        double[] x = new double[1];
+                        // double[] x = new double[1];
                         System.out.print("Masukkan nama file pada folder test tanpa '.txt': ");
                         String name = sc.next();
-                        x = datamain.openMatrix4(name,datamain.nCols-1);
+                        datamain.openMatrix4(name);
                         datamain.displayMatrix();
                         
                         //BACA NILAI MASUKAN
-                        System.out.println("");
-                        System.out.println("Nilai inputan X?");
-                        double[] X = new double[datamain.getLastIdxCol()-1];
-                        for (i=0;i<datamain.getLastIdxCol()-1;i++){
-                            System.out.print("Nilai X" + i + ": ");
-                            X[i] = in.nextDouble();
+                        double[] X = new double[datamain.getLastIdxCol()];
+                        for (i=0;i<datamain.getLastIdxCol();i++){
+                            X[i] = datamain.mat[datamain.nRows-1][i];
                         }
                         System.out.println("");
 
