@@ -1,18 +1,14 @@
-import java.util.*;
-import java.util.jar.Manifest;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.Scanner;
+
 public class GaussJordan {
-    public static void main(String[] args){
+    double [] splgaussjordan(Matriks mainmatrix0, boolean print){
         //KAMUS GLOBAL
         int i,j;
-        //Take input from user keyboard
-        Scanner in = new Scanner(System.in);
-        System.out.println("Berapa ukuran baris dan kolom matriks?");
-        System.out.print("Row: ");
-        int row = in.nextInt();
-        System.out.print("Col: ");
-        int col = in.nextInt();
-        Matriks mainmatrix0 = new Matriks(row,col);
-        mainmatrix0.readMatrix();
         
         /* JIKA MATRIKS ELEMEN 1 NYA TERLETAK DI DIAGONAL SEMUA */        
         /* PROSES MENGUBAH MATRIKS KE BENTUK nCols-1 = nRows */
@@ -150,7 +146,7 @@ public class GaussJordan {
                 }
             }
         }       
-        Matriks tempmatrix = new Matriks(row,col-1);
+        Matriks tempmatrix = new Matriks(mainmatrix0.nRows,mainmatrix0.nCols-1);
         // ngitung banyak baris yang mengandung 0
         int countBar0 = 0; 
         for (i=0;i<mainmatrix.nRows;i++){
@@ -167,7 +163,10 @@ public class GaussJordan {
             }
             
         }
+<<<<<<< HEAD
         // System.out.println("CounBar0"+countBar0);
+=======
+>>>>>>> a498d50706b43858e8feec6fc27b73c3deafa09f
         int countCol0 =0;
         for (i=0;i<mainmatrix.nRows;i++){
             boolean check = true;
@@ -191,8 +190,11 @@ public class GaussJordan {
         bar2 =mainmatrix.nRows-countBar0-2;
         for(i=mainmatrix.nRows-countBar0-2;i>=0;i--){
             // nyari 1 utama, mengenolkan kolom 1 utama
+<<<<<<< HEAD
             // System.out.println("bar:"+bar);
             // System.out.println("bar2:"+bar2);
+=======
+>>>>>>> a498d50706b43858e8feec6fc27b73c3deafa09f
             int tempJ;
             tempJ = 0;
             for(j=0;j<mainmatrix.nCols;j++){
@@ -202,12 +204,19 @@ public class GaussJordan {
                     break;
                 }
             }
+<<<<<<< HEAD
             // System.out.println("tempJ:"+tempJ);
             while(bar2<mainmatrix.nRows && bar2>=0 && bar>=0){
                 // bagi =1;
                 bagi = mainmatrix.mat[bar2][tempJ]/ mainmatrix.mat[bar][tempJ];
                 // System.out.println(mainmatrix.mat[bar2][tempJ]+" / "+mainmatrix.mat[bar][tempJ]);
                 // System.out.println("bagi "+bagi);
+=======
+         
+            while(bar2<mainmatrix.nRows && bar2>=0 && bar>=0){
+                // bagi =1;
+                bagi = mainmatrix.mat[bar2][tempJ]/ mainmatrix.mat[bar][tempJ];
+>>>>>>> a498d50706b43858e8feec6fc27b73c3deafa09f
                             
                 // Membuat kolom diatas elemen pertama baris utama menjadi nol
                 kol =0;
@@ -218,13 +227,20 @@ public class GaussJordan {
                     // System.out.println(mainmatrix.mat[bar2][kol]);
                     kol++; 
                 }
+<<<<<<< HEAD
                 // mainmatrix.displayMatrix();
+=======
+>>>>>>> a498d50706b43858e8feec6fc27b73c3deafa09f
                 kol=0;
                 nol = false;
                 bar2--;
                 
             }
+<<<<<<< HEAD
             // mainmatrix.displayMatrix();
+=======
+    
+>>>>>>> a498d50706b43858e8feec6fc27b73c3deafa09f
             kol-=1;
             bar2 = 0;
             bar-=1;
@@ -238,6 +254,7 @@ public class GaussJordan {
 
 
         /* SOLUSI SPL DENGAN UKURAN MATRIKS ROW = COL-1*/        
+        double[] array = new double[tempmatrix.nCols];
         if(countCol0 <=1){
             double det = mainmatrix.determinan(mainmatrix);
             if(det ==0){
@@ -289,6 +306,7 @@ public class GaussJordan {
                             pengurangNum =0;
                         }
                         // Solusi SPL 
+                        if(!print){
                         System.out.println("Solusi dari SPL Parametrik :");
                         for (i = 0; i < matrixString.nRows ; i++) {
                             System.out.print("x[" + (i + 1) + "] = " );
@@ -327,6 +345,57 @@ public class GaussJordan {
                             System.out.println("");
                         }
                     }
+                    
+                    else{
+                        Scanner in = new Scanner(System.in);
+                        System.out.print("Enter the file name in test folder without '.txt': ");
+                        String name = in.next();
+                        try {
+                        FileWriter fileWriter = new FileWriter("../test/" + name + ".txt");
+                        PrintWriter printWriter = new PrintWriter(fileWriter);
+                        printWriter.print("Solusi dari SPL Parametrik :");
+                        for (i = 0; i < matrixString.nRows ; i++) {
+                             printWriter.print("x[" + (i + 1) + "] = " );
+                            if(matrixNum.mat[i][0]!=0){
+                                printWriter.print( matrixNum.mat[i][0]);
+                            }
+                            nol = true;
+                            for(j=0;j<countBar0;j++){
+                                if(matrixNum.mat[i][0]>0 && matrixString.mat[i][j]>0){
+                                    printWriter.print("+");
+                                }else {
+                                    printWriter.print("");
+                                }
+                                if(matrixString.mat[i][j]!=0){
+                                    
+                                    if(matrixString.mat[i][j]==1){
+                                        printWriter.print("t" + (j+1));
+                                    }else if(matrixString.mat[i][j]==-1){
+                                        printWriter.print("-t" + (j+1));
+                                    }else{
+                                        printWriter.print(matrixString.mat[i][j] + "t" + (j+1));
+                                    }
+                                }
+                            }
+                            
+                            for(j=0;j<matrixString.nCols;j++){
+                                if(matrixString.mat[i][j]!=0){
+                                    nol = false;
+                                    break;
+                                }
+                            }
+                            if(matrixNum.mat[i][0]==0 && nol){
+                                printWriter.print("0");
+                            }
+                             printWriter.print("");
+                        }
+                        printWriter.close();
+                        }
+                        catch (IOException e) {
+                            System.out.print("File tidak dapat disimpan pada folder 'test'. ");
+                        }
+                                }
+                                }
                         
             }else{
                 // SPL memiliki solusi unik
@@ -338,9 +407,13 @@ public class GaussJordan {
                         tempmatrix.mat[i][j]=mainmatrix.mat[i][j];
                     }
                 }
+<<<<<<< HEAD
                 double[] array = new double[tempmatrix.nCols];
                 // System.out.print("banyak solusi : ");
                 // System.out.println(array.length);
+=======
+               
+>>>>>>> a498d50706b43858e8feec6fc27b73c3deafa09f
                 int barSolusi;
                 for(barSolusi=0;barSolusi<tempmatrix.nRows;barSolusi++){
                     array[barSolusi] = tempmatrix.mat[barSolusi][tempmatrix.nCols - 1];
@@ -352,8 +425,11 @@ public class GaussJordan {
                     for (j = tempmatrix.nCols -1; j>i;j--){
                         // 3,2,1
                         pembilangSol += tempmatrix.mat[i][j]*array[j];
+<<<<<<< HEAD
                         // System.out.print("pembiangSol : ");
                         // System.out.println(pembilangSol);
+=======
+>>>>>>> a498d50706b43858e8feec6fc27b73c3deafa09f
                     }
                     // System.out.println(Arrays.toString(array));
                     
@@ -450,7 +526,10 @@ public class GaussJordan {
                 while(j<mainmatrix.nCols){
                     if(mainmatrix.mat[i][j]!=0){
                         tempJ = j;
+<<<<<<< HEAD
                         // System.out.println("  ,tempJ:"+tempJ);
+=======
+>>>>>>> a498d50706b43858e8feec6fc27b73c3deafa09f
                         break;
                     }
                     j++;
@@ -473,6 +552,7 @@ public class GaussJordan {
                 pengurangNum =0;
             }
             // Solusi SPL 
+            if(!print){
             System.out.println("Solusi dari SPL Parametrik :");
             for (i = 0; i < matrixString.nRows ; i++) {
                 System.out.print("x[" + (i + 1) + "] = " );
@@ -511,6 +591,60 @@ public class GaussJordan {
                 System.out.println("");
             }
         }
+         else{
+             Scanner in = new Scanner(System.in);
+            System.out.print("Enter the file name in test folder without '.txt': ");
+            String name = in.next();
+            try {
+            FileWriter fileWriter = new FileWriter("../test/" + name + ".txt");
+            PrintWriter printWriter = new PrintWriter(fileWriter);
+            printWriter.print("Solusi dari SPL Parametrik :\n");
+            for (i = 0; i < matrixString.nRows ; i++) {
+                printWriter.print("x[" + (i + 1) + "] = " );
+                if(matrixNum.mat[i][0]!=0){
+                    printWriter.print( matrixNum.mat[i][0]);
+                }
+                nol = true;
+                for(j=0;j<countBar0;j++){
+                    if( matrixString.mat[i][j]>0 && matrixNum.mat[i][0]!=0){
+                       printWriter.print("+");
+                    }else {
+                        printWriter.print("");
+                    }
+                    if(matrixString.mat[i][j]!=0){
+                        
+                        if(matrixString.mat[i][j]==1){
+                            printWriter.print("t" + (j+1));
+                        }else if(matrixString.mat[i][j]==-1){
+                            printWriter.print("-t" + (j+1));
+                        }else{
+                            printWriter.print(matrixString.mat[i][j] + "t" + (j+1));
+                        }
+                    }
+                }
+                
+                for(j=0;j<matrixString.nCols;j++){
+                    if(matrixString.mat[i][j]!=0){
+                        nol = false;
+                        break;
+                    }
+                }
+                if(matrixNum.mat[i][0]==0 && nol){
+                    printWriter.print("0");
+                }
+                printWriter.print("\n");
+            }
+            printWriter.close();
+            }
+            catch (IOException e) {
+                System.out.print("File tidak dapat disimpan pada folder 'test'. ");
+            }
+
+         }
+
+    }
+       
+        return array;
     }
     
 }
