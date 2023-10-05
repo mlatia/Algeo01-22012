@@ -52,6 +52,7 @@ public class testInversGauss {
                 }
                 // System.out.print("hasil duplikasi");
                 mainmatrix.replacingDuplicateRows(mainmatrix);
+                mainmatrix.displayMatrix();
     
                /*PROSES MENGUBAH MATRIKS DENGAN OBE  */
                /* Mendapatkan matriks segitiga atas */
@@ -197,7 +198,7 @@ public class testInversGauss {
                    while(bar2<mainmatrix.nRows && bar2>=0 && bar>=0){
                        // bagi =1;
                        bagi = mainmatrix.mat[bar2][tempJ]/ mainmatrix.mat[bar][tempJ];
-                     
+                                   
                        // Membuat kolom diatas elemen pertama baris utama menjadi nol
                        kol =0;
         
@@ -239,9 +240,9 @@ public class testInversGauss {
                         k+=1;
                     }    
                     k=0;
-                }
-
            }
+
+        }
 
         }
         return(hasil);
