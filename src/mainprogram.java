@@ -663,7 +663,7 @@ public class mainprogram {
                             for (kolom = 0;kolom<titik+1;kolom++){
                                 if (kolom!=titik){  //those Ax columns
                                     double res = Math.pow(x,kolom);
-                                    mainmatrix.mat[i][kolom] = (float) res;
+                                    mainmatrix.mat[i][kolom] = res;
                                 }
                                 else{   // is the b column
                                     mainmatrix.mat[i][kolom] = y;
@@ -716,7 +716,7 @@ public class mainprogram {
                             for ( kolom = 0;kolom<mainmatriks.nRows+1;kolom++){
                                 if (kolom!=mainmatriks.nRows){  //those Ax columns
                                     double res = Math.pow(mainmatriks.mat[i][0],kolom);
-                                    mainmatrix.mat[i][kolom] = (float) res;
+                                    mainmatrix.mat[i][kolom] = res;
                                 }
                                 else{   // is the b column
                                     mainmatrix.mat[i][kolom] = mainmatriks.mat[i][1];
