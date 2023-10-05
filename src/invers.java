@@ -106,6 +106,7 @@ public class invers {
     }
     public void inversgauss(Matriks m){
         
+        
     }
 
 }
