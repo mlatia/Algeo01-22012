@@ -1,6 +1,7 @@
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.DecimalFormat;
 import java.util.*;
 
 
@@ -18,15 +19,17 @@ public class InterpolasiPolinomial {
         //mainmatrix.gauss();       -- harusnya bakal return list answer-----------------------------------------
         //for progress sake, i'll use cramer to represent gauss function
         testCramer tes = new testCramer();
-        float[] ans = new float[mainmatrix.getLastIdxCol()];
-        ans = tes.testcramer(mainmatrix); 
+        gauss gs = new gauss();
+        double[] ans = new double[mainmatrix.getLastIdxCol()];
+        mainmatrix.displayMatrix();
+        ans = gs.solusiunik(mainmatrix);
         
         if(!print){
-            float result=0;
+            double result=0;
             System.out.println("---------------------------");
             System.out.print("f(x) = ");
             for (kolom=0;kolom<mainmatrix.getLastIdxCol();kolom++){
-                result += ans[kolom]* (float) (Math.pow(X,kolom));
+                result += ans[kolom]* (Math.pow(X,kolom));
                 System.out.print(ans[kolom]);
                 if (kolom==1){
                     System.out.print("x");
@@ -37,10 +40,12 @@ public class InterpolasiPolinomial {
                 if (kolom!=mainmatrix.getLastIdxCol()-1){
                     System.out.print(" + ");
                 }
-            }
+        
             System.out.println("");
             String formattedResult = String.format("%.4f", result);
+            System.out.println("\n");
             System.out.println("f("+ X +") = " + formattedResult);
+            }
         }
 
         else{
