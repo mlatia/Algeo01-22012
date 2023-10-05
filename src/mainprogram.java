@@ -104,7 +104,6 @@ public class mainprogram {
                                 gs.splgaus(mainmatrix,true);
                                 }
                             }
-                            System.out.println("done");
                             safeinput1=true;
                             
                             
@@ -153,7 +152,7 @@ public class mainprogram {
                                 gs.splgaus(mAwal,true);
                                 }
                             }
-                            System.out.println("done");
+
                             safeinput1=true;
                         
                     }
@@ -222,7 +221,7 @@ public class mainprogram {
                                 gsj.splgaussjordan(mainmatrix,true);
                                 }
                             }
-                            System.out.println("done");
+
                             safeinput1=true;
                             
                             
@@ -271,7 +270,7 @@ public class mainprogram {
                                 gsj.splgaussjordan(mAwal,true);
                                 }
                             }
-                            System.out.println("done");
+
                             safeinput1=true;
                         
                     }
@@ -342,7 +341,7 @@ public class mainprogram {
                                 String name = in.next();
                                 hasil.simpanSPL(name, hasil);
                                 }
-                                System.out.println("done");
+    
                                 safeinput1=true;
                             }
                             
@@ -360,7 +359,7 @@ public class mainprogram {
                                     mainmatrix.mat[i][j] = mAwal.mat[i][j];
                                 }
                             }
-                            if( mainmatrix.nCols-1 != mainmatrix.nRows||dt.detgaus(mainmatrix)==0){
+                            if( mainmatrix.nCols != mainmatrix.nRows||dt.detgaus(mainmatrix)==0){
                                 System.out.println("Tidak bisa diselesaikan dengan Invers");
                                 break;
                             }
@@ -391,7 +390,7 @@ public class mainprogram {
                                 name = in.next();
                                 hasil.simpanSPL(name, hasil);
                             }
-                            System.out.println("done");
+
                             safeinput1=true;
                         }
                     }
@@ -434,11 +433,11 @@ public class mainprogram {
                                 break;
                             }
                             else if(dt.detgaus(mainmatrix2)==0){
-                                System.out.println("Tidak bisa diselesaikan dengan Invers");
+                                System.out.println("Tidak bisa diselesaikan dengan Cramer");
                                 break;
                             }
                             else{
-                                //Read the cramer funtion
+                                //Read the cramer function
                                 float[] hasil = new float[col-1];
                                 testCramer tes = new testCramer();
                                 hasil= tes.testcramer(mainmatrix);
@@ -464,7 +463,7 @@ public class mainprogram {
                                 String name = in.next();
                                 mainmatrix.simpanSPL2(name, hasil);
                                 }
-                                System.out.println("done");
+    
                                 safeinput1=true;
                             }
                             
@@ -483,7 +482,7 @@ public class mainprogram {
                                 }
                             }
                             if( mainmatrix.nCols != mainmatrix.nRows||dt.detgaus(mainmatrix)==0){
-                                System.out.println("Tidak bisa diselesaikan dengan Invers");
+                                System.out.println("Tidak bisa diselesaikan dengan Cramer");
                                 break;
                             }
                             else{
@@ -513,7 +512,7 @@ public class mainprogram {
                                 name = in.next();
                                 mAwal.simpanSPL2(name, hasil);
                             }
-                            System.out.println("done");
+
                             safeinput1=true;
                         }
                     }
@@ -591,7 +590,7 @@ public class mainprogram {
                                 String name = in.next();
                                 mainmatrix.simpanDeter(name, det);
                                 }
-                                System.out.println("done");
+    
                                 safeinput1=true;
                             }
                             
@@ -630,7 +629,7 @@ public class mainprogram {
                             name = in.next();
                             mAwal.simpanDeter(name, det);
                             }
-                            System.out.println("done");
+
                             safeinput1=true;
                         }
                         else{   // user enters other inputs
@@ -691,7 +690,7 @@ public class mainprogram {
                                 String name = in.next();
                                 mainmatrix.simpanDeter(name, det);
                                 }
-                                System.out.println("done");
+    
                                 safeinput1=true;
                             }
                             
@@ -728,7 +727,7 @@ public class mainprogram {
                                  name = in.next();
                                 mAwal.simpanDeter(name, det);
                                 }
-                                System.out.println("done");
+    
                                 safeinput1=true;
                             }
                         else{   // user enters other inputs
@@ -798,7 +797,7 @@ public class mainprogram {
                             String name = in.next();
                             mainmatrix.simpanMatrix(name, mainmatrix);
                             }
-                            System.out.println("done");
+
                             safeinput1=true;
                             
                         }
@@ -833,7 +832,6 @@ public class mainprogram {
                         name = in.next();
                         mAwal.simpanMatrix(name, mAwal);
                         }
-                        System.out.println("done");
                         safeinput1=true;
                     }
                     else{   // user enters other inputs
@@ -896,7 +894,7 @@ public class mainprogram {
                             String name = in.next();
                             mainmatrix.simpanMatrix(name, mainmatrix);
                             }
-                            System.out.println("done");
+
                             safeinput1=true;
                             
                         }
@@ -933,7 +931,6 @@ public class mainprogram {
                         name = in.next();
                         mAwal.simpanMatrix(name, mAwal);
                         }
-                        System.out.println("done");
                         safeinput1=true;
                     }
                     else{   // user enters other inputs
@@ -1012,7 +1009,6 @@ public class mainprogram {
                         if (opt == 1) {
                         tes.interpolasipolinomial(mainmatrix,X,true);
                         }
-                        System.out.println("done");
                         
                     }
                     else if (userInput==2){ // FILE
@@ -1224,23 +1220,13 @@ public class mainprogram {
                         if (opt == 1) {
                             tes.regresi(datamain,sampel,var,X,true);
                         }
-                        System.out.println("done");
                         
                         
                     }
                     else if (userInput==2){ //FILE
                         safeinput1=true;
-                        // Scanner sc = new Scanner(System.in);
-                        // Matriks mAwal = new Matriks(0,0);
-                        // double[] var = new double[2];
-                        // System.out.print("Masukkan nama file pada folder test tanpa '.txt': ");
-                        // String name = sc.next();
-                        // var = mAwal.openMatrix2(name,2);
-                        // mAwal.displayMatrix();
-                        // bi.hasilbicubic(mAwal,var[0],var[1],false);
                         Scanner sc = new Scanner(System.in);
                         Matriks datamain = new Matriks(0,0);
-                        // double[] x = new double[1];
                         System.out.print("Masukkan nama file pada folder test tanpa '.txt': ");
                         String name = sc.next();
                         datamain.openMatrix4(name);
