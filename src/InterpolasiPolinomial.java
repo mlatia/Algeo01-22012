@@ -23,9 +23,8 @@ public class InterpolasiPolinomial {
         double[] ans = new double[mainmatrix.getLastIdxCol()];
         mainmatrix.displayMatrix();
         ans = gs.solusiunik(mainmatrix);
-        
+        double result=0;
         if(!print){
-            double result=0;
             System.out.println("---------------------------");
             System.out.print("f(x) = ");
             for (kolom=0;kolom<mainmatrix.getLastIdxCol();kolom++){
@@ -40,12 +39,14 @@ public class InterpolasiPolinomial {
                 if (kolom!=mainmatrix.getLastIdxCol()-1){
                     System.out.print(" + ");
                 }
-        
-            System.out.println("");
-            String formattedResult = String.format("%.4f", result);
-            System.out.println("\n");
-            System.out.println("f("+ X +") = " + formattedResult);
             }
+            System.out.println("");
+            DecimalFormat decimalFormat = new DecimalFormat("#.##");
+            // Menggunakan format() untuk membulatkan nilai double
+            String formattedValue = decimalFormat.format(result);
+            // Mengubah hasil yang sudah diformat kembali menjadi double (jika diperlukan)
+            double roundedValue = Double.parseDouble(formattedValue);
+            System.out.println("f("+ X +") = " + roundedValue);
         }
 
         else{
@@ -55,10 +56,9 @@ public class InterpolasiPolinomial {
             try {
             FileWriter fileWriter = new FileWriter("../test/" + name + ".txt");
             PrintWriter printWriter = new PrintWriter(fileWriter);
-            float result=0;
             printWriter.print("f(x) = ");
             for (kolom=0;kolom<mainmatrix.getLastIdxCol();kolom++){
-                result += ans[kolom]* (float) (Math.pow(X,kolom));
+                result += ans[kolom]* (Math.pow(X,kolom));
                 printWriter.print(ans[kolom]);
                 if (kolom==1){
                     printWriter.print("x");
@@ -70,10 +70,13 @@ public class InterpolasiPolinomial {
                     printWriter.print(" + ");
                 }
             }
-            printWriter.print("");
-            String formattedResult = String.format("%.4f", result);
             printWriter.print("\n");
-            printWriter.print("f("+ X +") = " + formattedResult);
+            DecimalFormat decimalFormat = new DecimalFormat("#.##");
+            // Menggunakan format() untuk membulatkan nilai double
+            String formattedValue = decimalFormat.format(result);
+            // Mengubah hasil yang sudah diformat kembali menjadi double (jika diperlukan)
+            double roundedValue = Double.parseDouble(formattedValue);
+            printWriter.print("f("+ X +") = " + roundedValue);
             printWriter.close();
             } catch (IOException e) {
                     System.out.print("File tidak dapat disimpan pada folder 'test'. ");
