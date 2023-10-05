@@ -163,10 +163,7 @@ public class GaussJordan {
             }
             
         }
-<<<<<<< HEAD
         // System.out.println("CounBar0"+countBar0);
-=======
->>>>>>> a498d50706b43858e8feec6fc27b73c3deafa09f
         int countCol0 =0;
         for (i=0;i<mainmatrix.nRows;i++){
             boolean check = true;
@@ -190,11 +187,8 @@ public class GaussJordan {
         bar2 =mainmatrix.nRows-countBar0-2;
         for(i=mainmatrix.nRows-countBar0-2;i>=0;i--){
             // nyari 1 utama, mengenolkan kolom 1 utama
-<<<<<<< HEAD
             // System.out.println("bar:"+bar);
             // System.out.println("bar2:"+bar2);
-=======
->>>>>>> a498d50706b43858e8feec6fc27b73c3deafa09f
             int tempJ;
             tempJ = 0;
             for(j=0;j<mainmatrix.nCols;j++){
@@ -204,19 +198,12 @@ public class GaussJordan {
                     break;
                 }
             }
-<<<<<<< HEAD
             // System.out.println("tempJ:"+tempJ);
             while(bar2<mainmatrix.nRows && bar2>=0 && bar>=0){
                 // bagi =1;
                 bagi = mainmatrix.mat[bar2][tempJ]/ mainmatrix.mat[bar][tempJ];
                 // System.out.println(mainmatrix.mat[bar2][tempJ]+" / "+mainmatrix.mat[bar][tempJ]);
                 // System.out.println("bagi "+bagi);
-=======
-         
-            while(bar2<mainmatrix.nRows && bar2>=0 && bar>=0){
-                // bagi =1;
-                bagi = mainmatrix.mat[bar2][tempJ]/ mainmatrix.mat[bar][tempJ];
->>>>>>> a498d50706b43858e8feec6fc27b73c3deafa09f
                             
                 // Membuat kolom diatas elemen pertama baris utama menjadi nol
                 kol =0;
@@ -227,24 +214,14 @@ public class GaussJordan {
                     // System.out.println(mainmatrix.mat[bar2][kol]);
                     kol++; 
                 }
-<<<<<<< HEAD
-                // mainmatrix.displayMatrix();
-=======
->>>>>>> a498d50706b43858e8feec6fc27b73c3deafa09f
                 kol=0;
                 nol = false;
                 bar2--;
                 
             }
-<<<<<<< HEAD
+
             // mainmatrix.displayMatrix();
-=======
-    
->>>>>>> a498d50706b43858e8feec6fc27b73c3deafa09f
-            kol-=1;
-            bar2 = 0;
             bar-=1;
-            bar2= bar-1;
             
         }
         // System.out.println("ESELON REDUKSI : ");
@@ -407,13 +384,8 @@ public class GaussJordan {
                         tempmatrix.mat[i][j]=mainmatrix.mat[i][j];
                     }
                 }
-<<<<<<< HEAD
-                double[] array = new double[tempmatrix.nCols];
                 // System.out.print("banyak solusi : ");
                 // System.out.println(array.length);
-=======
-               
->>>>>>> a498d50706b43858e8feec6fc27b73c3deafa09f
                 int barSolusi;
                 for(barSolusi=0;barSolusi<tempmatrix.nRows;barSolusi++){
                     array[barSolusi] = tempmatrix.mat[barSolusi][tempmatrix.nCols - 1];
@@ -425,11 +397,8 @@ public class GaussJordan {
                     for (j = tempmatrix.nCols -1; j>i;j--){
                         // 3,2,1
                         pembilangSol += tempmatrix.mat[i][j]*array[j];
-<<<<<<< HEAD
                         // System.out.print("pembiangSol : ");
                         // System.out.println(pembilangSol);
-=======
->>>>>>> a498d50706b43858e8feec6fc27b73c3deafa09f
                     }
                     // System.out.println(Arrays.toString(array));
                     
@@ -526,10 +495,7 @@ public class GaussJordan {
                 while(j<mainmatrix.nCols){
                     if(mainmatrix.mat[i][j]!=0){
                         tempJ = j;
-<<<<<<< HEAD
                         // System.out.println("  ,tempJ:"+tempJ);
-=======
->>>>>>> a498d50706b43858e8feec6fc27b73c3deafa09f
                         break;
                     }
                     j++;

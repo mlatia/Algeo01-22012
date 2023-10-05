@@ -11,24 +11,8 @@ import java.util.jar.Manifest;
 public class gauss{
     
     double[] splgaus(Matriks mainmatrix0, boolean print){
-        //KAMUS GLOBAL
-       // SPL memiliki solusi unik
-                // ubah ukuran tempmatrix
-                int i,j;
-        //Take input from user keyboard
-        // Scanner in = new Scanner(System.in);
-        // System.out.println("Berapa ukuran baris dan kolom matriks?");
-        // System.out.print("Row: ");
-        // int row = in.nextInt();
-        // System.out.print("Col: ");
-        // int col = in.nextInt();
-        // Matriks mainmatrix0 = new Matriks(row,col);
-        // mainmatrix0.readMatrix();
-        
-        /* JIKA MATRIKS ELEMEN 1 NYA TERLETAK DI DIAGONAL SEMUA */        
-        /* PROSES MENGUBAH MATRIKS KE BENTUK nCols-1 = nRows */
-        
-        // Membuat matriks ukuran col -1 = bar;
+
+        int i,j;
         Matriks mainmatrix = new Matriks(mainmatrix0.nCols-1, mainmatrix0.nCols);
         if((mainmatrix0.nCols-1) > mainmatrix0.nRows){
             for(i=mainmatrix.nRows-mainmatrix0.nRows;i<mainmatrix.nRows;i++){
@@ -48,7 +32,7 @@ public class gauss{
                 }
             }
         }else{
-           for(i=0;i<mainmatrix0.nRows;i++){
+           for(i=0;i<mainmatrix.nRows;i++){
                 for(j=0;j<mainmatrix.nCols;j++){
                     DecimalFormat decimalFormat = new DecimalFormat("#.############");
                     // Menggunakan format() untuk membulatkan nilai double
@@ -113,11 +97,7 @@ public class gauss{
                 bar+=1;
                 bar2= bar+1;
                 }
-            }   
-
-        System.out.println("ESELON1:\n ");
-        mainmatrix.displayMatrix();
-        
+            } 
         /*  MENGUBAH MATRIKS MENJADI ESELON BARIS */  
         double pembagi;
         pembagi = 0;
@@ -187,14 +167,12 @@ public class gauss{
             }
             
         }
-        System.out.print("HASIL AKHIR\n");
+        System.out.print("MATRIKS ESELON BARIS\n");
         mainmatrix.displayMatrix();
         
         double[] array = new double[tempmatrix.nCols];
         /* SOLUSI SPL DENGAN UKURAN MATRIKS ROW = COL-1*/        
         if(countCol0 <=1){
-
-            mainmatrix.displayMatrix();
             tempmatrix = new Matriks(mainmatrix.nRows,mainmatrix.nCols-1);
             for(i=0;i<tempmatrix.nRows;i++){
                 for(j=0;j<tempmatrix.nCols;j++){
@@ -293,15 +271,12 @@ public class gauss{
             }else{
                 // SPL memiliki solusi unik
                 // ubah ukuran tempmatrix
-                mainmatrix.displayMatrix();
                 tempmatrix = new Matriks(mainmatrix.nRows,mainmatrix.nCols-1);
                 for(i=0;i<tempmatrix.nRows;i++){
                     for(j=0;j<tempmatrix.nCols;j++){
                         tempmatrix.mat[i][j]=mainmatrix.mat[i][j];
                     }
                 }
-                System.out.print("banyak solusi : ");
-                System.out.println(array.length);
                 int barSolusi;
                 for(barSolusi=0;barSolusi<tempmatrix.nRows;barSolusi++){
                     array[barSolusi] = tempmatrix.mat[barSolusi][tempmatrix.nCols - 1];
@@ -313,8 +288,6 @@ public class gauss{
                     for (j = tempmatrix.nCols -1; j>i;j--){
                         // 3,2,1
                         pembilangSol += tempmatrix.mat[i][j]*array[j];
-                        System.out.print("pembiangSol : ");
-                        System.out.println(pembilangSol);
                     }
                     // System.out.println(Arrays.toString(array));
                     
@@ -329,7 +302,6 @@ public class gauss{
                     // refresh niai pembilangSol
                     pembilangSol = 0;
                 }
-                tempmatrix.displayMatrix();
                 // print solusi matriks dengan solusi unik
                 System.out.println("Solusi dari SPL :");
                 for (i = 0; i < array.length ; i++) {
@@ -411,7 +383,6 @@ public class gauss{
                 while(j<mainmatrix.nCols){
                     if(mainmatrix.mat[i][j]!=0){
                         tempJ = j;
-                        System.out.println("  ,tempJ:"+tempJ);
                         break;
                     }
                     j++;
@@ -657,10 +628,7 @@ public class gauss{
                 bar+=1;
                 bar2= bar+1;
                 }
-            }   
-
-        System.out.println("ESELON1:\n ");
-        mainmatrix.displayMatrix();
+            }
         
         /*  MENGUBAH MATRIKS MENJADI ESELON BARIS */  
         double pembagi;
@@ -731,7 +699,7 @@ public class gauss{
             }
             
         }
-        System.out.print("HASIL AKHIR\n");
+        System.out.print("MATRIKS ESELON BARIS\n");
         mainmatrix.displayMatrix();
                 
         /* SOLUSI SPL DENGAN UKURAN MATRIKS ROW = COL-1*/        
@@ -745,8 +713,6 @@ public class gauss{
                     }
                 }
 
-                System.out.print("banyak solusi : ");
-                System.out.println(array.length);
                 int barSolusi;
                 for(barSolusi=0;barSolusi<tempmatrix.nRows;barSolusi++){
                     array[barSolusi] = tempmatrix.mat[barSolusi][tempmatrix.nCols - 1];
@@ -763,7 +729,6 @@ public class gauss{
                     
                     if (i == tempmatrix.nRows -1){
                         array[i] = mainmatrix.mat[mainmatrix.nRows -1][mainmatrix.nCols -1];
-                        System.out.println(i);
                         // System.out.println(Arrays.toString(array));
                     }
                     else {
@@ -772,7 +737,6 @@ public class gauss{
                     // refresh niai pembilangSol
                     pembilangSol = 0;
                 }
-                tempmatrix.displayMatrix();
                 // print solusi matriks dengan solusi unik
                 System.out.println("Solusi dari SPL :");
                 for (i = 0; i < array.length ; i++) {
