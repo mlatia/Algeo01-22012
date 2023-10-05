@@ -19,6 +19,7 @@ public class InterpolasiPolinomial {
         //for progress sake, i'll use cramer to represent gauss function
         testCramer tes = new testCramer();
         float[] ans = new float[mainmatrix.getLastIdxCol()];
+        mainmatrix.displayMatrix();
         ans = tes.testcramer(mainmatrix); 
         
         if(!print){
