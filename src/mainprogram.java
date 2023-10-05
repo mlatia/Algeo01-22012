@@ -871,7 +871,7 @@ public class mainprogram {
                         System.out.println("Jumlah sampel:");
                         System.out.print("--> ");
                         sampel = in.nextInt();
-
+                        
                         //input datamain
                         System.out.println("Input matrix:");
                         System.out.println("*Input format x1 | x2 | x.. | y ");
@@ -881,13 +881,17 @@ public class mainprogram {
                         //taking input X
                         System.out.println("");
                         System.out.println("Nilai inputan X?");
-                        System.out.print("--> ");
-                        double X;
-                        X = in.nextDouble();
-
+                        double[] X = new double[var-1];
+                        for (i=0;i<var-1;i++){
+                            System.out.print("Nilai X" + i + ": ");
+                            X[i] = in.nextDouble();
+                        }
+                        System.out.println("");
+                        
                         Regresi tes = new Regresi();
                         tes.regresi(datamain,sampel,var,X,false);
                         // save to txt file
+                        System.out.println(" ");
                         System.out.println("Do you want to save it in txt file?");
                         System.out.println("1) Yes");
                         System.out.println("2) No");
@@ -904,13 +908,13 @@ public class mainprogram {
                                 in.nextLine(); // Consume the invalid input
                             }
                         }
-                    
+                        
                         if (opt == 1) {
                             tes.regresi(datamain,sampel,var,X,true);
                         }
                         System.out.println("done");
                         
-
+                        
                     }
                     else if (userInput==2){ //FILE
                         safeinput1=true;
@@ -919,12 +923,24 @@ public class mainprogram {
                         double[] x = new double[1];
                         System.out.print("Masukkan nama file pada folder test tanpa '.txt': ");
                         String name = sc.next();
-                        x = datamain.openMatrix2(name,1);
+                        x = datamain.openMatrix4(name,datamain.nCols-1);
                         datamain.displayMatrix();
                         
+                        //BACA NILAI MASUKAN
+                        System.out.println("");
+                        System.out.println("Nilai inputan X?");
+                        double[] X = new double[datamain.getLastIdxCol()-1];
+                        for (i=0;i<datamain.getLastIdxCol()-1;i++){
+                            System.out.print("Nilai X" + i + ": ");
+                            X[i] = in.nextDouble();
+                        }
+                        System.out.println("");
+
+
                         Regresi tes = new Regresi();
-                        tes.regresi(datamain,datamain.getLastIdxRow()+1,datamain.getLastIdxCol()+1,x[0],false);
+                        tes.regresi(datamain,datamain.getLastIdxRow()+1,datamain.getLastIdxCol()+1,X,false);
                         // save to txt file
+                        System.out.println(" ");
                         System.out.println("Do you want to save it in txt file?");
                         System.out.println("1) Yes");
                         System.out.println("2) No");
@@ -943,7 +959,7 @@ public class mainprogram {
                         }
                     
                         if (opt == 1) {
-                            tes.regresi(datamain,datamain.getLastIdxRow()+1,datamain.getLastIdxCol()+1,x[0],true);
+                            tes.regresi(datamain,datamain.getLastIdxRow()+1,datamain.getLastIdxCol()+1,X,true);
                         }
                         System.out.println("done");
                         

@@ -10,14 +10,14 @@ public class testCramer {
         for (baris=0;baris<mainmatrix.getLastIdxRow()+1;baris++){
             hasil.mat[baris][0] = mainmatrix.mat[baris][mainmatrix.getLastIdxCol()];
         }
-
+        // hasil.displayMatrix();
         Matriks mainmatrixnoresult = new Matriks(mainmatrix.getLastIdxRow()+1,mainmatrix.getLastIdxCol());
         for (baris=0;baris<mainmatrix.getLastIdxRow()+1;baris++){
             for (kolom = 0;kolom<mainmatrix.getLastIdxCol();kolom++){
                 mainmatrixnoresult.mat[baris][kolom] = mainmatrix.mat[baris][kolom];
             }
         }
-
+        // mainmatrixnoresult.displayMatrix();
         // temporary matrix
         Matriks temp = new Matriks(mainmatrix.getLastIdxRow()+1, mainmatrix.getLastIdxCol());
         temp.copyMatrix(mainmatrixnoresult);

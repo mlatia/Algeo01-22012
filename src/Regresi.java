@@ -17,9 +17,10 @@ public class Regresi {
         }
         return tempval;
     }
-    public void regresi(Matriks datamain,int sampel,int var,double X, boolean print){
+    public void regresi(Matriks datamain,int sampel,int var,double[] X, boolean print){
         int baris,kolom;
-        int temp;
+        int i;
+        double temp;
 
         //insert first column full of 1's for data processing
         Matriks dataproc = new Matriks(sampel, var+1);
@@ -48,12 +49,10 @@ public class Regresi {
             }
             hasil.mat[0][kolom]=temp;
         }
-
         //looping to fill in the first hasil column with sum of each var
         for (baris=1;baris<var;baris++){
             hasil.mat[baris][0] = hasil.mat[0][baris];
         }
-
         //looping for the rest of the row
         int kol;
         for (kolom=1;kolom<var+1;kolom++){//
@@ -63,9 +62,9 @@ public class Regresi {
                 kol++;
             }
         }
-        // hasil.displayMatrix();
+        hasil.displayMatrix();
 
-        //use gauss to form a 
+        //use cramer to form a linear function
         testCramer tes = new testCramer();
         float[] ans = new float[datamain.getLastIdxCol()];
         ans = tes.testcramer(hasil); 
@@ -76,7 +75,7 @@ public class Regresi {
         System.out.print("f(x) = ");
         for (kolom=0;kolom<hasil.getLastIdxCol();kolom++){
             if (kolom!=0){
-                result += ans[kolom]*X;
+                result += ans[kolom]*X[kolom-1];
             }
             else{
                 result = ans[kolom];
@@ -95,7 +94,17 @@ public class Regresi {
         }
         System.out.println("");
         String formattedResult = String.format("%.4f", result);
-        System.out.println("f("+ X +") = " + formattedResult);
+        
+        //printing out the result
+        System.out.print("f(");
+        for (i=0;i<var-1;i++){
+            System.out.print(X[i]);
+            if (i!=var-2){
+                System.out.print(",");
+            }
+        }
+        System.out.print(") = " + formattedResult);
+        
     }
     else{
         Scanner in = new Scanner(System.in);
@@ -108,7 +117,7 @@ public class Regresi {
         printWriter.print("f(x) = ");
         for (kolom=0;kolom<hasil.getLastIdxCol();kolom++){
             if (kolom!=0){
-                result += ans[kolom]*X;
+                result += ans[kolom]*X[kolom-1];
             }
             else{
                 result = ans[kolom];
