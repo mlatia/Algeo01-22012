@@ -41,6 +41,7 @@ public class GaussJordan {
 
         // System.out.print("hasil duplikasi");
         mainmatrix.replacingDuplicateRows(mainmatrix);
+        // System.out.println("Matriks Duplikasi : ");
         // mainmatrix.displayMatrix();
         
         
@@ -58,7 +59,7 @@ public class GaussJordan {
             // Memeriksa apakah elemen dibawah elemen pertama baris utama sudah bernilai nol
                 if (mainmatrix.mat[bar][i] == 0){
                     if (mainmatrix.ceknolsemuakolom(mainmatrix, bar2, kol)==false){
-                    mainmatrix.tukerbarisnol(mainmatrix,bar,i);  
+                        mainmatrix.tukerbarisnol(mainmatrix,bar,i);  
                     }
                     else{
                         while(mainmatrix.ceknolsemuakolom(mainmatrix,bar,i)==true && i<mainmatrix.nCols-1){
@@ -67,18 +68,40 @@ public class GaussJordan {
                     }
 
                 }
+                // nyari 1 utama, mengenolkan kolom 1 utama
+                // System.out.println("bar:"+bar);
+                // System.out.println("bar2:"+bar2);
+                int tempJ;
+                tempJ = 0;
+                for(j=0;j<mainmatrix.nCols;j++){
+                    if(mainmatrix.mat[bar][j]!=0){
+                        // System.out.println("[bar][j]"+mainmatrix.mat[bar][j]);
+                        tempJ = j;
+                        break;
+                    }
+                }
+                // System.out.println("TEMPJ = "+tempJ);
+                // System.out.println("tukerbaris :");
+                // mainmatrix.displayMatrix();
                 // Mencari hasil bagi dengan baris utama 
                 if(mainmatrix.mat[bar][i]==0){
                     break;
                 }else{
-                    bagi = mainmatrix.mat[bar2][i] / mainmatrix.mat[bar][i];
-                    // System.out.print("bagi ",bagi);
+
+                    bagi = mainmatrix.mat[bar2][tempJ] / mainmatrix.mat[bar][tempJ];
+                    // System.out.println(mainmatrix.mat[bar2][tempJ] + "/"+mainmatrix.mat[bar][tempJ]);
+                    // System.out.println("bagi "+bagi);
                         
                     // Membuat kolom dibawah elemen pertama baris utama menjadi nol
                     while(kol<mainmatrix.nCols){
+                        // System.out.println(mainmatrix.mat[bar2][kol] + "-"+mainmatrix.mat[bar][kol]+"*"+bagi);
                         mainmatrix.mat[bar2][kol] = mainmatrix.mat[bar2][kol] - ((mainmatrix.mat[bar][kol]*bagi));
+                        // System.out.println("bar2= "+bar2+ " kol = "+kol+" ="+mainmatrix.mat[bar2][kol]);
+                        // System.out.println(kol);
                         kol++;
                     }
+                    // System.out.print("Perbaris");
+                    // mainmatrix.displayMatrix();
                     kol=0;
                     nol = false;
                     bar2++;
@@ -90,6 +113,8 @@ public class GaussJordan {
             bar+=1;
             bar2= bar+1;
         }
+        // System.out.println("ESELON1: ");
+        // mainmatrix.displayMatrix();
       
         /*  MENGUBAH MATRIKS MENJADI ESELON BARIS */  
         double pembagi;
@@ -105,6 +130,7 @@ public class GaussJordan {
                     }
                 }
             }
+
             // Bagi satu baris tersebut dengan pembagi
             for(j=0;j<mainmatrix.nCols;j++){
                 // mencari 
@@ -141,7 +167,7 @@ public class GaussJordan {
             }
             
         }
-        System.out.println("CounBar0"+countBar0);
+        // System.out.println("CounBar0"+countBar0);
         int countCol0 =0;
         for (i=0;i<mainmatrix.nRows;i++){
             boolean check = true;
@@ -156,7 +182,7 @@ public class GaussJordan {
             }
             
         }
-        System.out.println("ESELON: ");
+        System.out.println("ESELON BARIS: ");
         mainmatrix.displayMatrix();
 
 // MATRIKS ESELON REDUKSI
@@ -165,8 +191,8 @@ public class GaussJordan {
         bar2 =mainmatrix.nRows-countBar0-2;
         for(i=mainmatrix.nRows-countBar0-2;i>=0;i--){
             // nyari 1 utama, mengenolkan kolom 1 utama
-            System.out.println("bar:"+bar);
-            System.out.println("bar2:"+bar2);
+            // System.out.println("bar:"+bar);
+            // System.out.println("bar2:"+bar2);
             int tempJ;
             tempJ = 0;
             for(j=0;j<mainmatrix.nCols;j++){
@@ -176,12 +202,12 @@ public class GaussJordan {
                     break;
                 }
             }
-            System.out.println("tempJ:"+tempJ);
+            // System.out.println("tempJ:"+tempJ);
             while(bar2<mainmatrix.nRows && bar2>=0 && bar>=0){
                 // bagi =1;
                 bagi = mainmatrix.mat[bar2][tempJ]/ mainmatrix.mat[bar][tempJ];
-                System.out.println(mainmatrix.mat[bar2][tempJ]+" / "+mainmatrix.mat[bar][tempJ]);
-                System.out.println("bagi "+bagi);
+                // System.out.println(mainmatrix.mat[bar2][tempJ]+" / "+mainmatrix.mat[bar][tempJ]);
+                // System.out.println("bagi "+bagi);
                             
                 // Membuat kolom diatas elemen pertama baris utama menjadi nol
                 kol =0;
@@ -189,24 +215,24 @@ public class GaussJordan {
                 while(kol<mainmatrix.nCols && bar2>=0){
                     // System.out.println(mainmatrix.mat[bar2][kol]+ "-"+ " "+mainmatrix.mat[bar][kol]+ "*"+ bagi);
                     mainmatrix.mat[bar2][kol] = mainmatrix.mat[bar2][kol] - ((mainmatrix.mat[bar][kol]*bagi));
-                    System.out.println(mainmatrix.mat[bar2][kol]);
+                    // System.out.println(mainmatrix.mat[bar2][kol]);
                     kol++; 
                 }
-                mainmatrix.displayMatrix();
+                // mainmatrix.displayMatrix();
                 kol=0;
                 nol = false;
                 bar2--;
                 
             }
-            mainmatrix.displayMatrix();
+            // mainmatrix.displayMatrix();
             kol-=1;
             bar2 = 0;
             bar-=1;
             bar2= bar-1;
             
         }
-        System.out.println("ESELON REDUKSI : ");
-        mainmatrix.displayMatrix();
+        // System.out.println("ESELON REDUKSI : ");
+        // mainmatrix.displayMatrix();
 
 
 
@@ -305,7 +331,7 @@ public class GaussJordan {
             }else{
                 // SPL memiliki solusi unik
                 // ubah ukuran tempmatrix
-                mainmatrix.displayMatrix();
+                // mainmatrix.displayMatrix();
                 tempmatrix = new Matriks(mainmatrix.nRows,mainmatrix.nCols-1);
                 for(i=0;i<tempmatrix.nRows;i++){
                     for(j=0;j<tempmatrix.nCols;j++){
@@ -313,8 +339,8 @@ public class GaussJordan {
                     }
                 }
                 double[] array = new double[tempmatrix.nCols];
-                System.out.print("banyak solusi : ");
-                System.out.println(array.length);
+                // System.out.print("banyak solusi : ");
+                // System.out.println(array.length);
                 int barSolusi;
                 for(barSolusi=0;barSolusi<tempmatrix.nRows;barSolusi++){
                     array[barSolusi] = tempmatrix.mat[barSolusi][tempmatrix.nCols - 1];
@@ -326,14 +352,14 @@ public class GaussJordan {
                     for (j = tempmatrix.nCols -1; j>i;j--){
                         // 3,2,1
                         pembilangSol += tempmatrix.mat[i][j]*array[j];
-                        System.out.print("pembiangSol : ");
-                        System.out.println(pembilangSol);
+                        // System.out.print("pembiangSol : ");
+                        // System.out.println(pembilangSol);
                     }
                     // System.out.println(Arrays.toString(array));
                     
                     if (i == tempmatrix.nRows -1){
                         array[i] = mainmatrix.mat[mainmatrix.nRows -1][mainmatrix.nCols -1];
-                        System.out.println(i);
+                        // System.out.println(i);
                         // System.out.println(Arrays.toString(array));
                     }
                     else {
@@ -342,7 +368,7 @@ public class GaussJordan {
                     // refresh niai pembilangSol
                     pembilangSol = 0;
                 }
-                tempmatrix.displayMatrix();
+                // tempmatrix.displayMatrix();
                 // print solusi matriks dengan solusi unik
                 System.out.println("Solusi dari SPL :");
                 for (i = 0; i < array.length ; i++) {
@@ -424,7 +450,7 @@ public class GaussJordan {
                 while(j<mainmatrix.nCols){
                     if(mainmatrix.mat[i][j]!=0){
                         tempJ = j;
-                        System.out.println("  ,tempJ:"+tempJ);
+                        // System.out.println("  ,tempJ:"+tempJ);
                         break;
                     }
                     j++;
