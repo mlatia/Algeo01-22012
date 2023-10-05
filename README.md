@@ -29,13 +29,4 @@ Berikut Menu yang ada dalam program ini :
 3. Choose the desired menu
 4. Enjoy :D
 
-## Code Styling & Repository
 
-Sangat dimohon untuk memperhatikan hal-hal berikut:
-
-1. Penamaan variabel, fungsi, dan kelas yang bermakna
-2. Penyingkatan harus mudah ditebak dan masih terbaca
-   - Misalkan, codeStylingAndRepository atau codeStyleNRepo
-   - Yang Salah: csnr, cdStNrep
-3. Membuat kelas dengan pascal case (ClassName)
-4. Membuat fungsi dan variable dengan camel case (fungsiDanVariabel)
