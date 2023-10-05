@@ -44,19 +44,98 @@ public class mainprogram {
                 userInput = in.nextInt();
 
                 if (userInput==1){
-                    gauss gs = new gauss();
-                    Scanner sc = new Scanner(System.in);
-                    System.out.print("Row: ");
-                    int row = sc.nextInt();
-                    System.out.print("Col: ");
-                    int col = sc.nextInt();
-                    //main matrix (from user input)
-                    Matriks mainmatrix = new Matriks(row,col);
-                    mainmatrix.readMatrix();
-                    gs.splgaus(mainmatrix);
+                    System.out.println("Choose input method:");
+                    System.out.println("---------------------------");
+                    System.out.println("1) Keyboard");
+                    System.out.println("2) Read Text File");
+                    safeinput1 = false;
+                    while (safeinput1==false){
+                        System.out.print("--> ");
+                        userInput = in.nextInt();
+                        Scanner sc = new Scanner(System.in);
+                        if (userInput==1){  // KEYBOARD
+                            safeinput1=true;
+                            //Take input from user keyboard
+                            System.out.println("Berapa ukuran baris dan kolom matriks?");
+                            System.out.print("Row: ");
+                            int row = sc.nextInt();
+                            System.out.print("Col: ");
+                            int col = sc.nextInt();
+                            gauss gs = new gauss();
+                   
+                            Matriks mainmatrix = new Matriks(row,col);
+                            mainmatrix.readMatrix();
+                            double[] hasil = new double[mainmatrix.nCols-1];
+                            hasil = gs.splgaus(mainmatrix);
 
+                            System.out.println("Do you want to save it in txt file?");
+                            System.out.println("1) Yes");
+                            System.out.println("2) No");
+                            int opt = 0;
+                            
+                            while (true) {
+                                System.out.print("--> ");
+                                if (in.hasNextInt()) {
+                                    opt = in.nextInt();
+                                    break; // Exit the loop when valid input is received
+                                } else {
+                                    // Handle the case where the input is not an integer
+                                    System.out.println("Invalid input. Please enter an integer.");
+                                    in.nextLine(); // Consume the invalid input
+                                }
+                            }
+                            // Handle the error or exit the program gracefully
+                            if (opt == 1) {
+                            System.out.print("Enter the file name in test folder without '.txt': ");
+                            String name = in.next();
+                            mainmatrix.simpanSPL3(name, hasil);
+                            }
+                            System.out.println("done");
+                            safeinput1=true;
+                            
+                            
+                        }
+                        else if (userInput==2){ // FILE
+                            Matriks mAwal = new Matriks(0,0);
+                            System.out.print("Masukkan nama file pada folder test tanpa '.txt': ");
+                            String name = sc.next();
+                            mAwal.openMatrix(name);
+                            mAwal.displayMatrix();
+                            gauss gs = new gauss();
+                            double[] hasil = new double[mAwal.nCols-1];
+                            hasil = gs.splgaus(mAwal);
+                            System.out.println("Do you want to save it in txt file?");
+                            System.out.println("1) Yes");
+                            System.out.println("2) No");
+                            in.nextLine();
+                            int opt = 0;
+                            
+                            while (true) {
+                                System.out.print("--> ");
+                                if (in.hasNextInt()) {
+                                    opt = in.nextInt();
+                                    break; // Exit the loop when valid input is received
+                                } else {
+                                    // Handle the case where the input is not an integer
+                                    System.out.println("Invalid input. Please enter an integer.");
+                                    in.nextLine(); // Consume the invalid input
+                                }
+                            }
+                                // Handle the error or exit the program gracefully
+                            if (opt == 1) {
+                                System.out.print("Enter the file name in test folder without '.txt': ");
+                                name = in.next();
+                                mAwal.simpanSPL3(name, hasil);
+                            }
+                            System.out.println("done");
+                            safeinput1=true;
+                        
+                    }
+                    }
                     safeinput=true;
+                    
                 }
+                    
                 else if (userInput==2){
                     safeinput=true;
                 }

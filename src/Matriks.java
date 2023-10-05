@@ -226,6 +226,22 @@ class Matriks {
             }
     }
 
+    public void simpanSPL3 (String name, double[] ans){ // buat gauss karena disimpen di list
+        try {
+            FileWriter fileWriter = new FileWriter("../test/" + name + ".txt");
+            PrintWriter printWriter = new PrintWriter(fileWriter);
+            printWriter.print("The result of the variables:\n");
+            for (int i=0;i<getLastIdxCol();i++) {
+                printWriter.printf("Variable " + (i+1) + ": ");
+                String formattedResult = String.format("%.4f", ans[i]);
+                printWriter.printf( formattedResult + " \n");
+            }
+            printWriter.close();
+        } catch (IOException e) {
+                System.out.print("File tidak dapat disimpan pada folder 'test'. ");
+            }
+    }
+
     public int getLastIdxRow() {
         // Get the last index available for the matrix mat row
         return (nRows - 1);
