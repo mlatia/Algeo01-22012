@@ -32,7 +32,11 @@ public class GaussJordan {
                 }
             }
         }else{
-            mainmatrix.copyMatrix(mainmatrix0);
+            for(i=0;i<mainmatrix.nRows;i++){
+                for(j=0;j<mainmatrix.nCols;j++){
+                    mainmatrix.mat[i][j]= mainmatrix0.mat[i][j];
+                }
+            }
         }
 
         // System.out.print("hasil duplikasi");
